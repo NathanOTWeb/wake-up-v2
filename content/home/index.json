@@ -1,0 +1,28 @@
+{
+  "hero": {
+    "logo": "/uploads/LionHead001.svg",
+    "title": "WAKE UP",
+    "subtitle": "From unconscious living to disciplined, Christ-centered leadership.",
+    "taglines": [
+      { "text": "Heal the Boy." },
+      { "text": "Build the Man." },
+      { "text": "Awaken the Lion." },
+      { "text": "Qrown the King." }
+    ],
+    "scripture": "\"Awake, O sleeper, and rise from the dead, and Christ will shine on you.\"",
+    "scriptureRef": "Ephesians 5:14",
+    "ctas": [
+      { "label": "Apply Now", "href": "#", "primary": true },
+      { "label": "Book a Call", "href": "#", "primary": false }
+    ]
+  },
+  "nav": {
+    "links": [
+      { "label": "The Method", "href": "#method" },
+      { "label": "The Journey", "href": "#journey" },
+      { "label": "What You Get", "href": "#benefits" },
+      { "label": "Pricing", "href": "#pricing" },
+      { "label": "Meet The Founder", "href": "#founder" }
+    ]
+  }
+}

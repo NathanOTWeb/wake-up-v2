@@ -1,0 +1,29 @@
+fragment HomeParts on Home {
+  __typename
+  hero {
+    __typename
+    logo
+    title
+    subtitle
+    taglines {
+      __typename
+      text
+    }
+    scripture
+    scriptureRef
+    ctas {
+      __typename
+      label
+      href
+      primary
+    }
+  }
+  nav {
+    __typename
+    links {
+      __typename
+      label
+      href
+    }
+  }
+}
