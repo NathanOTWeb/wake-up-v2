@@ -1,5 +1,7 @@
+"use client";
+
 import { TinaAdmin } from "tinacms";
-import tinacmsConfig from "../../../tina/config";
+import tinacmsConfig from "@/tina/config";
 import TinaHome from "../TinaHome";
 
 export default function AdminPage() {

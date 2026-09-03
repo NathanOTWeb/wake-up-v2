@@ -5,9 +5,6 @@ const Home: Collection = {
   name: "home",
   path: "content/home",
   format: "json",
-  frontend: {
-    router: () => "/",
-  },
   fields: [
     {
       type: "object",

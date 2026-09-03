@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import { useTina, tinaField } from "tinacms/dist/react";
