@@ -14,7 +14,7 @@ const config = defineConfig({
   build: {
     publicFolder: "public",
     outputFolder: ".tina/admin",
-    basePath: '',
+    basePath: "",
   },
   schema: {
     collections: [Home],
