@@ -10,7 +10,7 @@ export default function AdminPageInner() {
     <TinaCloudProvider
       clientId={process.env.NEXT_PUBLIC_TINA_CLIENT_ID}
       branch={process.env.NEXT_PUBLIC_TINA_BRANCH || "main"}
-      schema={tinacmsConfig as any}
+      schema={tinacmsConfig.schema}
     >
       <TinaAdmin
         config={tinacmsConfig}
