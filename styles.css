@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* Tell Tailwind v4 to scan TinaCMS's compiled output so its internal
+   utility classes (flex, px-5, w-10, border-b, etc.) are actually
+   generated. Without this, v4's automatic content detection excludes
+   node_modules and Tina's admin toolbar renders broken. */
+@source "./node_modules/tinacms/dist/**/*.{js,mjs}";
+
 :root {
   --bg-color: #fffff0;
   --primary-color: #d4af37;
