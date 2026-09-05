@@ -20,28 +20,48 @@
 # original bug. Native `?.` needs no helper variable, so it can't
 # collide with anything, regardless of how the surrounding code is
 # minified.
+#
+# IMPORTANT #2: always reinstall a pristine copy of tinacms before
+# patching -- do not rely on detecting "already patched" state and
+# skipping. Vercel restores a persistent build cache across deployments
+# (visible in build logs as "Restored build cache from previous
+# deployment"), which can carry forward a copy of node_modules/tinacms
+# already patched by an OLDER version of this script. Re-running an
+# idempotency check tuned only for the CURRENT patch's pattern won't
+# recognize that older pattern, so this same sed then runs a second
+# time against already-patched text and corrupts it (this exact bug
+# happened: an old `_e = schema.config.config` patch got double-hit by
+# this script's sed, producing `schema.config?.config?)` -- a dangling
+# `?` with nothing after it -- which is a genuine syntax error:
+# "Unexpected )"). Reinstalling fresh every time removes the
+# possibility of stale/double-patched state entirely.
 
 set -e
 
-TARGET="node_modules/tinacms/dist/index.js"
+PKG_DIR="node_modules/tinacms"
+TARGET="$PKG_DIR/dist/index.js"
 
-if [ ! -f "$TARGET" ]; then
-  echo "ERROR: $TARGET not found. Run npm install first."
+if [ ! -d "node_modules" ]; then
+  echo "ERROR: node_modules not found. Run npm install first."
   exit 1
 fi
 
-# Check if already patched
-if grep -Fq 'schema.config?.config' "$TARGET" 2>/dev/null; then
-  echo "tinacms repoProvider patch already applied, skipping."
-  exit 0
+TINACMS_VERSION=$(node -p "require('./package.json').dependencies.tinacms.replace(/^[\^~]/, '')")
+
+echo "Reinstalling pristine tinacms@$TINACMS_VERSION before patching..."
+rm -rf "$PKG_DIR"
+npm install "tinacms@$TINACMS_VERSION" --no-save --ignore-scripts --no-audit --no-fund
+
+if [ ! -f "$TARGET" ]; then
+  echo "ERROR: $TARGET not found after reinstall."
+  exit 1
 fi
 
 # Single global fix: every unguarded `schema.config.config` becomes
 # `schema.config?.config?`, safely composing with whatever follows
 # (`.repoProvider`, `.ui`, etc.) regardless of which of the 6 call
-# sites it is. Verified against a pristine `tinacms@3.12.1` install
-# that this exact literal string has no pre-existing `?.` variant to
-# accidentally double-patch.
+# sites it is. Verified against a pristine install that this exact
+# literal string has no pre-existing `?.` variant to double-patch.
 sed -i 's/schema\.config\.config/schema.config?.config?/g' "$TARGET"
 
 echo "tinacms repoProvider patch applied."
