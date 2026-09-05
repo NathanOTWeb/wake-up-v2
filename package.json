@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",
-    "build": "tinacms build --skip-cloud-checks && next build",
+    "build": "bash scripts/patch-tinacms-repo-provider.sh && tinacms build --skip-cloud-checks && next build",
     "build-local": "tinacms build --skip-cloud-checks -c \"next build\"",
-    "start": "tinacms build && next start",
-    "postinstall": "patch-package"
+    "start": "tinacms build && next start"
   },
   "dependencies": {
     "next": "15.3.8",
