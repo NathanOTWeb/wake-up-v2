@@ -7,6 +7,16 @@ var Home = {
   name: "home",
   path: "content/home",
   format: "json",
+  ui: {
+    // Tells Tina's visual/live editor which URL on the live site each
+    // document corresponds to -- without this it has no way to know what
+    // to render in the preview pane, and silently falls back to the
+    // form-only editor (no live preview route is ever offered).
+    router: ({ document }) => {
+      if (document._sys.filename === "index") return "/";
+      return void 0;
+    }
+  },
   fields: [
     {
       type: "object",
