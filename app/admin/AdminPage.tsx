@@ -2,7 +2,6 @@
 
 import { TinaCloudProvider, TinaAdmin } from "tinacms";
 import tinacmsConfig from "@/tina/config";
-import TinaHome from "../TinaHome";
 
 export default function AdminPageInner() {
   return (
@@ -15,8 +14,20 @@ export default function AdminPageInner() {
     >
       <TinaAdmin
         config={tinacmsConfig}
-        preview={({ live }: any) => (
-          <TinaHome initialData={live || { home: {} }} />
+        // TinaCMS's live preview is iframe-based, not a directly-rendered
+        // React component -- it calls this with { url, iframeRef }, where
+        // `url` is the real site path (from the collection's ui.router)
+        // to load. The actual live-editing behavior comes from that page
+        // itself calling useTina() (see app/page.tsx / TinaHome.tsx),
+        // which detects it's running inside this iframe and switches to
+        // reflecting edits in real time.
+        preview={({ url, iframeRef }: any) => (
+          <iframe
+            ref={iframeRef}
+            src={url}
+            title="Live Preview"
+            style={{ width: "100%", height: "100%", border: "none" }}
+          />
         )}
       />
     </TinaCloudProvider>
