@@ -35,6 +35,16 @@
 # `?` with nothing after it -- which is a genuine syntax error:
 # "Unexpected )"). Reinstalling fresh every time removes the
 # possibility of stale/double-patched state entirely.
+#
+# IMPORTANT #3: fetch the package via `npm pack` + tar, NOT
+# `npm install tinacms@x --no-save`. The latter still runs npm's full
+# dependency-tree reconciliation, and since we'd already manually
+# rm -rf'd node_modules/tinacms outside of npm's own bookkeeping, npm
+# treated the tree as inconsistent and pruned 363 "extraneous" packages
+# on a real Vercel build -- including @tinacms/cli itself, so the next
+# step ("tinacms build") failed with "tinacms: command not found" (exit
+# 127). Fetching the tarball directly touches nothing else in
+# node_modules.
 
 set -e
 
@@ -48,12 +58,16 @@ fi
 
 TINACMS_VERSION=$(node -p "require('./package.json').dependencies.tinacms.replace(/^[\^~]/, '')")
 
-echo "Reinstalling pristine tinacms@$TINACMS_VERSION before patching..."
+echo "Fetching pristine tinacms@$TINACMS_VERSION before patching..."
+TMPDIR=$(mktemp -d)
+trap 'rm -rf "$TMPDIR"' EXIT
+TARBALL=$(npm pack "tinacms@$TINACMS_VERSION" --silent --pack-destination "$TMPDIR")
+tar -xzf "$TMPDIR/$TARBALL" -C "$TMPDIR"
 rm -rf "$PKG_DIR"
-npm install "tinacms@$TINACMS_VERSION" --no-save --ignore-scripts --no-audit --no-fund
+mv "$TMPDIR/package" "$PKG_DIR"
 
 if [ ! -f "$TARGET" ]; then
-  echo "ERROR: $TARGET not found after reinstall."
+  echo "ERROR: $TARGET not found after fetch."
   exit 1
 fi
 
