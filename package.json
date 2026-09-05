@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",
-    "build": "bash scripts/patch-tinacms-repo-provider.sh && tinacms build --skip-cloud-checks && next build",
+    "build": "rm -rf .next/cache && bash scripts/patch-tinacms-repo-provider.sh && tinacms build --skip-cloud-checks && next build",
     "build-local": "tinacms build --skip-cloud-checks -c \"next build\"",
     "start": "tinacms build && next start"
   },
