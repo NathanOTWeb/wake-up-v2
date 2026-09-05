@@ -11,6 +11,7 @@ export default function AdminPageInner() {
       clientId={process.env.NEXT_PUBLIC_TINA_CLIENT_ID}
       branch={process.env.NEXT_PUBLIC_TINA_BRANCH || "main"}
       schema={tinacmsConfig.schema}
+      isLocalClient={false}
     >
       <TinaAdmin
         config={tinacmsConfig}
