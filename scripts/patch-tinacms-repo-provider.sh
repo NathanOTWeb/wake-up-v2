@@ -1,5 +1,9 @@
 #!/bin/bash
-# Patch tinacms's unguarded `schema.config.config` accesses (v3.12.1).
+# Patches tinacms's dist/index.js (v3.12.1) for two separate bugs. Despite
+# the filename, this now covers more than the original repoProvider fix --
+# see IMPORTANT #4 below for the second one.
+#
+# --- Patch A: unguarded `schema.config.config` accesses ---
 # `schema.config.config` is TinaCloud server-injected project metadata
 # (repoProvider, ui regex settings, etc.) that's absent for this project
 # (its GitHub App connection isn't fully authorized), so every unguarded
@@ -45,6 +49,28 @@
 # step ("tinacms build") failed with "tinacms: command not found" (exit
 # 127). Fetching the tarball directly touches nothing else in
 # node_modules.
+#
+# --- Patch B: CollectionListPage's handleNavigate exits the SPA entirely
+# instead of navigating to the live-preview iframe ---
+# Clicking a document in the collection list (once ui.router is defined,
+# see tina/collection/home.tsx) calls handleNavigate(), which checks a CMS
+# flag called "tina-preview" to decide whether to stay inside the admin
+# (navigate to `#/~/...`) or do a full `window.location.href = ...` exit.
+# But "tina-preview" is never set ANYWHERE in this entire bundle -- it's
+# read in 6 places, and grep confirms zero writers. The other 5 read sites
+# use it as a STRING (a static-preview build's output subpath, e.g.
+# "some-path/index.html#..."), a separate/unrelated feature from ours, so
+# blindly setting it truthy would corrupt those other 5 call sites' hrefs
+# into "true/index.html#...". This is a genuine upstream gap: the flag our
+# setup actually sets when a `preview` prop is provided is "tina-iframe"
+# (via SetPreviewFlag), and handleNavigate's check was never updated to
+# also recognize it.
+#
+# Fix: patch ONLY the one `tinaPreview` read inside handleNavigate
+# (anchored via the unique preceding `route-mapping` line right above it,
+# confirmed to appear exactly once in the whole file) to also accept
+# "tina-iframe", leaving the other 5 call sites' string-based usage
+# completely untouched.
 
 set -e
 
@@ -71,11 +97,25 @@ if [ ! -f "$TARGET" ]; then
   exit 1
 fi
 
-# Single global fix: every unguarded `schema.config.config` becomes
+# Patch A: every unguarded `schema.config.config` becomes
 # `schema.config?.config?`, safely composing with whatever follows
 # (`.repoProvider`, `.ui`, etc.) regardless of which of the 6 call
 # sites it is. Verified against a pristine install that this exact
 # literal string has no pre-existing `?.` variant to double-patch.
 sed -i 's/schema\.config\.config/schema.config?.config?/g' "$TARGET"
 
-echo "tinacms repoProvider patch applied."
+if ! grep -Fq 'schema.config?.config' "$TARGET"; then
+  echo "ERROR: patch A (schema.config.config) did not apply."
+  exit 1
+fi
+
+# Patch B: handleNavigate's tinaPreview flag check, anchored to the unique
+# preceding route-mapping line so only this one call site is touched.
+sed -i '/const routeMapping = plugins\.find(({ name: name2 }) => name2 === "route-mapping");/{n;s/const tinaPreview = cms\.flags\.get("tina-preview") || false;/const tinaPreview = cms.flags.get("tina-preview") || cms.flags.get("tina-iframe") || false;/}' "$TARGET"
+
+if ! grep -Fq 'cms.flags.get("tina-preview") || cms.flags.get("tina-iframe")' "$TARGET"; then
+  echo "ERROR: patch B (handleNavigate tina-iframe) did not apply."
+  exit 1
+fi
+
+echo "tinacms patches applied (repoProvider + handleNavigate iframe check)."
