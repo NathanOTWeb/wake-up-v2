@@ -1,0 +1,20 @@
+--- a/node_modules/tinacms/dist/index.js
++++ b/node_modules/tinacms/dist/index.js
+@@ -14903,7 +14903,7 @@
+       {
+         activeForm,
+         branch: cms.api.admin.api.branch,
+-        repoProvider: cms.api.admin.api.schema.config.config.repoProvider,
++        repoProvider: (_e = cms.api.admin.api.schema.config.config) == null ? void 0 : _e.repoProvider,
+         isLocalMode: (_b = (_a = cms.api) == null ? void 0 : _a.tina) == null ? void 0 : _b.isLocalMode
+       }
+     ), formMetas == null ? void 0 : formMetas.map((meta) => /* @__PURE__ */ React.createElement(React.Fragment, { key: meta.name }, /* @__PURE__ */ React.createElement(meta.Component, null))), /* @__PURE__ */ React.createElement(FormBuilder, { form: activeForm, onPristineChange: setFormIsPristine }));
+@@ -14940,7 +14940,7 @@
+       {
+         activeForm,
+         branch: cms.api.admin.api.branch,
+-        repoProvider: cms.api.admin.api.schema.config.config.repoProvider,
++        repoProvider: (_g = cms.api.admin.api.schema.config.config) == null ? void 0 : _g.repoProvider,
+         isLocalMode: (_d = (_c = cms.api) == null ? void 0 : _c.tina) == null ? void 0 : _d.isLocalMode
+       }
+     ), formMetas == null ? void 0 : formMetas.map((meta) => /* @__PURE__ */ React.createElement(React.Fragment, { key: meta.name }, /* @__PURE__ */ React.createElement(meta.Component, null))), /* @__PURE__ */ React.createElement(

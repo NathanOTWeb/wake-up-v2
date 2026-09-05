@@ -6,7 +6,8 @@
     "dev": "tinacms dev -c \"next dev\"",
     "build": "tinacms build --skip-cloud-checks && next build",
     "build-local": "tinacms build --skip-cloud-checks -c \"next build\"",
-    "start": "tinacms build && next start"
+    "start": "tinacms build && next start",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "next": "15.3.8",
@@ -20,6 +21,7 @@
     "@types/node": "^22",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "patch-package": "^8.0.1",
     "postcss": "^8.5.28",
     "tailwindcss": "^4.3.3",
     "typescript": "^5"
