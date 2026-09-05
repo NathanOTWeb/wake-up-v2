@@ -6,6 +6,22 @@
    node_modules and Tina's admin toolbar renders broken. */
 @source "./node_modules/tinacms/dist/**/*.{js,mjs}";
 
+/* TinaCMS's own nav drawer uses custom z-index classnames (z-overlay for
+   the drawer panel itself, z-menu for its dimming backdrop) that assume a
+   z-index theme token Tailwind v4 does not actually support customizing
+   at all (confirmed against Tailwind's own docs -- z-index isn't a
+   themeable namespace in v4, unlike color/spacing/etc.). Our build never
+   generates any CSS for either classname, so both stay at the browser
+   default (z-index: auto) and stack by DOM order instead -- the backdrop
+   is rendered after the drawer panel as a sibling, so it paints on top
+   and swallows every click meant for the drawer's own links. Define both
+   directly so the panel sits above its backdrop, as intended.
+   Source (node_modules/tinacms/dist/index.js): the panel is
+   `className="fixed left-0 top-0 z-overlay h-full"`, the backdrop is
+   `className="fixed inset-0 z-menu"`. */
+.z-overlay { z-index: 50; }
+.z-menu { z-index: 40; }
+
 :root {
   --bg-color: #fffff0;
   --primary-color: #d4af37;
