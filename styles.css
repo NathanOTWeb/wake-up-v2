@@ -95,3 +95,24 @@ a {
     border: 2px solid var(--primary-color) !important;
   }
 }
+
+/* Intro video (app/components/IntroVideo.tsx) */
+.intro-video {
+  display: block;
+  /* Portrait: fill the screen, minimal side crop. */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (orientation: landscape) {
+  /* Landscape: half the viewport width so the tall 9:16 frame is only lightly
+     cropped top/bottom (the .intro-overlay clips the overflow), instead of the
+     heavy crop a full-width scale produces. */
+  .intro-video {
+    width: 50vw;
+    height: auto;
+    object-fit: contain;
+  }
+}

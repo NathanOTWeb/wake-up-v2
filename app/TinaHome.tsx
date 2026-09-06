@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { useTina, tinaField } from "tinacms/dist/react";
 import Hero from "./components/Hero";
 import Nav from "./components/Nav";
+import IntroVideo from "./components/IntroVideo";
 
 const HOME_QUERY = `
 query home($relativePath: String!) {
@@ -34,6 +35,7 @@ export default function TinaHome({ initialData }: { initialData: any }) {
 
   return (
     <>
+      <IntroVideo />
       <Nav links={nav.links} />
       <section id="section1" style={{
         // Fill the screen but let content set the height if it ever needs more.
