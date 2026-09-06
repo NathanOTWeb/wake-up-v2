@@ -66,18 +66,9 @@ export default function IntroVideo() {
       onClick={dismiss}
       onTransitionEnd={() => fading && setPhase("done")}
       style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 2000,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        overflow: "hidden",
-        background: "var(--bg-color, #fffff0)",
         opacity: fading ? 0 : 1,
         transition: "opacity 600ms ease",
         pointerEvents: fading ? "none" : "auto",
-        cursor: "pointer",
       }}
     >
       {/* Sizing lives in styles.css: portrait fills the screen (object-fit
