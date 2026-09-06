@@ -80,15 +80,48 @@ const Home: Collection = {
           name: "listSection",
           label: "List Section",
           fields: [
-            { type: "string", name: "heading", label: "Heading", required: true },
-            { type: "string", name: "lead", label: "Lead-in line (optional)" },
+            {
+              type: "string",
+              name: "heading",
+              label: "Heading",
+              required: true,
+              ui: { component: "textarea" },
+              description: "Add a line break to control where the heading wraps.",
+            },
+            {
+              type: "string",
+              name: "intro",
+              label: "Intro paragraph (optional)",
+              ui: { component: "textarea" },
+              description: "Shown above the lists. Line breaks render as new lines.",
+            },
+            {
+              type: "string",
+              name: "introEmphasis",
+              label: "Emphasised phrase (intro)",
+              description: "A phrase within the intro to render in gold.",
+            },
             {
               type: "object",
-              name: "items",
-              label: "List Items",
+              name: "groups",
+              label: "List Groups",
               list: true,
-              ui: { itemProps: (i: any) => ({ label: i?.text }) },
-              fields: [{ type: "string", name: "text", label: "Text" }],
+              ui: {
+                itemProps: (g: any) => ({
+                  label: g?.lead || g?.items?.[0]?.text || "Group",
+                }),
+              },
+              fields: [
+                { type: "string", name: "lead", label: "Lead-in line (optional)" },
+                {
+                  type: "object",
+                  name: "items",
+                  label: "Items",
+                  list: true,
+                  ui: { itemProps: (i: any) => ({ label: i?.text }) },
+                  fields: [{ type: "string", name: "text", label: "Text" }],
+                },
+              ],
             },
             {
               type: "string",
@@ -112,6 +145,15 @@ const Home: Collection = {
               options: [
                 { value: "default", label: "Ivory" },
                 { value: "gold", label: "Pale gold" },
+              ],
+            },
+            {
+              type: "object",
+              name: "cta",
+              label: "Button (optional)",
+              fields: [
+                { type: "string", name: "label", label: "Label" },
+                { type: "string", name: "href", label: "Link URL" },
               ],
             },
           ],

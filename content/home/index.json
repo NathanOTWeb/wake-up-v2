@@ -4,10 +4,10 @@
     "title": "WAKE UP",
     "subtitle": "From unconscious living to disciplined, Christ-centered leadership.",
     "taglines": [
-      { "text": "Heal the Boy." },
-      { "text": "Build the Man." },
-      { "text": "Awaken the Lion." },
-      { "text": "Qrown the King." }
+      { "text": "Heal the Boy" },
+      { "text": "Build the Man" },
+      { "text": "Awaken the Lion" },
+      { "text": "Qrown the King" }
     ],
     "scripture": "\"Awake, O sleeper, and rise from the dead, and Christ will shine on you.\"",
     "scriptureRef": "Ephesians 5:14",
@@ -28,17 +28,72 @@
   "sections": [
     {
       "_template": "listSection",
-      "heading": "This is for the man who knows he’s capable of more.",
-      "items": [
-        { "text": "You feel stuck or inconsistent" },
-        { "text": "You lack discipline in key areas of your life" },
-        { "text": "You know you’re meant to lead but don’t feel aligned" },
-        { "text": "You struggle with habits, direction, or identity" },
-        { "text": "You want structure, clarity, and purpose" }
+      "heading": "This is for the man who knows he’s capable of more",
+      "groups": [
+        {
+          "items": [
+            { "text": "You feel stuck or inconsistent" },
+            { "text": "You lack discipline in key areas of your life" },
+            { "text": "You know you’re meant to lead but don’t feel aligned" },
+            { "text": "You struggle with habits, direction, or identity" },
+            { "text": "You want structure, clarity, and purpose" }
+          ]
+        }
       ],
-      "closing": "You don’t need more information.\nYou need transformation.",
+      "closing": "You don’t need more information\nYou need transformation",
       "closingEmphasis": "transformation",
       "background": "gold"
+    },
+    {
+      "_template": "listSection",
+      "heading": "Most men are not broken —\nthey are untrained",
+      "groups": [
+        {
+          "lead": "You were never taught:",
+          "items": [
+            { "text": "How to regulate your emotions" },
+            { "text": "How to lead yourself" },
+            { "text": "How to discipline your body" },
+            { "text": "How to align your life with God" }
+          ]
+        },
+        {
+          "lead": "So you repeat patterns:",
+          "items": [
+            { "text": "Inconsistency" },
+            { "text": "Distraction" },
+            { "text": "Lack of direction" },
+            { "text": "Loss of confidence" }
+          ]
+        }
+      ],
+      "scripture": "“Do not be conformed to this world, but be transformed by the renewal of your mind.”",
+      "scriptureRef": "Romans 12:2",
+      "background": "default"
+    },
+    {
+      "_template": "listSection",
+      "heading": "WAKE UP is the process that changes that",
+      "intro": "This is not motivation\nThis is structured transformation",
+      "introEmphasis": "structured transformation",
+      "groups": [
+        {
+          "lead": "A 12-week program designed to:",
+          "items": [
+            { "text": "Renew your mind" },
+            { "text": "Rebuild your identity" },
+            { "text": "Strengthen your discipline" },
+            { "text": "Align your life with God" }
+          ]
+        }
+      ],
+      "scripture": "“For the kingdom of God is within you.”",
+      "scriptureRef": "Luke 17:21",
+      "background": "gold",
+      "cta": {
+        "label": "See How",
+        "href": "#"
+      }
     }
   ]
 }

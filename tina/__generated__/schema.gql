@@ -116,19 +116,31 @@ type HomeNav {
   links: [HomeNavLinks]
 }
 
-type HomeSectionsListSectionItems {
+type HomeSectionsListSectionGroupsItems {
   text: String
+}
+
+type HomeSectionsListSectionGroups {
+  lead: String
+  items: [HomeSectionsListSectionGroupsItems]
+}
+
+type HomeSectionsListSectionCta {
+  label: String
+  href: String
 }
 
 type HomeSectionsListSection {
   heading: String!
-  lead: String
-  items: [HomeSectionsListSectionItems]
+  intro: String
+  introEmphasis: String
+  groups: [HomeSectionsListSectionGroups]
   closing: String
   closingEmphasis: String
   scripture: String
   scriptureRef: String
   background: String
+  cta: HomeSectionsListSectionCta
 }
 
 union HomeSections = HomeSectionsListSection
@@ -190,19 +202,31 @@ input HomeNavFilter {
   links: HomeNavLinksFilter
 }
 
-input HomeSectionsListSectionItemsFilter {
+input HomeSectionsListSectionGroupsItemsFilter {
   text: StringFilter
+}
+
+input HomeSectionsListSectionGroupsFilter {
+  lead: StringFilter
+  items: HomeSectionsListSectionGroupsItemsFilter
+}
+
+input HomeSectionsListSectionCtaFilter {
+  label: StringFilter
+  href: StringFilter
 }
 
 input HomeSectionsListSectionFilter {
   heading: StringFilter
-  lead: StringFilter
-  items: HomeSectionsListSectionItemsFilter
+  intro: StringFilter
+  introEmphasis: StringFilter
+  groups: HomeSectionsListSectionGroupsFilter
   closing: StringFilter
   closingEmphasis: StringFilter
   scripture: StringFilter
   scriptureRef: StringFilter
   background: StringFilter
+  cta: HomeSectionsListSectionCtaFilter
 }
 
 input HomeSectionsFilter {
@@ -274,19 +298,31 @@ input HomeNavMutation {
   links: [HomeNavLinksMutation]
 }
 
-input HomeSectionsListSectionItemsMutation {
+input HomeSectionsListSectionGroupsItemsMutation {
   text: String
+}
+
+input HomeSectionsListSectionGroupsMutation {
+  lead: String
+  items: [HomeSectionsListSectionGroupsItemsMutation]
+}
+
+input HomeSectionsListSectionCtaMutation {
+  label: String
+  href: String
 }
 
 input HomeSectionsListSectionMutation {
   heading: String
-  lead: String
-  items: [HomeSectionsListSectionItemsMutation]
+  intro: String
+  introEmphasis: String
+  groups: [HomeSectionsListSectionGroupsMutation]
   closing: String
   closingEmphasis: String
   scripture: String
   scriptureRef: String
   background: String
+  cta: HomeSectionsListSectionCtaMutation
 }
 
 input HomeSectionsMutation {

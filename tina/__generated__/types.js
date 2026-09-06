@@ -38,16 +38,26 @@ export const HomePartsFragmentDoc = gql`
     __typename
     ... on HomeSectionsListSection {
       heading
-      lead
-      items {
+      intro
+      introEmphasis
+      groups {
         __typename
-        text
+        lead
+        items {
+          __typename
+          text
+        }
       }
       closing
       closingEmphasis
       scripture
       scriptureRef
       background
+      cta {
+        __typename
+        label
+        href
+      }
     }
   }
 }
