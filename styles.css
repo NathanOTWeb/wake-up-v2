@@ -50,10 +50,48 @@ a {
 }
 
 @media (max-width: 768px) {
-  #mainNav > div {
+  /* No visible nav bar on mobile — only the hamburger floats over the hero.
+     The bar keeps its box for positioning but is transparent and lets
+     clicks fall through to the hero behind it. */
+  #mainNav {
+    background-color: transparent !important;
+    border-bottom: none !important;
+    pointer-events: none;
+  }
+  #mainNav > .nav-links {
     display: none !important;
   }
+  #mainNav > .nav-links.open {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    pointer-events: auto;
+    position: absolute;
+    top: var(--nav-height);
+    left: auto;
+    right: 0.75rem;
+    width: max-content;
+    min-width: 180px;
+    padding: 1.25rem 1.5rem;
+    background-color: var(--bg-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
   .nav-toggle {
-    display: block !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.4rem 0.7rem;
+    line-height: 1;
+    border-radius: 4px;
+    /* match the primary "Apply Now" CTA */
+    background-color: var(--primary-color) !important;
+    color: var(--text-dark) !important;
+    border: 2px solid var(--primary-color) !important;
   }
 }

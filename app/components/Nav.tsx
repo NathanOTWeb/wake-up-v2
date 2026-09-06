@@ -19,16 +19,19 @@ export default function Nav({ links }: { links: Array<{ label: string; href: str
       justifyContent: "center",
       zIndex: 100,
     }}>
-      <div style={{
-        display: "flex",
-        gap: "2rem",
-        alignItems: "center",
-        ...(open ? { display: "flex", flexDirection: "column" } : {}),
-      }}>
+      <div
+        className={`nav-links${open ? " open" : ""}`}
+        style={{
+          display: "flex",
+          gap: "2rem",
+          alignItems: "center",
+        }}
+      >
         {links.map((link, i) => (
           <a
             key={i}
             href={link.href}
+            onClick={() => setOpen(false)}
             style={{
               fontFamily: "Cinzel, serif",
               fontSize: "0.9rem",
@@ -44,6 +47,7 @@ export default function Nav({ links }: { links: Array<{ label: string; href: str
       <button
         id="navToggle"
         aria-label="Toggle navigation"
+        aria-expanded={open}
         onClick={() => setOpen(!open)}
         style={{
           display: "none",
