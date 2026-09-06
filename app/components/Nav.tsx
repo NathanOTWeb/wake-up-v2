@@ -13,7 +13,9 @@ export default function Nav({ links }: { links: Array<{ label: string; href: str
       right: 0,
       height: "70px",
       backgroundColor: "var(--bg-color, #fffff0)",
-      borderBottom: "1px solid rgba(0,0,0,0.1)",
+      // Gold rule under the bar on desktop (from the V6 design); the mobile
+      // media query removes it along with the rest of the visible bar.
+      borderBottom: "2px solid var(--primary-color, #d4af37)",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
