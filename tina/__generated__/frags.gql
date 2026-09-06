@@ -26,4 +26,20 @@ fragment HomeParts on Home {
       href
     }
   }
+  sections {
+    __typename
+    ... on HomeSectionsListSection {
+      heading
+      lead
+      items {
+        __typename
+        text
+      }
+      closing
+      closingEmphasis
+      scripture
+      scriptureRef
+      background
+    }
+  }
 }

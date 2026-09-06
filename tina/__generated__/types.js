@@ -34,6 +34,22 @@ export const HomePartsFragmentDoc = gql`
       href
     }
   }
+  sections {
+    __typename
+    ... on HomeSectionsListSection {
+      heading
+      lead
+      items {
+        __typename
+        text
+      }
+      closing
+      closingEmphasis
+      scripture
+      scriptureRef
+      background
+    }
+  }
 }
     `;
 export const HomeDocument = gql`
@@ -123,7 +139,7 @@ const generateRequester = (client) => {
 export const ExperimentalGetTinaClient = () => getSdk(
   generateRequester(
     createClient({
-      url: "https://content.tinajs.io/2.4/content/f924cf5e-978c-449d-837e-84d6fc036ec0/github/main",
+      url: "http://localhost:4001/graphql",
       queries
     })
   )

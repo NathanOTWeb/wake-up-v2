@@ -24,5 +24,21 @@
       { "label": "Pricing", "href": "#pricing" },
       { "label": "Meet The Founder", "href": "#founder" }
     ]
-  }
+  },
+  "sections": [
+    {
+      "_template": "listSection",
+      "heading": "This is for the man who knows he’s capable of more.",
+      "items": [
+        { "text": "You feel stuck or inconsistent" },
+        { "text": "You lack discipline in key areas of your life" },
+        { "text": "You know you’re meant to lead but don’t feel aligned" },
+        { "text": "You struggle with habits, direction, or identity" },
+        { "text": "You want structure, clarity, and purpose" }
+      ],
+      "closing": "You don’t need more information.\nYou need transformation.",
+      "closingEmphasis": "transformation",
+      "background": "gold"
+    }
+  ]
 }

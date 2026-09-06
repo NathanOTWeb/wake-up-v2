@@ -198,10 +198,30 @@ export type HomeNav = {
   links?: Maybe<Array<Maybe<HomeNavLinks>>>;
 };
 
+export type HomeSectionsListSectionItems = {
+  __typename?: 'HomeSectionsListSectionItems';
+  text?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeSectionsListSection = {
+  __typename?: 'HomeSectionsListSection';
+  heading: Scalars['String']['output'];
+  lead?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<HomeSectionsListSectionItems>>>;
+  closing?: Maybe<Scalars['String']['output']>;
+  closingEmphasis?: Maybe<Scalars['String']['output']>;
+  scripture?: Maybe<Scalars['String']['output']>;
+  scriptureRef?: Maybe<Scalars['String']['output']>;
+  background?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeSections = HomeSectionsListSection;
+
 export type Home = Node & Document & {
   __typename?: 'Home';
   hero?: Maybe<HomeHero>;
   nav?: Maybe<HomeNav>;
+  sections?: Maybe<Array<Maybe<HomeSections>>>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
@@ -255,9 +275,29 @@ export type HomeNavFilter = {
   links?: InputMaybe<HomeNavLinksFilter>;
 };
 
+export type HomeSectionsListSectionItemsFilter = {
+  text?: InputMaybe<StringFilter>;
+};
+
+export type HomeSectionsListSectionFilter = {
+  heading?: InputMaybe<StringFilter>;
+  lead?: InputMaybe<StringFilter>;
+  items?: InputMaybe<HomeSectionsListSectionItemsFilter>;
+  closing?: InputMaybe<StringFilter>;
+  closingEmphasis?: InputMaybe<StringFilter>;
+  scripture?: InputMaybe<StringFilter>;
+  scriptureRef?: InputMaybe<StringFilter>;
+  background?: InputMaybe<StringFilter>;
+};
+
+export type HomeSectionsFilter = {
+  listSection?: InputMaybe<HomeSectionsListSectionFilter>;
+};
+
 export type HomeFilter = {
   hero?: InputMaybe<HomeHeroFilter>;
   nav?: InputMaybe<HomeNavFilter>;
+  sections?: InputMaybe<HomeSectionsFilter>;
 };
 
 export type HomeConnectionEdges = {
@@ -367,9 +407,29 @@ export type HomeNavMutation = {
   links?: InputMaybe<Array<InputMaybe<HomeNavLinksMutation>>>;
 };
 
+export type HomeSectionsListSectionItemsMutation = {
+  text?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeSectionsListSectionMutation = {
+  heading?: InputMaybe<Scalars['String']['input']>;
+  lead?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<HomeSectionsListSectionItemsMutation>>>;
+  closing?: InputMaybe<Scalars['String']['input']>;
+  closingEmphasis?: InputMaybe<Scalars['String']['input']>;
+  scripture?: InputMaybe<Scalars['String']['input']>;
+  scriptureRef?: InputMaybe<Scalars['String']['input']>;
+  background?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeSectionsMutation = {
+  listSection?: InputMaybe<HomeSectionsListSectionMutation>;
+};
+
 export type HomeMutation = {
   hero?: InputMaybe<HomeHeroMutation>;
   nav?: InputMaybe<HomeNavMutation>;
+  sections?: InputMaybe<Array<InputMaybe<HomeSectionsMutation>>>;
 };
 
 export type ImageFilter = {
@@ -420,19 +480,39 @@ export type HomeNavFilter = {
   links?: HomeNavLinksFilter | null | undefined;
 };
 
+export type HomeSectionsListSectionItemsFilter = {
+  text?: StringFilter | null | undefined;
+};
+
+export type HomeSectionsListSectionFilter = {
+  heading?: StringFilter | null | undefined;
+  lead?: StringFilter | null | undefined;
+  items?: HomeSectionsListSectionItemsFilter | null | undefined;
+  closing?: StringFilter | null | undefined;
+  closingEmphasis?: StringFilter | null | undefined;
+  scripture?: StringFilter | null | undefined;
+  scriptureRef?: StringFilter | null | undefined;
+  background?: StringFilter | null | undefined;
+};
+
+export type HomeSectionsFilter = {
+  listSection?: HomeSectionsListSectionFilter | null | undefined;
+};
+
 export type HomeFilter = {
   hero?: HomeHeroFilter | null | undefined;
   nav?: HomeNavFilter | null | undefined;
+  sections?: HomeSectionsFilter | null | undefined;
 };
 
-export type HomePartsFragment = { __typename: 'Home', hero: { __typename: 'HomeHero', logo: string | null, title: string | null, subtitle: string | null, scripture: string | null, scriptureRef: string | null, taglines: Array<{ __typename: 'HomeHeroTaglines', text: string | null } | null> | null, ctas: Array<{ __typename: 'HomeHeroCtas', label: string | null, href: string | null, primary: boolean | null } | null> | null } | null, nav: { __typename: 'HomeNav', links: Array<{ __typename: 'HomeNavLinks', label: string | null, href: string | null } | null> | null } | null };
+export type HomePartsFragment = { __typename: 'Home', hero: { __typename: 'HomeHero', logo: string | null, title: string | null, subtitle: string | null, scripture: string | null, scriptureRef: string | null, taglines: Array<{ __typename: 'HomeHeroTaglines', text: string | null } | null> | null, ctas: Array<{ __typename: 'HomeHeroCtas', label: string | null, href: string | null, primary: boolean | null } | null> | null } | null, nav: { __typename: 'HomeNav', links: Array<{ __typename: 'HomeNavLinks', label: string | null, href: string | null } | null> | null } | null, sections: Array<{ __typename: 'HomeSectionsListSection', heading: string, lead: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, items: Array<{ __typename: 'HomeSectionsListSectionItems', text: string | null } | null> | null } | null> | null };
 
 export type HomeQueryVariables = Exact<{
   relativePath: string;
 }>;
 
 
-export type HomeQuery = { home: { __typename: 'Home', id: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero: { __typename: 'HomeHero', logo: string | null, title: string | null, subtitle: string | null, scripture: string | null, scriptureRef: string | null, taglines: Array<{ __typename: 'HomeHeroTaglines', text: string | null } | null> | null, ctas: Array<{ __typename: 'HomeHeroCtas', label: string | null, href: string | null, primary: boolean | null } | null> | null } | null, nav: { __typename: 'HomeNav', links: Array<{ __typename: 'HomeNavLinks', label: string | null, href: string | null } | null> | null } | null } };
+export type HomeQuery = { home: { __typename: 'Home', id: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero: { __typename: 'HomeHero', logo: string | null, title: string | null, subtitle: string | null, scripture: string | null, scriptureRef: string | null, taglines: Array<{ __typename: 'HomeHeroTaglines', text: string | null } | null> | null, ctas: Array<{ __typename: 'HomeHeroCtas', label: string | null, href: string | null, primary: boolean | null } | null> | null } | null, nav: { __typename: 'HomeNav', links: Array<{ __typename: 'HomeNavLinks', label: string | null, href: string | null } | null> | null } | null, sections: Array<{ __typename: 'HomeSectionsListSection', heading: string, lead: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, items: Array<{ __typename: 'HomeSectionsListSectionItems', text: string | null } | null> | null } | null> | null } };
 
 export type HomeConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -444,7 +524,7 @@ export type HomeConnectionQueryVariables = Exact<{
 }>;
 
 
-export type HomeConnectionQuery = { homeConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Home', id: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero: { __typename: 'HomeHero', logo: string | null, title: string | null, subtitle: string | null, scripture: string | null, scriptureRef: string | null, taglines: Array<{ __typename: 'HomeHeroTaglines', text: string | null } | null> | null, ctas: Array<{ __typename: 'HomeHeroCtas', label: string | null, href: string | null, primary: boolean | null } | null> | null } | null, nav: { __typename: 'HomeNav', links: Array<{ __typename: 'HomeNavLinks', label: string | null, href: string | null } | null> | null } | null } | null } | null> | null } };
+export type HomeConnectionQuery = { homeConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Home', id: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero: { __typename: 'HomeHero', logo: string | null, title: string | null, subtitle: string | null, scripture: string | null, scriptureRef: string | null, taglines: Array<{ __typename: 'HomeHeroTaglines', text: string | null } | null> | null, ctas: Array<{ __typename: 'HomeHeroCtas', label: string | null, href: string | null, primary: boolean | null } | null> | null } | null, nav: { __typename: 'HomeNav', links: Array<{ __typename: 'HomeNavLinks', label: string | null, href: string | null } | null> | null } | null, sections: Array<{ __typename: 'HomeSectionsListSection', heading: string, lead: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, items: Array<{ __typename: 'HomeSectionsListSectionItems', text: string | null } | null> | null } | null> | null } | null } | null> | null } };
 
 export const HomePartsFragmentDoc = gql`
     fragment HomeParts on Home {
@@ -473,6 +553,22 @@ export const HomePartsFragmentDoc = gql`
       __typename
       label
       href
+    }
+  }
+  sections {
+    __typename
+    ... on HomeSectionsListSection {
+      heading
+      lead
+      items {
+        __typename
+        text
+      }
+      closing
+      closingEmphasis
+      scripture
+      scriptureRef
+      background
     }
   }
 }
@@ -590,7 +686,7 @@ export const ExperimentalGetTinaClient = () =>
   getSdk(
     generateRequester(
       createClient({
-        url: "https://content.tinajs.io/2.4/content/f924cf5e-978c-449d-837e-84d6fc036ec0/github/main",
+        url: "http://localhost:4001/graphql",
         queries,
       })
     )

@@ -6,6 +6,7 @@ import { useTina, tinaField } from "tinacms/dist/react";
 import Hero from "./components/Hero";
 import Nav from "./components/Nav";
 import IntroVideo from "./components/IntroVideo";
+import ListSection from "./components/blocks/ListSection";
 
 const HOME_QUERY = `
 query home($relativePath: String!) {
@@ -32,6 +33,7 @@ export default function TinaHome({ initialData }: { initialData: any }) {
 
   const hero = data?.home?.hero || {};
   const nav = data?.home?.nav || {};
+  const sections = data?.home?.sections || [];
 
   return (
     <>
@@ -95,6 +97,15 @@ export default function TinaHome({ initialData }: { initialData: any }) {
           </div>
         </div>
       </section>
+
+      {sections.map((block: any, i: number) => {
+        switch (block?._template) {
+          case "listSection":
+            return <ListSection key={i} data={data} index={i} block={block} />;
+          default:
+            return null;
+        }
+      })}
     </>
   );
 }

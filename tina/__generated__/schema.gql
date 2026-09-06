@@ -116,9 +116,27 @@ type HomeNav {
   links: [HomeNavLinks]
 }
 
+type HomeSectionsListSectionItems {
+  text: String
+}
+
+type HomeSectionsListSection {
+  heading: String!
+  lead: String
+  items: [HomeSectionsListSectionItems]
+  closing: String
+  closingEmphasis: String
+  scripture: String
+  scriptureRef: String
+  background: String
+}
+
+union HomeSections = HomeSectionsListSection
+
 type Home implements Node & Document {
   hero: HomeHero
   nav: HomeNav
+  sections: [HomeSections]
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -172,9 +190,29 @@ input HomeNavFilter {
   links: HomeNavLinksFilter
 }
 
+input HomeSectionsListSectionItemsFilter {
+  text: StringFilter
+}
+
+input HomeSectionsListSectionFilter {
+  heading: StringFilter
+  lead: StringFilter
+  items: HomeSectionsListSectionItemsFilter
+  closing: StringFilter
+  closingEmphasis: StringFilter
+  scripture: StringFilter
+  scriptureRef: StringFilter
+  background: StringFilter
+}
+
+input HomeSectionsFilter {
+  listSection: HomeSectionsListSectionFilter
+}
+
 input HomeFilter {
   hero: HomeHeroFilter
   nav: HomeNavFilter
+  sections: HomeSectionsFilter
 }
 
 type HomeConnectionEdges {
@@ -236,9 +274,29 @@ input HomeNavMutation {
   links: [HomeNavLinksMutation]
 }
 
+input HomeSectionsListSectionItemsMutation {
+  text: String
+}
+
+input HomeSectionsListSectionMutation {
+  heading: String
+  lead: String
+  items: [HomeSectionsListSectionItemsMutation]
+  closing: String
+  closingEmphasis: String
+  scripture: String
+  scriptureRef: String
+  background: String
+}
+
+input HomeSectionsMutation {
+  listSection: HomeSectionsListSectionMutation
+}
+
 input HomeMutation {
   hero: HomeHeroMutation
   nav: HomeNavMutation
+  sections: [HomeSectionsMutation]
 }
 
 schema {

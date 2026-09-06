@@ -265,3 +265,112 @@ a {
     object-fit: contain;
   }
 }
+
+/* ============================================================
+   List Section block (app/components/blocks/ListSection.tsx)
+   Heading + checklist + closing statement. Flows to content height.
+   ============================================================ */
+.wu-list-section {
+  box-sizing: border-box;
+  padding: clamp(4rem, 12vh, 8rem) clamp(1.5rem, 6vw, 5rem);
+  background-color: var(--bg-color);
+}
+.wu-list-section.is-gold {
+  background-color: var(--secondary-bg);
+}
+
+.wu-list-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 4vh, 2.5rem);
+}
+
+/* Full-width heading with a gold hairline rule under it. */
+.wu-list-heading {
+  margin: 0;
+  padding-bottom: clamp(1rem, 2.5vh, 1.5rem);
+  border-bottom: 1px solid var(--primary-color);
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  font-size: clamp(1.9rem, 4.4vw, 3.2rem);
+  line-height: 1.18;
+  letter-spacing: 0.02em;
+  color: var(--text-dark);
+}
+
+.wu-list-lead {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  font-weight: 500;
+  color: var(--text-medium);
+}
+
+/* One column on narrow screens, two on wider. */
+.wu-checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(0.7rem, 1.8vh, 1.1rem) clamp(1.5rem, 4vw, 3rem);
+}
+.wu-checklist li {
+  position: relative;
+  padding-left: 1.7rem;
+  font-family: "Inter", sans-serif;
+  font-size: clamp(1.05rem, 2.1vw, 1.3rem);
+  line-height: 1.4;
+  color: var(--text-dark);
+}
+.wu-checklist li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.8rem;
+  height: 2px;
+  background: var(--primary-color);
+}
+
+.wu-list-closing {
+  margin: clamp(0.5rem, 1.5vh, 1rem) 0 0;
+  font-family: "Cinzel", serif;
+  font-weight: 600;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  line-height: 1.35;
+  color: var(--text-dark);
+}
+.wu-closing-line {
+  display: block;
+}
+.wu-emph {
+  font-style: normal;
+  color: var(--primary-color);
+}
+
+.wu-list-scripture {
+  margin: 0;
+  max-width: 60ch;
+  padding-top: 1rem;
+  border-top: 1px solid var(--primary-color);
+  font-family: "Merriweather", serif;
+  font-style: italic;
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+  color: var(--text-light);
+}
+.wu-scripture-ref {
+  font-style: normal;
+}
+
+@media (min-width: 700px) {
+  .wu-checklist {
+    grid-template-columns: 1fr 1fr;
+  }
+  /* An odd last item sits alone on its row — let it span the full width. */
+  .wu-checklist li:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}

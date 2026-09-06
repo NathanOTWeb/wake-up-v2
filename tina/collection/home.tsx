@@ -63,6 +63,61 @@ const Home: Collection = {
         },
       ],
     },
+    {
+      type: "object",
+      name: "sections",
+      label: "Page Sections",
+      list: true,
+      // itemProps is valid at runtime for a templated blocks list; the shipped
+      // Collection types don't model it, hence the cast.
+      ui: {
+        itemProps: (item: any) => ({
+          label: item?.heading || item?._template || "Section",
+        }),
+      } as any,
+      templates: [
+        {
+          name: "listSection",
+          label: "List Section",
+          fields: [
+            { type: "string", name: "heading", label: "Heading", required: true },
+            { type: "string", name: "lead", label: "Lead-in line (optional)" },
+            {
+              type: "object",
+              name: "items",
+              label: "List Items",
+              list: true,
+              ui: { itemProps: (i: any) => ({ label: i?.text }) },
+              fields: [{ type: "string", name: "text", label: "Text" }],
+            },
+            {
+              type: "string",
+              name: "closing",
+              label: "Closing statement",
+              ui: { component: "textarea" },
+              description: "Use a line break for the second line.",
+            },
+            {
+              type: "string",
+              name: "closingEmphasis",
+              label: "Emphasised phrase",
+              description: "A phrase within the closing statement to render in gold.",
+            },
+            { type: "string", name: "scripture", label: "Scripture (optional)" },
+            { type: "string", name: "scriptureRef", label: "Scripture reference (optional)" },
+            {
+              type: "string",
+              name: "background",
+              label: "Background",
+              options: [
+                { value: "default", label: "Ivory" },
+                { value: "gold", label: "Pale gold" },
+              ],
+            },
+          ],
+        },
+      ],
+    },
   ],
 };
 
