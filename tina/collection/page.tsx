@@ -25,6 +25,21 @@ const Page: Collection = {
     },
     {
       type: "object",
+      name: "intro",
+      label: "Intro video",
+      description: "Plays once, centred over the page, on load. Leave the URL empty for no intro.",
+      fields: [
+        {
+          type: "string",
+          name: "src",
+          label: "Video URL",
+          description: "e.g. /media/power-is-within-you.mp4",
+        },
+        { type: "string", name: "poster", label: "Poster image URL" },
+      ],
+    },
+    {
+      type: "object",
       name: "sections",
       label: "Page Sections",
       list: true,

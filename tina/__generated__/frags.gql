@@ -57,6 +57,11 @@ fragment HomeParts on Home {
 fragment PageParts on Page {
   __typename
   title
+  intro {
+    __typename
+    src
+    poster
+  }
   sections {
     __typename
     ... on PageSectionsListSection {
@@ -91,11 +96,13 @@ fragment PageParts on Page {
         marker
         title
         description
+        points
         scriptureRef
       }
       closing
       closingEmphasis
       background
+      animate
     }
   }
 }

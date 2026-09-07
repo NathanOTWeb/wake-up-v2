@@ -1,9 +1,13 @@
 {
   "title": "The Method — WAKE UP",
+  "intro": {
+    "src": "/media/rule-33.mp4",
+    "poster": "/media/rule-33-poster.jpg"
+  },
   "sections": [
     {
       "_template": "frameworkSection",
-      "heading": "The WAKE UP Framework",
+      "heading": "The WAKE UP\nFramework",
       "items": [
         {
           "marker": "W",
@@ -44,7 +48,35 @@
       ],
       "closing": "Everything flows from Presence",
       "closingEmphasis": "Presence",
-      "background": "default"
+      "background": "default",
+      "animate": true
+    },
+    {
+      "_template": "frameworkSection",
+      "heading": "The 12-Week\nTransformation",
+      "items": [
+        {
+          "marker": "I",
+          "title": "Heal the Boy",
+          "points": ["Break patterns", "Face the past", "Build awareness"]
+        },
+        {
+          "marker": "II",
+          "title": "Wake Up the Man",
+          "points": ["Take responsibility", "Build structure", "Find purpose"]
+        },
+        {
+          "marker": "III",
+          "title": "Remember the Lion",
+          "points": ["Develop courage", "Master the flesh", "Build power"]
+        },
+        {
+          "marker": "IV",
+          "title": "Qrown the King",
+          "points": ["Establish identity", "Lead with authority", "Build legacy"]
+        }
+      ],
+      "background": "gold"
     }
   ]
 }

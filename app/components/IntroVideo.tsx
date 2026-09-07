@@ -4,35 +4,67 @@ import { useEffect, useRef, useState } from "react";
 
 type Phase = "playing" | "fading" | "done";
 
-/** Hard cap so a stalled/undecodable video can never trap the visitor. */
+/** Fallback cap (used until the real duration is known) so a stalled or
+ *  undecodable video can never trap the visitor. Once metadata loads, the
+ *  timer is stretched to the clip's own length. */
 const MAX_MS = 25_000;
+/** Absolute ceiling regardless of clip length. */
+const HARD_CAP_MS = 75_000;
+/** Linger on the (paused) last frame after the clip ends, before fading. */
+const HOLD_MS = 1_500;
 
 /**
- * Full-bleed intro that covers the hero on every page load, plays once, then
- * fades away.
+ * Full-bleed intro that covers the page on load, plays once, then fades away.
  *
+ * - `variant="hero"` (default, landing page): in landscape it covers only the
+ *   left half, over the Lionhead + title.
+ * - `variant="center"`: always a centred, letterboxed frame over the whole
+ *   viewport.
  * - Autoplay requires the video to start muted + inline (browser policy); a
  *   "Tap for sound" control unmutes it.
- * - `object-fit: cover` means: landscape viewports fill the full width and crop
- *   top/bottom; portrait viewports fill the height with a small side crop.
  * - Tap anywhere (or the Skip button, or Esc) to dismiss early.
  * - Never renders inside Tina's editor iframe.
  */
-export default function IntroVideo() {
+export default function IntroVideo({
+  src = "/media/wake-up-vertical.mp4",
+  poster = "/media/wake-up-vertical-poster.jpg",
+  variant = "hero",
+}: {
+  src?: string;
+  poster?: string;
+  variant?: "hero" | "center";
+} = {}) {
   const [phase, setPhase] = useState<Phase>("playing");
   const [muted, setMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const holdRef = useRef<number | null>(null);
 
   const dismiss = () => setPhase((p) => (p === "playing" ? "fading" : p));
+
+  // When the clip finishes: leave the last frame up a moment, then fade.
+  const endWithHold = () => {
+    if (holdRef.current) return;
+    holdRef.current = window.setTimeout(dismiss, HOLD_MS);
+  };
 
   // Don't run over the Tina live-preview.
   useEffect(() => {
     if (typeof window !== "undefined" && window.self !== window.top) setPhase("done");
   }, []);
 
+  // Backstop for the fade: `onTransitionEnd` is the normal path to "done",
+  // but if it never fires (transition interrupted, tab hidden, reduced
+  // motion, a browser quirk) the overlay would linger — and anything that
+  // waits on the intro clearing would stall. Force it after the fade time.
+  useEffect(() => {
+    if (phase !== "fading") return;
+    const t = window.setTimeout(() => setPhase("done"), 800);
+    return () => window.clearTimeout(t);
+  }, [phase]);
+
   // Flag the document while the intro is on screen so the nav can stay
   // hidden until it's gone, then fade in (see .wu-nav / html.intro-active
-  // in styles.css). Only the home page mounts this component.
+  // in styles.css).
   useEffect(() => {
     const root = document.documentElement;
     root.classList.toggle("intro-active", phase !== "done");
@@ -48,18 +80,36 @@ export default function IntroVideo() {
   useEffect(() => {
     if (phase !== "playing") return;
 
-    videoRef.current?.play?.().catch(() => dismiss());
+    const video = videoRef.current;
+    video?.play?.().catch(() => dismiss());
 
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    const timer = window.setTimeout(dismiss, MAX_MS);
+    let timer = window.setTimeout(dismiss, MAX_MS);
+    // Once we know how long the clip actually is, let it run its full length
+    // (plus a little slack) rather than cutting it off at MAX_MS.
+    const onMeta = () => {
+      const d = video?.duration;
+      if (d && Number.isFinite(d)) {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(
+          dismiss,
+          Math.min(d * 1000 + HOLD_MS + 2000, HARD_CAP_MS)
+        );
+      }
+    };
+    video?.addEventListener("loadedmetadata", onMeta);
+    if (video?.readyState && video.readyState >= 1) onMeta();
+
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && dismiss();
     window.addEventListener("keydown", onKey);
 
     return () => {
       document.body.style.overflow = prevOverflow;
       window.clearTimeout(timer);
+      if (holdRef.current) window.clearTimeout(holdRef.current);
+      video?.removeEventListener("loadedmetadata", onMeta);
       window.removeEventListener("keydown", onKey);
     };
   }, [phase]);
@@ -71,7 +121,7 @@ export default function IntroVideo() {
   return (
     <div
       role="presentation"
-      className="intro-overlay"
+      className={`intro-overlay intro-overlay--${variant}`}
       onClick={dismiss}
       onTransitionEnd={() => fading && setPhase("done")}
       style={{
@@ -80,20 +130,17 @@ export default function IntroVideo() {
         pointerEvents: fading ? "none" : "auto",
       }}
     >
-      {/* Sizing lives in styles.css: portrait fills the screen (object-fit
-          cover); landscape is half the viewport width, centred, with the
-          vertical overflow clipped — far less of the frame is lost than a
-          full-width crop. */}
+      {/* Sizing lives in styles.css (.intro-overlay--*). */}
       <video
         ref={videoRef}
         className="intro-video"
-        src="/media/wake-up-vertical.mp4"
-        poster="/media/wake-up-vertical-poster.jpg"
+        src={src}
+        poster={poster}
         autoPlay
         muted
         playsInline
         preload="auto"
-        onEnded={dismiss}
+        onEnded={endWithHold}
         onError={dismiss}
       />
 

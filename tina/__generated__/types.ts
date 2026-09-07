@@ -357,6 +357,12 @@ export type HomeConnection = Connection & {
   edges?: Maybe<Array<Maybe<HomeConnectionEdges>>>;
 };
 
+export type PageIntro = {
+  __typename?: 'PageIntro';
+  src?: Maybe<Scalars['String']['output']>;
+  poster?: Maybe<Scalars['String']['output']>;
+};
+
 export type PageSectionsListSectionGroupsItems = {
   __typename?: 'PageSectionsListSectionGroupsItems';
   text?: Maybe<Scalars['String']['output']>;
@@ -393,6 +399,7 @@ export type PageSectionsFrameworkSectionItems = {
   marker?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  points?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   scriptureRef?: Maybe<Scalars['String']['output']>;
 };
 
@@ -405,6 +412,7 @@ export type PageSectionsFrameworkSection = {
   closing?: Maybe<Scalars['String']['output']>;
   closingEmphasis?: Maybe<Scalars['String']['output']>;
   background?: Maybe<Scalars['String']['output']>;
+  animate?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type PageSections = PageSectionsListSection | PageSectionsFrameworkSection;
@@ -412,10 +420,16 @@ export type PageSections = PageSectionsListSection | PageSectionsFrameworkSectio
 export type Page = Node & Document & {
   __typename?: 'Page';
   title: Scalars['String']['output'];
+  intro?: Maybe<PageIntro>;
   sections?: Maybe<Array<Maybe<PageSections>>>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
+};
+
+export type PageIntroFilter = {
+  src?: InputMaybe<StringFilter>;
+  poster?: InputMaybe<StringFilter>;
 };
 
 export type PageSectionsListSectionGroupsItemsFilter = {
@@ -449,6 +463,7 @@ export type PageSectionsFrameworkSectionItemsFilter = {
   marker?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
   description?: InputMaybe<StringFilter>;
+  points?: InputMaybe<StringFilter>;
   scriptureRef?: InputMaybe<StringFilter>;
 };
 
@@ -460,6 +475,7 @@ export type PageSectionsFrameworkSectionFilter = {
   closing?: InputMaybe<StringFilter>;
   closingEmphasis?: InputMaybe<StringFilter>;
   background?: InputMaybe<StringFilter>;
+  animate?: InputMaybe<BooleanFilter>;
 };
 
 export type PageSectionsFilter = {
@@ -469,6 +485,7 @@ export type PageSectionsFilter = {
 
 export type PageFilter = {
   title?: InputMaybe<StringFilter>;
+  intro?: InputMaybe<PageIntroFilter>;
   sections?: InputMaybe<PageSectionsFilter>;
 };
 
@@ -632,6 +649,11 @@ export type HomeMutation = {
   sections?: InputMaybe<Array<InputMaybe<HomeSectionsMutation>>>;
 };
 
+export type PageIntroMutation = {
+  src?: InputMaybe<Scalars['String']['input']>;
+  poster?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type PageSectionsListSectionGroupsItemsMutation = {
   text?: InputMaybe<Scalars['String']['input']>;
 };
@@ -663,6 +685,7 @@ export type PageSectionsFrameworkSectionItemsMutation = {
   marker?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  points?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   scriptureRef?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -674,6 +697,7 @@ export type PageSectionsFrameworkSectionMutation = {
   closing?: InputMaybe<Scalars['String']['input']>;
   closingEmphasis?: InputMaybe<Scalars['String']['input']>;
   background?: InputMaybe<Scalars['String']['input']>;
+  animate?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type PageSectionsMutation = {
@@ -683,6 +707,7 @@ export type PageSectionsMutation = {
 
 export type PageMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
+  intro?: InputMaybe<PageIntroMutation>;
   sections?: InputMaybe<Array<InputMaybe<PageSectionsMutation>>>;
 };
 
@@ -771,6 +796,11 @@ export type HomeFilter = {
   sections?: HomeSectionsFilter | null | undefined;
 };
 
+export type PageIntroFilter = {
+  src?: StringFilter | null | undefined;
+  poster?: StringFilter | null | undefined;
+};
+
 export type PageSectionsListSectionGroupsItemsFilter = {
   text?: StringFilter | null | undefined;
 };
@@ -802,6 +832,7 @@ export type PageSectionsFrameworkSectionItemsFilter = {
   marker?: StringFilter | null | undefined;
   title?: StringFilter | null | undefined;
   description?: StringFilter | null | undefined;
+  points?: StringFilter | null | undefined;
   scriptureRef?: StringFilter | null | undefined;
 };
 
@@ -813,6 +844,7 @@ export type PageSectionsFrameworkSectionFilter = {
   closing?: StringFilter | null | undefined;
   closingEmphasis?: StringFilter | null | undefined;
   background?: StringFilter | null | undefined;
+  animate?: BooleanFilter | null | undefined;
 };
 
 export type PageSectionsFilter = {
@@ -822,14 +854,15 @@ export type PageSectionsFilter = {
 
 export type PageFilter = {
   title?: StringFilter | null | undefined;
+  intro?: PageIntroFilter | null | undefined;
   sections?: PageSectionsFilter | null | undefined;
 };
 
 export type HomePartsFragment = { __typename: 'Home', hero: { __typename: 'HomeHero', logo: string | null, title: string | null, subtitle: string | null, scripture: string | null, scriptureRef: string | null, taglines: Array<{ __typename: 'HomeHeroTaglines', text: string | null } | null> | null, ctas: Array<{ __typename: 'HomeHeroCtas', label: string | null, href: string | null, primary: boolean | null } | null> | null } | null, nav: { __typename: 'HomeNav', links: Array<{ __typename: 'HomeNavLinks', label: string | null, href: string | null } | null> | null } | null, sections: Array<{ __typename: 'HomeSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'HomeSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'HomeSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'HomeSectionsListSectionCta', label: string | null, href: string | null } | null } | null> | null };
 
-export type PagePartsFragment = { __typename: 'Page', title: string, sections: Array<
+export type PagePartsFragment = { __typename: 'Page', title: string, intro: { __typename: 'PageIntro', src: string | null, poster: string | null } | null, sections: Array<
     | { __typename: 'PageSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'PageSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'PageSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'PageSectionsListSectionCta', label: string | null, href: string | null } | null }
-    | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, scriptureRef: string | null } | null> | null }
+    | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, points: Array<string | null> | null, scriptureRef: string | null } | null> | null }
    | null> | null };
 
 export type HomeQueryVariables = Exact<{
@@ -856,9 +889,9 @@ export type PageQueryVariables = Exact<{
 }>;
 
 
-export type PageQuery = { page: { __typename: 'Page', id: string, title: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, sections: Array<
+export type PageQuery = { page: { __typename: 'Page', id: string, title: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, intro: { __typename: 'PageIntro', src: string | null, poster: string | null } | null, sections: Array<
       | { __typename: 'PageSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'PageSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'PageSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'PageSectionsListSectionCta', label: string | null, href: string | null } | null }
-      | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, scriptureRef: string | null } | null> | null }
+      | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, points: Array<string | null> | null, scriptureRef: string | null } | null> | null }
      | null> | null } };
 
 export type PageConnectionQueryVariables = Exact<{
@@ -871,9 +904,9 @@ export type PageConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PageConnectionQuery = { pageConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page', id: string, title: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, sections: Array<
+export type PageConnectionQuery = { pageConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page', id: string, title: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, intro: { __typename: 'PageIntro', src: string | null, poster: string | null } | null, sections: Array<
           | { __typename: 'PageSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'PageSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'PageSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'PageSectionsListSectionCta', label: string | null, href: string | null } | null }
-          | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, scriptureRef: string | null } | null> | null }
+          | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, points: Array<string | null> | null, scriptureRef: string | null } | null> | null }
          | null> | null } | null } | null> | null } };
 
 export const HomePartsFragmentDoc = gql`
@@ -937,6 +970,11 @@ export const PagePartsFragmentDoc = gql`
     fragment PageParts on Page {
   __typename
   title
+  intro {
+    __typename
+    src
+    poster
+  }
   sections {
     __typename
     ... on PageSectionsListSection {
@@ -971,11 +1009,13 @@ export const PagePartsFragmentDoc = gql`
         marker
         title
         description
+        points
         scriptureRef
       }
       closing
       closingEmphasis
       background
+      animate
     }
   }
 }

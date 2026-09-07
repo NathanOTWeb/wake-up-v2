@@ -4,6 +4,7 @@
 import { useMemo } from "react";
 import { useTina } from "tinacms/dist/react";
 import Nav from "./components/Nav";
+import IntroVideo from "./components/IntroVideo";
 import ListSection from "./components/blocks/ListSection";
 import FrameworkSection from "./components/blocks/FrameworkSection";
 
@@ -39,9 +40,13 @@ export default function TinaPage({
   });
 
   const sections = data?.page?.sections || [];
+  const intro = data?.page?.intro;
 
   return (
     <>
+      {intro?.src && (
+        <IntroVideo src={intro.src} poster={intro.poster} variant="center" />
+      )}
       <Nav links={navLinks} logo={navLogo} />
       <main className="wu-page">
         {sections.map((block: any, i: number) => {

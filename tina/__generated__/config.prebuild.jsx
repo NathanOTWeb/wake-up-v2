@@ -127,7 +127,19 @@ var frameworkSection = {
           description: "The letter or numeral shown large in gold (W, A, K\u2026 or I, II, III\u2026)."
         },
         { type: "string", name: "title", label: "Title" },
-        { type: "string", name: "description", label: "Description" },
+        {
+          type: "string",
+          name: "description",
+          label: "Description (single line)",
+          description: "A short phrase. Leave empty and use Points for a list."
+        },
+        {
+          type: "string",
+          name: "points",
+          label: "Points (list)",
+          list: true,
+          description: "One line each; shown as a list. Overrides Description."
+        },
         {
           type: "string",
           name: "scriptureRef",
@@ -156,6 +168,12 @@ var frameworkSection = {
         { value: "default", label: "Ivory" },
         { value: "gold", label: "Pale gold" }
       ]
+    },
+    {
+      type: "boolean",
+      name: "animate",
+      label: "Animate entries in",
+      description: "Fade the cards in one by one (then the closing line) when the section scrolls into view."
     }
   ]
 };
@@ -259,6 +277,21 @@ var Page = {
       label: "Title",
       required: true,
       description: "Used for the browser tab / SEO. Not shown on the page itself."
+    },
+    {
+      type: "object",
+      name: "intro",
+      label: "Intro video",
+      description: "Plays once, centred over the page, on load. Leave the URL empty for no intro.",
+      fields: [
+        {
+          type: "string",
+          name: "src",
+          label: "Video URL",
+          description: "e.g. /media/power-is-within-you.mp4"
+        },
+        { type: "string", name: "poster", label: "Poster image URL" }
+      ]
     },
     {
       type: "object",

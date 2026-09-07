@@ -66,6 +66,11 @@ export const PagePartsFragmentDoc = gql`
     fragment PageParts on Page {
   __typename
   title
+  intro {
+    __typename
+    src
+    poster
+  }
   sections {
     __typename
     ... on PageSectionsListSection {
@@ -100,11 +105,13 @@ export const PagePartsFragmentDoc = gql`
         marker
         title
         description
+        points
         scriptureRef
       }
       closing
       closingEmphasis
       background
+      animate
     }
   }
 }

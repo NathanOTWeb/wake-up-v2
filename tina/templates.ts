@@ -140,7 +140,19 @@ export const frameworkSection: Template = {
           description: "The letter or numeral shown large in gold (W, A, K… or I, II, III…).",
         },
         { type: "string", name: "title", label: "Title" },
-        { type: "string", name: "description", label: "Description" },
+        {
+          type: "string",
+          name: "description",
+          label: "Description (single line)",
+          description: "A short phrase. Leave empty and use Points for a list.",
+        },
+        {
+          type: "string",
+          name: "points",
+          label: "Points (list)",
+          list: true,
+          description: "One line each; shown as a list. Overrides Description.",
+        },
         {
           type: "string",
           name: "scriptureRef",
@@ -169,6 +181,12 @@ export const frameworkSection: Template = {
         { value: "default", label: "Ivory" },
         { value: "gold", label: "Pale gold" },
       ],
+    },
+    {
+      type: "boolean",
+      name: "animate",
+      label: "Animate entries in",
+      description: "Fade the cards in one by one (then the closing line) when the section scrolls into view.",
     },
   ],
 };
