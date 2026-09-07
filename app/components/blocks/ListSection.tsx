@@ -28,12 +28,14 @@ export default function ListSection({
   data,
   index,
   block,
+  scope = "home",
 }: {
   data: any;
   index: number;
   block: Block;
+  scope?: "home" | "page";
 }) {
-  const path = (field: string) => `home.sections.${index}.${field}`;
+  const path = (field: string) => `${scope}.sections.${index}.${field}`;
   const groups = block.groups || [];
 
   // Split `text` on newlines into <span> lines, gold-highlighting `emphasis`.

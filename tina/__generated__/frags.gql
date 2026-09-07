@@ -53,3 +53,49 @@ fragment HomeParts on Home {
     }
   }
 }
+
+fragment PageParts on Page {
+  __typename
+  title
+  sections {
+    __typename
+    ... on PageSectionsListSection {
+      heading
+      intro
+      introEmphasis
+      groups {
+        __typename
+        lead
+        items {
+          __typename
+          text
+        }
+      }
+      closing
+      closingEmphasis
+      scripture
+      scriptureRef
+      background
+      cta {
+        __typename
+        label
+        href
+      }
+    }
+    ... on PageSectionsFrameworkSection {
+      heading
+      intro
+      introEmphasis
+      items {
+        __typename
+        marker
+        title
+        description
+        scriptureRef
+      }
+      closing
+      closingEmphasis
+      background
+    }
+  }
+}

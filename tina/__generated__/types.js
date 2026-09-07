@@ -62,6 +62,53 @@ export const HomePartsFragmentDoc = gql`
   }
 }
     `;
+export const PagePartsFragmentDoc = gql`
+    fragment PageParts on Page {
+  __typename
+  title
+  sections {
+    __typename
+    ... on PageSectionsListSection {
+      heading
+      intro
+      introEmphasis
+      groups {
+        __typename
+        lead
+        items {
+          __typename
+          text
+        }
+      }
+      closing
+      closingEmphasis
+      scripture
+      scriptureRef
+      background
+      cta {
+        __typename
+        label
+        href
+      }
+    }
+    ... on PageSectionsFrameworkSection {
+      heading
+      intro
+      introEmphasis
+      items {
+        __typename
+        marker
+        title
+        description
+        scriptureRef
+      }
+      closing
+      closingEmphasis
+      background
+    }
+  }
+}
+    `;
 export const HomeDocument = gql`
     query home($relativePath: String!) {
   home(relativePath: $relativePath) {
@@ -119,6 +166,63 @@ export const HomeConnectionDocument = gql`
   }
 }
     ${HomePartsFragmentDoc}`;
+export const PageDocument = gql`
+    query page($relativePath: String!) {
+  page(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PageParts
+  }
+}
+    ${PagePartsFragmentDoc}`;
+export const PageConnectionDocument = gql`
+    query pageConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageFilter) {
+  pageConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PageParts
+      }
+    }
+  }
+}
+    ${PagePartsFragmentDoc}`;
 export function getSdk(requester) {
   return {
     home(variables, options) {
@@ -126,6 +230,12 @@ export function getSdk(requester) {
     },
     homeConnection(variables, options) {
       return requester(HomeConnectionDocument, variables, options);
+    },
+    page(variables, options) {
+      return requester(PageDocument, variables, options);
+    },
+    pageConnection(variables, options) {
+      return requester(PageConnectionDocument, variables, options);
     }
   };
 }

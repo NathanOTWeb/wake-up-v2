@@ -38,7 +38,7 @@ export default function TinaHome({ initialData }: { initialData: any }) {
   return (
     <>
       <IntroVideo />
-      <Nav links={nav.links} />
+      <Nav links={nav.links} logo={hero.logo} />
       {/* Layout + type live in styles.css (.hero-*). Portrait: one centred
           column. Landscape: two halves — logo + title left, the rest right —
           each vertically centred, with the intro video playing uncropped over
@@ -101,7 +101,7 @@ export default function TinaHome({ initialData }: { initialData: any }) {
       {sections.map((block: any, i: number) => {
         switch (block?._template) {
           case "listSection":
-            return <ListSection key={i} data={data} index={i} block={block} />;
+            return <ListSection key={i} data={data} index={i} block={block} scope="home" />;
           default:
             return null;
         }

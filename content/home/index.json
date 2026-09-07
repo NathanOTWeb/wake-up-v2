@@ -18,8 +18,7 @@
   },
   "nav": {
     "links": [
-      { "label": "The Method", "href": "#method" },
-      { "label": "The Journey", "href": "#journey" },
+      { "label": "The Method", "href": "/method" },
       { "label": "What You Get", "href": "#benefits" },
       { "label": "Pricing", "href": "#pricing" },
       { "label": "Meet The Founder", "href": "#founder" }
@@ -92,7 +91,7 @@
       "background": "gold",
       "cta": {
         "label": "See How",
-        "href": "#"
+        "href": "/method"
       }
     }
   ]

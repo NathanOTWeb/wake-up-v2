@@ -1,5 +1,6 @@
 import { defineConfig } from "tinacms";
 import Home from "./collection/home";
+import Page from "./collection/page";
 
 const config = defineConfig({
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
@@ -17,7 +18,7 @@ const config = defineConfig({
     basePath: "",
   },
   schema: {
-    collections: [Home],
+    collections: [Home, Page],
   },
 });
 

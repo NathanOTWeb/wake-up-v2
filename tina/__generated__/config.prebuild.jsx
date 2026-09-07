@@ -1,6 +1,166 @@
 // tina/config.tsx
 import { defineConfig } from "tinacms";
 
+// tina/templates.ts
+var listSection = {
+  name: "listSection",
+  label: "List Section",
+  fields: [
+    {
+      type: "string",
+      name: "heading",
+      label: "Heading",
+      required: true,
+      ui: { component: "textarea" },
+      description: "Add a line break to control where the heading wraps."
+    },
+    {
+      type: "string",
+      name: "intro",
+      label: "Intro paragraph (optional)",
+      ui: { component: "textarea" },
+      description: "Shown above the lists. Line breaks render as new lines."
+    },
+    {
+      type: "string",
+      name: "introEmphasis",
+      label: "Emphasised phrase (intro)",
+      description: "A phrase within the intro to render in gold."
+    },
+    {
+      type: "object",
+      name: "groups",
+      label: "List Groups",
+      list: true,
+      ui: {
+        itemProps: (g) => ({
+          label: g?.lead || g?.items?.[0]?.text || "Group"
+        })
+      },
+      fields: [
+        { type: "string", name: "lead", label: "Lead-in line (optional)" },
+        {
+          type: "object",
+          name: "items",
+          label: "Items",
+          list: true,
+          ui: { itemProps: (i) => ({ label: i?.text }) },
+          fields: [{ type: "string", name: "text", label: "Text" }]
+        }
+      ]
+    },
+    {
+      type: "string",
+      name: "closing",
+      label: "Closing statement",
+      ui: { component: "textarea" },
+      description: "Use a line break for the second line."
+    },
+    {
+      type: "string",
+      name: "closingEmphasis",
+      label: "Emphasised phrase",
+      description: "A phrase within the closing statement to render in gold."
+    },
+    { type: "string", name: "scripture", label: "Scripture (optional)" },
+    { type: "string", name: "scriptureRef", label: "Scripture reference (optional)" },
+    {
+      type: "string",
+      name: "background",
+      label: "Background",
+      options: [
+        { value: "default", label: "Ivory" },
+        { value: "gold", label: "Pale gold" }
+      ]
+    },
+    {
+      type: "object",
+      name: "cta",
+      label: "Button (optional)",
+      fields: [
+        { type: "string", name: "label", label: "Label" },
+        { type: "string", name: "href", label: "Link URL" }
+      ]
+    }
+  ]
+};
+var frameworkSection = {
+  name: "frameworkSection",
+  label: "Framework Section",
+  fields: [
+    {
+      type: "string",
+      name: "heading",
+      label: "Heading",
+      required: true,
+      ui: { component: "textarea" },
+      description: "Add a line break to control where the heading wraps."
+    },
+    {
+      type: "string",
+      name: "intro",
+      label: "Intro paragraph (optional)",
+      ui: { component: "textarea" },
+      description: "Shown above the entries. Line breaks render as new lines."
+    },
+    {
+      type: "string",
+      name: "introEmphasis",
+      label: "Emphasised phrase (intro)",
+      description: "A phrase within the intro to render in gold."
+    },
+    {
+      type: "object",
+      name: "items",
+      label: "Entries",
+      list: true,
+      ui: {
+        itemProps: (i) => ({
+          label: [i?.marker, i?.title].filter(Boolean).join(" \xB7 ") || "Entry"
+        })
+      },
+      fields: [
+        {
+          type: "string",
+          name: "marker",
+          label: "Marker",
+          description: "The letter or numeral shown large in gold (W, A, K\u2026 or I, II, III\u2026)."
+        },
+        { type: "string", name: "title", label: "Title" },
+        { type: "string", name: "description", label: "Description" },
+        {
+          type: "string",
+          name: "scriptureRef",
+          label: "Scripture reference (optional)"
+        }
+      ]
+    },
+    {
+      type: "string",
+      name: "closing",
+      label: "Closing statement (optional)",
+      ui: { component: "textarea" },
+      description: "Use a line break for the second line."
+    },
+    {
+      type: "string",
+      name: "closingEmphasis",
+      label: "Emphasised phrase",
+      description: "A phrase within the closing statement to render in gold."
+    },
+    {
+      type: "string",
+      name: "background",
+      label: "Background",
+      options: [
+        { value: "default", label: "Ivory" },
+        { value: "gold", label: "Pale gold" }
+      ]
+    }
+  ]
+};
+var sectionTemplates = [listSection, frameworkSection];
+
 // tina/collection/home.tsx
 var Home = {
   label: "Home",
@@ -77,94 +237,44 @@ var Home = {
           label: item?.heading || item?._template || "Section"
         })
       },
-      templates: [
-        {
-          name: "listSection",
-          label: "List Section",
-          fields: [
-            {
-              type: "string",
-              name: "heading",
-              label: "Heading",
-              required: true,
-              ui: { component: "textarea" },
-              description: "Add a line break to control where the heading wraps."
-            },
-            {
-              type: "string",
-              name: "intro",
-              label: "Intro paragraph (optional)",
-              ui: { component: "textarea" },
-              description: "Shown above the lists. Line breaks render as new lines."
-            },
-            {
-              type: "string",
-              name: "introEmphasis",
-              label: "Emphasised phrase (intro)",
-              description: "A phrase within the intro to render in gold."
-            },
-            {
-              type: "object",
-              name: "groups",
-              label: "List Groups",
-              list: true,
-              ui: {
-                itemProps: (g) => ({
-                  label: g?.lead || g?.items?.[0]?.text || "Group"
-                })
-              },
-              fields: [
-                { type: "string", name: "lead", label: "Lead-in line (optional)" },
-                {
-                  type: "object",
-                  name: "items",
-                  label: "Items",
-                  list: true,
-                  ui: { itemProps: (i) => ({ label: i?.text }) },
-                  fields: [{ type: "string", name: "text", label: "Text" }]
-                }
-              ]
-            },
-            {
-              type: "string",
-              name: "closing",
-              label: "Closing statement",
-              ui: { component: "textarea" },
-              description: "Use a line break for the second line."
-            },
-            {
-              type: "string",
-              name: "closingEmphasis",
-              label: "Emphasised phrase",
-              description: "A phrase within the closing statement to render in gold."
-            },
-            { type: "string", name: "scripture", label: "Scripture (optional)" },
-            { type: "string", name: "scriptureRef", label: "Scripture reference (optional)" },
-            {
-              type: "string",
-              name: "background",
-              label: "Background",
-              options: [
-                { value: "default", label: "Ivory" },
-                { value: "gold", label: "Pale gold" }
-              ]
-            },
-            {
-              type: "object",
-              name: "cta",
-              label: "Button (optional)",
-              fields: [
-                { type: "string", name: "label", label: "Label" },
-                { type: "string", name: "href", label: "Link URL" }
-              ]
-            }
-          ]
-        }
-      ]
+      templates: [listSection]
     }
   ]
 };
 var home_default = Home;
+
+// tina/collection/page.tsx
+var Page = {
+  label: "Pages",
+  name: "page",
+  path: "content/pages",
+  format: "json",
+  ui: {
+    router: ({ document }) => `/${document._sys.filename}`
+  },
+  fields: [
+    {
+      type: "string",
+      name: "title",
+      label: "Title",
+      required: true,
+      description: "Used for the browser tab / SEO. Not shown on the page itself."
+    },
+    {
+      type: "object",
+      name: "sections",
+      label: "Page Sections",
+      list: true,
+      ui: {
+        itemProps: (item) => ({
+          label: item?.heading || item?._template || "Section"
+        })
+      },
+      templates: sectionTemplates
+    }
+  ]
+};
+var page_default = Page;
 
 // tina/config.tsx
 var config = defineConfig({
@@ -183,7 +293,7 @@ var config = defineConfig({
     basePath: ""
   },
   schema: {
-    collections: [home_default]
+    collections: [home_default, page_default]
   }
 });
 var config_default = config;

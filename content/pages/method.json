@@ -1,0 +1,50 @@
+{
+  "title": "The Method — WAKE UP",
+  "sections": [
+    {
+      "_template": "frameworkSection",
+      "heading": "The WAKE UP Framework",
+      "items": [
+        {
+          "marker": "W",
+          "title": "Witness",
+          "description": "See truth clearly",
+          "scriptureRef": "Ephesians 5:14"
+        },
+        {
+          "marker": "A",
+          "title": "Align",
+          "description": "Align with God’s will",
+          "scriptureRef": "Proverbs 3:5–6"
+        },
+        {
+          "marker": "K",
+          "title": "Khanquer",
+          "description": "Discipline the flesh",
+          "scriptureRef": "1 Corinthians 9:27"
+        },
+        {
+          "marker": "E",
+          "title": "Embody",
+          "description": "Live the truth",
+          "scriptureRef": "James 1:22"
+        },
+        {
+          "marker": "U",
+          "title": "Uphold",
+          "description": "Live with standards and responsibility",
+          "scriptureRef": "Luke 16:10"
+        },
+        {
+          "marker": "P",
+          "title": "Presence",
+          "description": "Be still. Walk with God.",
+          "scriptureRef": "Psalm 46:10"
+        }
+      ],
+      "closing": "Everything flows from Presence",
+      "closingEmphasis": "Presence",
+      "background": "default"
+    }
+  ]
+}

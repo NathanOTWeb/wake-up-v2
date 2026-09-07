@@ -83,6 +83,8 @@ export type Query = {
   document: DocumentNode;
   home: Home;
   homeConnection: HomeConnection;
+  page: Page;
+  pageConnection: PageConnection;
 };
 
 
@@ -121,8 +123,24 @@ export type QueryHomeConnectionArgs = {
   filter?: InputMaybe<HomeFilter>;
 };
 
+
+export type QueryPageArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryPageConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<PageFilter>;
+};
+
 export type DocumentFilter = {
   home?: InputMaybe<HomeFilter>;
+  page?: InputMaybe<PageFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -162,7 +180,7 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Home | Folder;
+export type DocumentNode = Home | Page | Folder;
 
 export type HomeHeroTaglines = {
   __typename?: 'HomeHeroTaglines';
@@ -339,6 +357,134 @@ export type HomeConnection = Connection & {
   edges?: Maybe<Array<Maybe<HomeConnectionEdges>>>;
 };
 
+export type PageSectionsListSectionGroupsItems = {
+  __typename?: 'PageSectionsListSectionGroupsItems';
+  text?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageSectionsListSectionGroups = {
+  __typename?: 'PageSectionsListSectionGroups';
+  lead?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<PageSectionsListSectionGroupsItems>>>;
+};
+
+export type PageSectionsListSectionCta = {
+  __typename?: 'PageSectionsListSectionCta';
+  label?: Maybe<Scalars['String']['output']>;
+  href?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageSectionsListSection = {
+  __typename?: 'PageSectionsListSection';
+  heading: Scalars['String']['output'];
+  intro?: Maybe<Scalars['String']['output']>;
+  introEmphasis?: Maybe<Scalars['String']['output']>;
+  groups?: Maybe<Array<Maybe<PageSectionsListSectionGroups>>>;
+  closing?: Maybe<Scalars['String']['output']>;
+  closingEmphasis?: Maybe<Scalars['String']['output']>;
+  scripture?: Maybe<Scalars['String']['output']>;
+  scriptureRef?: Maybe<Scalars['String']['output']>;
+  background?: Maybe<Scalars['String']['output']>;
+  cta?: Maybe<PageSectionsListSectionCta>;
+};
+
+export type PageSectionsFrameworkSectionItems = {
+  __typename?: 'PageSectionsFrameworkSectionItems';
+  marker?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  scriptureRef?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageSectionsFrameworkSection = {
+  __typename?: 'PageSectionsFrameworkSection';
+  heading: Scalars['String']['output'];
+  intro?: Maybe<Scalars['String']['output']>;
+  introEmphasis?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<PageSectionsFrameworkSectionItems>>>;
+  closing?: Maybe<Scalars['String']['output']>;
+  closingEmphasis?: Maybe<Scalars['String']['output']>;
+  background?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageSections = PageSectionsListSection | PageSectionsFrameworkSection;
+
+export type Page = Node & Document & {
+  __typename?: 'Page';
+  title: Scalars['String']['output'];
+  sections?: Maybe<Array<Maybe<PageSections>>>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type PageSectionsListSectionGroupsItemsFilter = {
+  text?: InputMaybe<StringFilter>;
+};
+
+export type PageSectionsListSectionGroupsFilter = {
+  lead?: InputMaybe<StringFilter>;
+  items?: InputMaybe<PageSectionsListSectionGroupsItemsFilter>;
+};
+
+export type PageSectionsListSectionCtaFilter = {
+  label?: InputMaybe<StringFilter>;
+  href?: InputMaybe<StringFilter>;
+};
+
+export type PageSectionsListSectionFilter = {
+  heading?: InputMaybe<StringFilter>;
+  intro?: InputMaybe<StringFilter>;
+  introEmphasis?: InputMaybe<StringFilter>;
+  groups?: InputMaybe<PageSectionsListSectionGroupsFilter>;
+  closing?: InputMaybe<StringFilter>;
+  closingEmphasis?: InputMaybe<StringFilter>;
+  scripture?: InputMaybe<StringFilter>;
+  scriptureRef?: InputMaybe<StringFilter>;
+  background?: InputMaybe<StringFilter>;
+  cta?: InputMaybe<PageSectionsListSectionCtaFilter>;
+};
+
+export type PageSectionsFrameworkSectionItemsFilter = {
+  marker?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  scriptureRef?: InputMaybe<StringFilter>;
+};
+
+export type PageSectionsFrameworkSectionFilter = {
+  heading?: InputMaybe<StringFilter>;
+  intro?: InputMaybe<StringFilter>;
+  introEmphasis?: InputMaybe<StringFilter>;
+  items?: InputMaybe<PageSectionsFrameworkSectionItemsFilter>;
+  closing?: InputMaybe<StringFilter>;
+  closingEmphasis?: InputMaybe<StringFilter>;
+  background?: InputMaybe<StringFilter>;
+};
+
+export type PageSectionsFilter = {
+  listSection?: InputMaybe<PageSectionsListSectionFilter>;
+  frameworkSection?: InputMaybe<PageSectionsFrameworkSectionFilter>;
+};
+
+export type PageFilter = {
+  title?: InputMaybe<StringFilter>;
+  sections?: InputMaybe<PageSectionsFilter>;
+};
+
+export type PageConnectionEdges = {
+  __typename?: 'PageConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Page>;
+};
+
+export type PageConnection = Connection & {
+  __typename?: 'PageConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<PageConnectionEdges>>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addPendingDocument: DocumentNode;
@@ -348,6 +494,8 @@ export type Mutation = {
   createFolder: DocumentNode;
   updateHome: Home;
   createHome: Home;
+  updatePage: Page;
+  createPage: Page;
 };
 
 
@@ -395,13 +543,27 @@ export type MutationCreateHomeArgs = {
   params: HomeMutation;
 };
 
+
+export type MutationUpdatePageArgs = {
+  relativePath: Scalars['String']['input'];
+  params: PageMutation;
+};
+
+
+export type MutationCreatePageArgs = {
+  relativePath: Scalars['String']['input'];
+  params: PageMutation;
+};
+
 export type DocumentUpdateMutation = {
   home?: InputMaybe<HomeMutation>;
+  page?: InputMaybe<PageMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type DocumentMutation = {
   home?: InputMaybe<HomeMutation>;
+  page?: InputMaybe<PageMutation>;
 };
 
 export type HomeHeroTaglinesMutation = {
@@ -468,6 +630,60 @@ export type HomeMutation = {
   hero?: InputMaybe<HomeHeroMutation>;
   nav?: InputMaybe<HomeNavMutation>;
   sections?: InputMaybe<Array<InputMaybe<HomeSectionsMutation>>>;
+};
+
+export type PageSectionsListSectionGroupsItemsMutation = {
+  text?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageSectionsListSectionGroupsMutation = {
+  lead?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<PageSectionsListSectionGroupsItemsMutation>>>;
+};
+
+export type PageSectionsListSectionCtaMutation = {
+  label?: InputMaybe<Scalars['String']['input']>;
+  href?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageSectionsListSectionMutation = {
+  heading?: InputMaybe<Scalars['String']['input']>;
+  intro?: InputMaybe<Scalars['String']['input']>;
+  introEmphasis?: InputMaybe<Scalars['String']['input']>;
+  groups?: InputMaybe<Array<InputMaybe<PageSectionsListSectionGroupsMutation>>>;
+  closing?: InputMaybe<Scalars['String']['input']>;
+  closingEmphasis?: InputMaybe<Scalars['String']['input']>;
+  scripture?: InputMaybe<Scalars['String']['input']>;
+  scriptureRef?: InputMaybe<Scalars['String']['input']>;
+  background?: InputMaybe<Scalars['String']['input']>;
+  cta?: InputMaybe<PageSectionsListSectionCtaMutation>;
+};
+
+export type PageSectionsFrameworkSectionItemsMutation = {
+  marker?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  scriptureRef?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageSectionsFrameworkSectionMutation = {
+  heading?: InputMaybe<Scalars['String']['input']>;
+  intro?: InputMaybe<Scalars['String']['input']>;
+  introEmphasis?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<PageSectionsFrameworkSectionItemsMutation>>>;
+  closing?: InputMaybe<Scalars['String']['input']>;
+  closingEmphasis?: InputMaybe<Scalars['String']['input']>;
+  background?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageSectionsMutation = {
+  listSection?: InputMaybe<PageSectionsListSectionMutation>;
+  frameworkSection?: InputMaybe<PageSectionsFrameworkSectionMutation>;
+};
+
+export type PageMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  sections?: InputMaybe<Array<InputMaybe<PageSectionsMutation>>>;
 };
 
 export type ImageFilter = {
@@ -555,7 +771,66 @@ export type HomeFilter = {
   sections?: HomeSectionsFilter | null | undefined;
 };
 
+export type PageSectionsListSectionGroupsItemsFilter = {
+  text?: StringFilter | null | undefined;
+};
+
+export type PageSectionsListSectionGroupsFilter = {
+  lead?: StringFilter | null | undefined;
+  items?: PageSectionsListSectionGroupsItemsFilter | null | undefined;
+};
+
+export type PageSectionsListSectionCtaFilter = {
+  label?: StringFilter | null | undefined;
+  href?: StringFilter | null | undefined;
+};
+
+export type PageSectionsListSectionFilter = {
+  heading?: StringFilter | null | undefined;
+  intro?: StringFilter | null | undefined;
+  introEmphasis?: StringFilter | null | undefined;
+  groups?: PageSectionsListSectionGroupsFilter | null | undefined;
+  closing?: StringFilter | null | undefined;
+  closingEmphasis?: StringFilter | null | undefined;
+  scripture?: StringFilter | null | undefined;
+  scriptureRef?: StringFilter | null | undefined;
+  background?: StringFilter | null | undefined;
+  cta?: PageSectionsListSectionCtaFilter | null | undefined;
+};
+
+export type PageSectionsFrameworkSectionItemsFilter = {
+  marker?: StringFilter | null | undefined;
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  scriptureRef?: StringFilter | null | undefined;
+};
+
+export type PageSectionsFrameworkSectionFilter = {
+  heading?: StringFilter | null | undefined;
+  intro?: StringFilter | null | undefined;
+  introEmphasis?: StringFilter | null | undefined;
+  items?: PageSectionsFrameworkSectionItemsFilter | null | undefined;
+  closing?: StringFilter | null | undefined;
+  closingEmphasis?: StringFilter | null | undefined;
+  background?: StringFilter | null | undefined;
+};
+
+export type PageSectionsFilter = {
+  listSection?: PageSectionsListSectionFilter | null | undefined;
+  frameworkSection?: PageSectionsFrameworkSectionFilter | null | undefined;
+};
+
+export type PageFilter = {
+  title?: StringFilter | null | undefined;
+  sections?: PageSectionsFilter | null | undefined;
+};
+
 export type HomePartsFragment = { __typename: 'Home', hero: { __typename: 'HomeHero', logo: string | null, title: string | null, subtitle: string | null, scripture: string | null, scriptureRef: string | null, taglines: Array<{ __typename: 'HomeHeroTaglines', text: string | null } | null> | null, ctas: Array<{ __typename: 'HomeHeroCtas', label: string | null, href: string | null, primary: boolean | null } | null> | null } | null, nav: { __typename: 'HomeNav', links: Array<{ __typename: 'HomeNavLinks', label: string | null, href: string | null } | null> | null } | null, sections: Array<{ __typename: 'HomeSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'HomeSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'HomeSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'HomeSectionsListSectionCta', label: string | null, href: string | null } | null } | null> | null };
+
+export type PagePartsFragment = { __typename: 'Page', title: string, sections: Array<
+    | { __typename: 'PageSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'PageSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'PageSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'PageSectionsListSectionCta', label: string | null, href: string | null } | null }
+    | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, scriptureRef: string | null } | null> | null }
+   | null> | null };
 
 export type HomeQueryVariables = Exact<{
   relativePath: string;
@@ -575,6 +850,31 @@ export type HomeConnectionQueryVariables = Exact<{
 
 
 export type HomeConnectionQuery = { homeConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Home', id: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, hero: { __typename: 'HomeHero', logo: string | null, title: string | null, subtitle: string | null, scripture: string | null, scriptureRef: string | null, taglines: Array<{ __typename: 'HomeHeroTaglines', text: string | null } | null> | null, ctas: Array<{ __typename: 'HomeHeroCtas', label: string | null, href: string | null, primary: boolean | null } | null> | null } | null, nav: { __typename: 'HomeNav', links: Array<{ __typename: 'HomeNavLinks', label: string | null, href: string | null } | null> | null } | null, sections: Array<{ __typename: 'HomeSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'HomeSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'HomeSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'HomeSectionsListSectionCta', label: string | null, href: string | null } | null } | null> | null } | null } | null> | null } };
+
+export type PageQueryVariables = Exact<{
+  relativePath: string;
+}>;
+
+
+export type PageQuery = { page: { __typename: 'Page', id: string, title: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, sections: Array<
+      | { __typename: 'PageSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'PageSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'PageSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'PageSectionsListSectionCta', label: string | null, href: string | null } | null }
+      | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, scriptureRef: string | null } | null> | null }
+     | null> | null } };
+
+export type PageConnectionQueryVariables = Exact<{
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: PageFilter | null | undefined;
+}>;
+
+
+export type PageConnectionQuery = { pageConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page', id: string, title: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, sections: Array<
+          | { __typename: 'PageSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'PageSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'PageSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'PageSectionsListSectionCta', label: string | null, href: string | null } | null }
+          | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, scriptureRef: string | null } | null> | null }
+         | null> | null } | null } | null> | null } };
 
 export const HomePartsFragmentDoc = gql`
     fragment HomeParts on Home {
@@ -629,6 +929,53 @@ export const HomePartsFragmentDoc = gql`
         label
         href
       }
+    }
+  }
+}
+    `;
+export const PagePartsFragmentDoc = gql`
+    fragment PageParts on Page {
+  __typename
+  title
+  sections {
+    __typename
+    ... on PageSectionsListSection {
+      heading
+      intro
+      introEmphasis
+      groups {
+        __typename
+        lead
+        items {
+          __typename
+          text
+        }
+      }
+      closing
+      closingEmphasis
+      scripture
+      scriptureRef
+      background
+      cta {
+        __typename
+        label
+        href
+      }
+    }
+    ... on PageSectionsFrameworkSection {
+      heading
+      intro
+      introEmphasis
+      items {
+        __typename
+        marker
+        title
+        description
+        scriptureRef
+      }
+      closing
+      closingEmphasis
+      background
     }
   }
 }
@@ -690,6 +1037,63 @@ export const HomeConnectionDocument = gql`
   }
 }
     ${HomePartsFragmentDoc}`;
+export const PageDocument = gql`
+    query page($relativePath: String!) {
+  page(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PageParts
+  }
+}
+    ${PagePartsFragmentDoc}`;
+export const PageConnectionDocument = gql`
+    query pageConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageFilter) {
+  pageConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PageParts
+      }
+    }
+  }
+}
+    ${PagePartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
@@ -698,6 +1102,12 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     homeConnection(variables?: HomeConnectionQueryVariables, options?: C): Promise<{data: HomeConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomeConnectionQueryVariables, query: string}> {
         return requester<{data: HomeConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HomeConnectionQueryVariables, query: string}, HomeConnectionQueryVariables>(HomeConnectionDocument, variables, options);
+      },
+    page(variables: PageQueryVariables, options?: C): Promise<{data: PageQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageQueryVariables, query: string}> {
+        return requester<{data: PageQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageQueryVariables, query: string}, PageQueryVariables>(PageDocument, variables, options);
+      },
+    pageConnection(variables?: PageConnectionQueryVariables, options?: C): Promise<{data: PageConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageConnectionQueryVariables, query: string}> {
+        return requester<{data: PageConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageConnectionQueryVariables, query: string}, PageConnectionQueryVariables>(PageConnectionDocument, variables, options);
       }
     };
   }

@@ -49,50 +49,165 @@ a {
   text-decoration: none;
 }
 
+/* ============================================================
+   Nav (app/components/Nav.tsx)
+   Desktop: brand (lionhead + wordmark) pinned left, links centred.
+   Mobile:  no visible bar — only the floating hamburger; the brand is
+            inside the dropdown (lionhead above the links, "WAKE UP" home
+            link below them).
+   ============================================================ */
+.wu-nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 clamp(1rem, 4vw, 2rem);
+  background-color: var(--bg-color);
+  border-bottom: 2px solid var(--primary-color);
+  z-index: 100;
+  transition: opacity 600ms ease;
+}
+
+/* Landing page only: while the intro video is on screen the nav is hidden;
+   once it's gone (IntroVideo drops .intro-active) the nav fades in. Other
+   pages never get the class, so their nav shows immediately. */
+html.intro-active .wu-nav {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Brand pinned to the left so the link row stays centred in the bar. */
+.wu-nav-brand {
+  position: absolute;
+  left: clamp(1rem, 4vw, 2rem);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.wu-nav-brand-logo {
+  height: calc(var(--nav-height) - 22px);
+  width: auto;
+}
+.wu-nav-brand-name {
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  color: var(--text-dark);
+}
+
+.wu-nav .nav-links {
+  display: flex;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  align-items: center;
+}
+.wu-nav .nav-links a {
+  font-family: "Cinzel", serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  color: var(--text-dark);
+}
+
+/* Brand pieces that only appear inside the mobile dropdown. */
+.nav-menu-logo,
+.nav-menu-home {
+  display: none;
+}
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text-dark);
+}
+
+/* On a narrow desktop / small tablet the centred links would collide with
+   the brand — drop the wordmark and keep just the lionhead. */
+@media (min-width: 769px) and (max-width: 1000px) {
+  .wu-nav-brand-name {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
-  /* No visible nav bar on mobile — only the hamburger floats over the hero.
-     The bar keeps its box for positioning but is transparent and lets
-     clicks fall through to the hero behind it. */
-  #mainNav {
-    background-color: transparent !important;
-    border-bottom: none !important;
+  /* No visible nav bar on mobile — only the hamburger floats over the
+     content. The bar keeps its box for positioning but is transparent and
+     lets clicks fall through. */
+  .wu-nav {
+    background-color: transparent;
+    border-bottom: none;
     pointer-events: none;
   }
-  #mainNav > .nav-links {
-    display: none !important;
+  .wu-nav-brand {
+    display: none;
   }
-  #mainNav > .nav-links.open {
-    display: flex !important;
+
+  .wu-nav .nav-links {
+    display: none;
+  }
+  .wu-nav .nav-links.open {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 1.5rem;
     pointer-events: auto;
     position: absolute;
     top: var(--nav-height);
-    left: auto;
     right: 0.75rem;
     width: max-content;
-    min-width: 180px;
+    min-width: 190px;
     padding: 1.25rem 1.5rem;
     background-color: var(--bg-color);
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   }
+
+  /* Lionhead at the top of the open menu. */
+  .wu-nav .nav-links.open .nav-menu-logo {
+    display: block;
+    align-self: center;
+  }
+  .wu-nav .nav-links.open .nav-menu-logo img {
+    display: block;
+    height: 48px;
+    width: auto;
+  }
+
+  /* "WAKE UP" home link at the bottom, set off by a gold rule. */
+  .wu-nav .nav-links.open .nav-menu-home {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--primary-color);
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    color: var(--text-dark);
+  }
+
   .nav-toggle {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
+    display: flex;
     pointer-events: auto;
+    position: absolute;
     top: 1rem;
     right: 1rem;
     padding: 0.4rem 0.7rem;
-    line-height: 1;
     border-radius: 4px;
     /* match the primary "Apply Now" CTA */
-    background-color: var(--primary-color) !important;
-    color: var(--text-dark) !important;
-    border: 2px solid var(--primary-color) !important;
+    background-color: var(--primary-color);
+    color: var(--text-dark);
+    border: 2px solid var(--primary-color);
   }
 }
 
@@ -429,4 +544,236 @@ a {
   color: var(--text-dark, #1a1a1a);
   background-color: var(--primary-color, #d4af37);
   transition: all 0.3s ease;
+}
+
+/* ============================================================
+   Secondary pages (app/[slug], app/TinaPage.tsx)
+   ============================================================ */
+/* Clear the fixed nav bar; sections below space themselves. */
+.wu-page {
+  padding-top: var(--nav-height);
+}
+/* Mobile has no visible bar — only the floating hamburger — so don't
+   reserve its height; let the first section fill the whole viewport.
+   (Each section leaves its own room for the hamburger.) */
+@media (max-width: 768px) {
+  .wu-page {
+    padding-top: 0;
+  }
+}
+
+/* ============================================================
+   Framework Section block (app/components/blocks/FrameworkSection.tsx)
+   Heading + marker/title/description entries + closing line.
+
+   Sized to sit within one viewport at the common screen sizes: the
+   section is at least a screen tall and vertically centres its content,
+   and every interior measure is clamped against dvh/vw so it compresses
+   on short or narrow screens instead of overflowing.
+
+   Portrait: entries stack in one column, marker beside the text.
+   Landscape: entries flow into 2–3 columns with the marker above the
+   text, so all six fit the screen without scrolling.
+   ============================================================ */
+.wu-framework-section {
+  box-sizing: border-box;
+  min-height: calc(100dvh - var(--nav-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1rem, 3.5dvh, 4rem) clamp(1.25rem, 6vw, 5rem);
+  background-color: var(--bg-color);
+}
+.wu-framework-section.is-gold {
+  background-color: var(--secondary-bg);
+}
+
+.wu-framework-inner {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.85rem, 3dvh, 2.25rem);
+}
+
+/* Full-width heading with a gold hairline rule — matches .wu-list-heading. */
+.wu-framework-heading {
+  margin: 0;
+  padding-bottom: clamp(0.5rem, 1.6dvh, 1.4rem);
+  border-bottom: 1px solid var(--primary-color);
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 0.85rem + 2.8vw, 3.1rem);
+  line-height: 1.14;
+  letter-spacing: 0.02em;
+  text-wrap: balance;
+  color: var(--text-dark);
+}
+
+.wu-framework-intro {
+  margin: 0;
+  font-family: "Cinzel", serif;
+  font-weight: 600;
+  font-size: clamp(1.2rem, 0.8rem + 2vw, 2.2rem);
+  line-height: 1.3;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--text-dark);
+}
+
+.wu-framework-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(0.4rem, 1.2dvh, 1rem);
+}
+
+/* Mobile-first: marker beside the text — more compact vertically than a
+   stacked card, so six of them plus the heading fit a phone screen. */
+.wu-framework-item {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.85rem, 3vw, 1.5rem);
+  padding: clamp(0.5rem, 1.4dvh, 1.1rem) clamp(0.9rem, 3vw, 1.5rem);
+  background: var(--secondary-bg);
+  border-radius: 6px;
+  border-left: 4px solid var(--primary-color);
+  text-align: left;
+}
+.wu-framework-section.is-gold .wu-framework-item {
+  background: var(--bg-color);
+}
+
+.wu-framework-marker {
+  flex-shrink: 0;
+  min-width: 1.25em;
+  text-align: center;
+  font-family: "Cinzel", serif;
+  font-size: clamp(1.5rem, 0.9rem + 2.4vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--primary-color);
+}
+
+.wu-framework-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.wu-framework-title {
+  margin: 0;
+  font-family: "Cinzel", serif;
+  font-weight: 600;
+  font-size: clamp(1rem, 0.8rem + 0.9vw, 1.3rem);
+  line-height: 1.2;
+  color: var(--text-dark);
+}
+
+.wu-framework-desc {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-size: clamp(0.85rem, 0.75rem + 0.5vw, 1rem);
+  line-height: 1.35;
+  color: var(--text-light);
+}
+
+.wu-framework-scripture {
+  font-family: "Inter", sans-serif;
+  font-size: clamp(0.78rem, 0.72rem + 0.3vw, 0.9rem);
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.wu-framework-closing {
+  margin: 0;
+  font-family: "Cinzel", serif;
+  font-weight: 600;
+  font-size: clamp(1.2rem, 0.8rem + 2vw, 2.2rem);
+  line-height: 1.3;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--text-dark);
+}
+
+/* Landscape: the entries flow into columns (marker above the text),
+   collapsing the section to a single screenful. */
+@media (orientation: landscape) {
+  .wu-framework-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(0.6rem, 1vw, 1rem);
+  }
+  .wu-framework-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: clamp(0.25rem, 1dvh, 0.55rem);
+    /* the accent moves to the top to suit the now-vertical card */
+    border-left: none;
+    border-top: 4px solid var(--primary-color);
+  }
+  .wu-framework-details {
+    align-items: center;
+  }
+}
+
+/* Desktop: four across, so W·A·K·E sit on the top row and the two
+   remaining entries centre themselves on the second row. */
+@media (orientation: landscape) and (min-width: 1000px) {
+  .wu-framework-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  /* Only when exactly six entries: pull the last two in by one column so
+     they're centred under the four above. */
+  .wu-framework-list:has(> :nth-child(6):last-child) > :nth-child(5) {
+    grid-column: 2;
+  }
+  .wu-framework-list:has(> :nth-child(6):last-child) > :nth-child(6) {
+    grid-column: 3;
+  }
+}
+
+/* Narrow landscape (small tablets, phones turned sideways): two columns. */
+@media (orientation: landscape) and (max-width: 900px) {
+  .wu-framework-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Very short landscape (phones sideways): keep three columns so it is only
+   two rows tall, drop the forced full-screen height, and tighten the cards
+   so as much as possible is visible without scrolling. */
+@media (orientation: landscape) and (max-height: 520px) {
+  .wu-framework-section {
+    min-height: 0;
+    /* extra top room so the heading clears the floating hamburger */
+    padding-top: clamp(2.5rem, 14dvh, 3.25rem);
+    padding-bottom: clamp(1rem, 5dvh, 2rem);
+  }
+  .wu-framework-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .wu-framework-item {
+    gap: 0.1rem;
+    padding: 0.45rem 0.6rem;
+  }
+  .wu-framework-marker {
+    font-size: 1.4rem;
+  }
+}
+
+/* Portrait phones: no nav-bar height is reserved (.wu-page), so the
+   section takes the full viewport. Top-align the content and leave just
+   enough room for the floating hamburger. */
+@media (orientation: portrait) and (max-width: 768px) {
+  .wu-framework-section {
+    min-height: 100dvh;
+    justify-content: flex-start;
+    padding: clamp(3.5rem, 9dvh, 4.25rem) clamp(1rem, 5vw, 1.5rem)
+      clamp(1rem, 3dvh, 2rem);
+  }
 }

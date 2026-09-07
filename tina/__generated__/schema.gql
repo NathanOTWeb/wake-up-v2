@@ -56,10 +56,13 @@ type Query {
   document(collection: String, relativePath: String): DocumentNode!
   home(relativePath: String): Home!
   homeConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: HomeFilter): HomeConnection!
+  page(relativePath: String): Page!
+  pageConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageFilter): PageConnection!
 }
 
 input DocumentFilter {
   home: HomeFilter
+  page: PageFilter
 }
 
 type DocumentConnectionEdges {
@@ -85,7 +88,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Home | Folder
+union DocumentNode = Home | Page | Folder
 
 type HomeHeroTaglines {
   text: String
@@ -250,6 +253,125 @@ type HomeConnection implements Connection {
   edges: [HomeConnectionEdges]
 }
 
+type PageSectionsListSectionGroupsItems {
+  text: String
+}
+
+type PageSectionsListSectionGroups {
+  lead: String
+  items: [PageSectionsListSectionGroupsItems]
+}
+
+type PageSectionsListSectionCta {
+  label: String
+  href: String
+}
+
+type PageSectionsListSection {
+  heading: String!
+  intro: String
+  introEmphasis: String
+  groups: [PageSectionsListSectionGroups]
+  closing: String
+  closingEmphasis: String
+  scripture: String
+  scriptureRef: String
+  background: String
+  cta: PageSectionsListSectionCta
+}
+
+type PageSectionsFrameworkSectionItems {
+  marker: String
+  title: String
+  description: String
+  scriptureRef: String
+}
+
+type PageSectionsFrameworkSection {
+  heading: String!
+  intro: String
+  introEmphasis: String
+  items: [PageSectionsFrameworkSectionItems]
+  closing: String
+  closingEmphasis: String
+  background: String
+}
+
+union PageSections = PageSectionsListSection | PageSectionsFrameworkSection
+
+type Page implements Node & Document {
+  title: String!
+  sections: [PageSections]
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input PageSectionsListSectionGroupsItemsFilter {
+  text: StringFilter
+}
+
+input PageSectionsListSectionGroupsFilter {
+  lead: StringFilter
+  items: PageSectionsListSectionGroupsItemsFilter
+}
+
+input PageSectionsListSectionCtaFilter {
+  label: StringFilter
+  href: StringFilter
+}
+
+input PageSectionsListSectionFilter {
+  heading: StringFilter
+  intro: StringFilter
+  introEmphasis: StringFilter
+  groups: PageSectionsListSectionGroupsFilter
+  closing: StringFilter
+  closingEmphasis: StringFilter
+  scripture: StringFilter
+  scriptureRef: StringFilter
+  background: StringFilter
+  cta: PageSectionsListSectionCtaFilter
+}
+
+input PageSectionsFrameworkSectionItemsFilter {
+  marker: StringFilter
+  title: StringFilter
+  description: StringFilter
+  scriptureRef: StringFilter
+}
+
+input PageSectionsFrameworkSectionFilter {
+  heading: StringFilter
+  intro: StringFilter
+  introEmphasis: StringFilter
+  items: PageSectionsFrameworkSectionItemsFilter
+  closing: StringFilter
+  closingEmphasis: StringFilter
+  background: StringFilter
+}
+
+input PageSectionsFilter {
+  listSection: PageSectionsListSectionFilter
+  frameworkSection: PageSectionsFrameworkSectionFilter
+}
+
+input PageFilter {
+  title: StringFilter
+  sections: PageSectionsFilter
+}
+
+type PageConnectionEdges {
+  cursor: String!
+  node: Page
+}
+
+type PageConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [PageConnectionEdges]
+}
+
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
   updateDocument(collection: String, relativePath: String!, params: DocumentUpdateMutation!): DocumentNode!
@@ -258,15 +380,19 @@ type Mutation {
   createFolder(collection: String, relativePath: String!): DocumentNode!
   updateHome(relativePath: String!, params: HomeMutation!): Home!
   createHome(relativePath: String!, params: HomeMutation!): Home!
+  updatePage(relativePath: String!, params: PageMutation!): Page!
+  createPage(relativePath: String!, params: PageMutation!): Page!
 }
 
 input DocumentUpdateMutation {
   home: HomeMutation
+  page: PageMutation
   relativePath: String
 }
 
 input DocumentMutation {
   home: HomeMutation
+  page: PageMutation
 }
 
 input HomeHeroTaglinesMutation {
@@ -333,6 +459,60 @@ input HomeMutation {
   hero: HomeHeroMutation
   nav: HomeNavMutation
   sections: [HomeSectionsMutation]
+}
+
+input PageSectionsListSectionGroupsItemsMutation {
+  text: String
+}
+
+input PageSectionsListSectionGroupsMutation {
+  lead: String
+  items: [PageSectionsListSectionGroupsItemsMutation]
+}
+
+input PageSectionsListSectionCtaMutation {
+  label: String
+  href: String
+}
+
+input PageSectionsListSectionMutation {
+  heading: String
+  intro: String
+  introEmphasis: String
+  groups: [PageSectionsListSectionGroupsMutation]
+  closing: String
+  closingEmphasis: String
+  scripture: String
+  scriptureRef: String
+  background: String
+  cta: PageSectionsListSectionCtaMutation
+}
+
+input PageSectionsFrameworkSectionItemsMutation {
+  marker: String
+  title: String
+  description: String
+  scriptureRef: String
+}
+
+input PageSectionsFrameworkSectionMutation {
+  heading: String
+  intro: String
+  introEmphasis: String
+  items: [PageSectionsFrameworkSectionItemsMutation]
+  closing: String
+  closingEmphasis: String
+  background: String
+}
+
+input PageSectionsMutation {
+  listSection: PageSectionsListSectionMutation
+  frameworkSection: PageSectionsFrameworkSectionMutation
+}
+
+input PageMutation {
+  title: String
+  sections: [PageSectionsMutation]
 }
 
 schema {

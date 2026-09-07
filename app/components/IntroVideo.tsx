@@ -30,6 +30,15 @@ export default function IntroVideo() {
     if (typeof window !== "undefined" && window.self !== window.top) setPhase("done");
   }, []);
 
+  // Flag the document while the intro is on screen so the nav can stay
+  // hidden until it's gone, then fade in (see .wu-nav / html.intro-active
+  // in styles.css). Only the home page mounts this component.
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle("intro-active", phase !== "done");
+    return () => root.classList.remove("intro-active");
+  }, [phase]);
+
   // Keep the DOM `muted` *property* in sync (React only sets the attribute).
   useEffect(() => {
     if (videoRef.current) videoRef.current.muted = muted;
