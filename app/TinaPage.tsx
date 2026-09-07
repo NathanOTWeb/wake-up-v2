@@ -8,6 +8,7 @@ import IntroVideo from "./components/IntroVideo";
 import ListSection from "./components/blocks/ListSection";
 import FrameworkSection from "./components/blocks/FrameworkSection";
 import BenefitsSection from "./components/blocks/BenefitsSection";
+import PathsSection from "./components/blocks/PathsSection";
 
 // See TinaHome.tsx for why the fragment is referenced but not inlined, and
 // why `data` must be a stable reference across renders.
@@ -59,6 +60,8 @@ export default function TinaPage({
               return <FrameworkSection key={i} {...common} />;
             case "benefitsSection":
               return <BenefitsSection key={i} {...common} />;
+            case "pathsSection":
+              return <PathsSection key={i} {...common} />;
             default:
               return null;
           }

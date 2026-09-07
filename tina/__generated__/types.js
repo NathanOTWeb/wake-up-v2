@@ -121,6 +121,23 @@ export const PagePartsFragmentDoc = gql`
       background
       animate
     }
+    ... on PageSectionsPathsSection {
+      heading
+      tiers {
+        __typename
+        badge
+        name
+        subtitle
+        popular
+      }
+      cta {
+        __typename
+        label
+        href
+      }
+      background
+      animate
+    }
   }
 }
     `;

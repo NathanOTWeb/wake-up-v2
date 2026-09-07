@@ -234,8 +234,68 @@ export const benefitsSection: Template = {
   ],
 };
 
+/**
+ * A heading over a row of pricing/path tier cards (badge, name, subtitle;
+ * one can be flagged "most popular"), plus an optional button. V6 section 8
+ * "Choose Your Path".
+ */
+export const pathsSection: Template = {
+  name: "pathsSection",
+  label: "Paths / Tiers Section",
+  fields: [
+    {
+      type: "string",
+      name: "heading",
+      label: "Heading",
+      required: true,
+      ui: { component: "textarea" },
+      description: "Add a line break to control where the heading wraps.",
+    },
+    {
+      type: "object",
+      name: "tiers",
+      label: "Tiers",
+      list: true,
+      ui: {
+        itemProps: (t: any) => ({ label: t?.name || t?.badge || "Tier" }),
+      },
+      fields: [
+        { type: "string", name: "badge", label: "Badge (e.g. SILVER)" },
+        { type: "string", name: "name", label: "Name" },
+        { type: "string", name: "subtitle", label: "Subtitle" },
+        { type: "boolean", name: "popular", label: "Highlight as most popular" },
+      ],
+    },
+    {
+      type: "object",
+      name: "cta",
+      label: "Button (optional)",
+      fields: [
+        { type: "string", name: "label", label: "Label" },
+        { type: "string", name: "href", label: "Link URL" },
+      ],
+    },
+    {
+      type: "string",
+      name: "background",
+      label: "Background",
+      options: [
+        { value: "default", label: "Ivory" },
+        { value: "gold", label: "Pale gold" },
+      ],
+    },
+    {
+      type: "boolean",
+      name: "animate",
+      label: "Animate entries in",
+      description: "Heading fades up, then the tiers, then the button — on scroll into view.",
+    },
+  ],
+};
+
 export const sectionTemplates: Template[] = [
   listSection,
   frameworkSection,
   benefitsSection,
+  pathsSection,
 ];

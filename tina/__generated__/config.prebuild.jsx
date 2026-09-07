@@ -215,10 +215,64 @@ var benefitsSection = {
     }
   ]
 };
+var pathsSection = {
+  name: "pathsSection",
+  label: "Paths / Tiers Section",
+  fields: [
+    {
+      type: "string",
+      name: "heading",
+      label: "Heading",
+      required: true,
+      ui: { component: "textarea" },
+      description: "Add a line break to control where the heading wraps."
+    },
+    {
+      type: "object",
+      name: "tiers",
+      label: "Tiers",
+      list: true,
+      ui: {
+        itemProps: (t) => ({ label: t?.name || t?.badge || "Tier" })
+      },
+      fields: [
+        { type: "string", name: "badge", label: "Badge (e.g. SILVER)" },
+        { type: "string", name: "name", label: "Name" },
+        { type: "string", name: "subtitle", label: "Subtitle" },
+        { type: "boolean", name: "popular", label: "Highlight as most popular" }
+      ]
+    },
+    {
+      type: "object",
+      name: "cta",
+      label: "Button (optional)",
+      fields: [
+        { type: "string", name: "label", label: "Label" },
+        { type: "string", name: "href", label: "Link URL" }
+      ]
+    },
+    {
+      type: "string",
+      name: "background",
+      label: "Background",
+      options: [
+        { value: "default", label: "Ivory" },
+        { value: "gold", label: "Pale gold" }
+      ]
+    },
+    {
+      type: "boolean",
+      name: "animate",
+      label: "Animate entries in",
+      description: "Heading fades up, then the tiers, then the button \u2014 on scroll into view."
+    }
+  ]
+};
 var sectionTemplates = [
   listSection,
   frameworkSection,
-  benefitsSection
+  benefitsSection,
+  pathsSection
 ];
 
 // tina/collection/home.tsx

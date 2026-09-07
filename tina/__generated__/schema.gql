@@ -313,7 +313,27 @@ type PageSectionsBenefitsSection {
   animate: Boolean
 }
 
-union PageSections = PageSectionsListSection | PageSectionsFrameworkSection | PageSectionsBenefitsSection
+type PageSectionsPathsSectionTiers {
+  badge: String
+  name: String
+  subtitle: String
+  popular: Boolean
+}
+
+type PageSectionsPathsSectionCta {
+  label: String
+  href: String
+}
+
+type PageSectionsPathsSection {
+  heading: String!
+  tiers: [PageSectionsPathsSectionTiers]
+  cta: PageSectionsPathsSectionCta
+  background: String
+  animate: Boolean
+}
+
+union PageSections = PageSectionsListSection | PageSectionsFrameworkSection | PageSectionsBenefitsSection | PageSectionsPathsSection
 
 type Page implements Node & Document {
   title: String!
@@ -384,10 +404,31 @@ input PageSectionsBenefitsSectionFilter {
   animate: BooleanFilter
 }
 
+input PageSectionsPathsSectionTiersFilter {
+  badge: StringFilter
+  name: StringFilter
+  subtitle: StringFilter
+  popular: BooleanFilter
+}
+
+input PageSectionsPathsSectionCtaFilter {
+  label: StringFilter
+  href: StringFilter
+}
+
+input PageSectionsPathsSectionFilter {
+  heading: StringFilter
+  tiers: PageSectionsPathsSectionTiersFilter
+  cta: PageSectionsPathsSectionCtaFilter
+  background: StringFilter
+  animate: BooleanFilter
+}
+
 input PageSectionsFilter {
   listSection: PageSectionsListSectionFilter
   frameworkSection: PageSectionsFrameworkSectionFilter
   benefitsSection: PageSectionsBenefitsSectionFilter
+  pathsSection: PageSectionsPathsSectionFilter
 }
 
 input PageFilter {
@@ -556,10 +597,31 @@ input PageSectionsBenefitsSectionMutation {
   animate: Boolean
 }
 
+input PageSectionsPathsSectionTiersMutation {
+  badge: String
+  name: String
+  subtitle: String
+  popular: Boolean
+}
+
+input PageSectionsPathsSectionCtaMutation {
+  label: String
+  href: String
+}
+
+input PageSectionsPathsSectionMutation {
+  heading: String
+  tiers: [PageSectionsPathsSectionTiersMutation]
+  cta: PageSectionsPathsSectionCtaMutation
+  background: String
+  animate: Boolean
+}
+
 input PageSectionsMutation {
   listSection: PageSectionsListSectionMutation
   frameworkSection: PageSectionsFrameworkSectionMutation
   benefitsSection: PageSectionsBenefitsSectionMutation
+  pathsSection: PageSectionsPathsSectionMutation
 }
 
 input PageMutation {

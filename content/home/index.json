@@ -19,8 +19,7 @@
   "nav": {
     "links": [
       { "label": "The Method", "href": "/method" },
-      { "label": "What You Get", "href": "#benefits" },
-      { "label": "Pricing", "href": "#pricing" },
+      { "label": "Pricing", "href": "/pricing" },
       { "label": "Meet The Founder", "href": "#founder" }
     ]
   },
