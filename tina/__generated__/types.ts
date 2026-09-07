@@ -415,7 +415,17 @@ export type PageSectionsFrameworkSection = {
   animate?: Maybe<Scalars['Boolean']['output']>;
 };
 
-export type PageSections = PageSectionsListSection | PageSectionsFrameworkSection;
+export type PageSectionsBenefitsSection = {
+  __typename?: 'PageSectionsBenefitsSection';
+  heading: Scalars['String']['output'];
+  benefits?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  scripture?: Maybe<Scalars['String']['output']>;
+  scriptureRef?: Maybe<Scalars['String']['output']>;
+  background?: Maybe<Scalars['String']['output']>;
+  animate?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type PageSections = PageSectionsListSection | PageSectionsFrameworkSection | PageSectionsBenefitsSection;
 
 export type Page = Node & Document & {
   __typename?: 'Page';
@@ -478,9 +488,19 @@ export type PageSectionsFrameworkSectionFilter = {
   animate?: InputMaybe<BooleanFilter>;
 };
 
+export type PageSectionsBenefitsSectionFilter = {
+  heading?: InputMaybe<StringFilter>;
+  benefits?: InputMaybe<StringFilter>;
+  scripture?: InputMaybe<StringFilter>;
+  scriptureRef?: InputMaybe<StringFilter>;
+  background?: InputMaybe<StringFilter>;
+  animate?: InputMaybe<BooleanFilter>;
+};
+
 export type PageSectionsFilter = {
   listSection?: InputMaybe<PageSectionsListSectionFilter>;
   frameworkSection?: InputMaybe<PageSectionsFrameworkSectionFilter>;
+  benefitsSection?: InputMaybe<PageSectionsBenefitsSectionFilter>;
 };
 
 export type PageFilter = {
@@ -700,9 +720,19 @@ export type PageSectionsFrameworkSectionMutation = {
   animate?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type PageSectionsBenefitsSectionMutation = {
+  heading?: InputMaybe<Scalars['String']['input']>;
+  benefits?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  scripture?: InputMaybe<Scalars['String']['input']>;
+  scriptureRef?: InputMaybe<Scalars['String']['input']>;
+  background?: InputMaybe<Scalars['String']['input']>;
+  animate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export type PageSectionsMutation = {
   listSection?: InputMaybe<PageSectionsListSectionMutation>;
   frameworkSection?: InputMaybe<PageSectionsFrameworkSectionMutation>;
+  benefitsSection?: InputMaybe<PageSectionsBenefitsSectionMutation>;
 };
 
 export type PageMutation = {
@@ -847,9 +877,19 @@ export type PageSectionsFrameworkSectionFilter = {
   animate?: BooleanFilter | null | undefined;
 };
 
+export type PageSectionsBenefitsSectionFilter = {
+  heading?: StringFilter | null | undefined;
+  benefits?: StringFilter | null | undefined;
+  scripture?: StringFilter | null | undefined;
+  scriptureRef?: StringFilter | null | undefined;
+  background?: StringFilter | null | undefined;
+  animate?: BooleanFilter | null | undefined;
+};
+
 export type PageSectionsFilter = {
   listSection?: PageSectionsListSectionFilter | null | undefined;
   frameworkSection?: PageSectionsFrameworkSectionFilter | null | undefined;
+  benefitsSection?: PageSectionsBenefitsSectionFilter | null | undefined;
 };
 
 export type PageFilter = {
@@ -863,6 +903,7 @@ export type HomePartsFragment = { __typename: 'Home', hero: { __typename: 'HomeH
 export type PagePartsFragment = { __typename: 'Page', title: string, intro: { __typename: 'PageIntro', src: string | null, poster: string | null } | null, sections: Array<
     | { __typename: 'PageSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'PageSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'PageSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'PageSectionsListSectionCta', label: string | null, href: string | null } | null }
     | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, points: Array<string | null> | null, scriptureRef: string | null } | null> | null }
+    | { __typename: 'PageSectionsBenefitsSection', heading: string, benefits: Array<string | null> | null, scripture: string | null, scriptureRef: string | null, background: string | null, animate: boolean | null }
    | null> | null };
 
 export type HomeQueryVariables = Exact<{
@@ -892,6 +933,7 @@ export type PageQueryVariables = Exact<{
 export type PageQuery = { page: { __typename: 'Page', id: string, title: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, intro: { __typename: 'PageIntro', src: string | null, poster: string | null } | null, sections: Array<
       | { __typename: 'PageSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'PageSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'PageSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'PageSectionsListSectionCta', label: string | null, href: string | null } | null }
       | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, points: Array<string | null> | null, scriptureRef: string | null } | null> | null }
+      | { __typename: 'PageSectionsBenefitsSection', heading: string, benefits: Array<string | null> | null, scripture: string | null, scriptureRef: string | null, background: string | null, animate: boolean | null }
      | null> | null } };
 
 export type PageConnectionQueryVariables = Exact<{
@@ -907,6 +949,7 @@ export type PageConnectionQueryVariables = Exact<{
 export type PageConnectionQuery = { pageConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page', id: string, title: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, intro: { __typename: 'PageIntro', src: string | null, poster: string | null } | null, sections: Array<
           | { __typename: 'PageSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'PageSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'PageSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'PageSectionsListSectionCta', label: string | null, href: string | null } | null }
           | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, points: Array<string | null> | null, scriptureRef: string | null } | null> | null }
+          | { __typename: 'PageSectionsBenefitsSection', heading: string, benefits: Array<string | null> | null, scripture: string | null, scriptureRef: string | null, background: string | null, animate: boolean | null }
          | null> | null } | null } | null> | null } };
 
 export const HomePartsFragmentDoc = gql`
@@ -1014,6 +1057,14 @@ export const PagePartsFragmentDoc = gql`
       }
       closing
       closingEmphasis
+      background
+      animate
+    }
+    ... on PageSectionsBenefitsSection {
+      heading
+      benefits
+      scripture
+      scriptureRef
       background
       animate
     }

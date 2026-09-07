@@ -177,7 +177,49 @@ var frameworkSection = {
     }
   ]
 };
-var sectionTemplates = [listSection, frameworkSection];
+var benefitsSection = {
+  name: "benefitsSection",
+  label: "Benefits Section",
+  fields: [
+    {
+      type: "string",
+      name: "heading",
+      label: "Heading",
+      required: true,
+      ui: { component: "textarea" },
+      description: "Add a line break to control where the heading wraps."
+    },
+    {
+      type: "string",
+      name: "benefits",
+      label: "Benefits",
+      list: true,
+      description: "One line each; laid out in a two-column grid."
+    },
+    { type: "string", name: "scripture", label: "Scripture (optional)" },
+    { type: "string", name: "scriptureRef", label: "Scripture reference (optional)" },
+    {
+      type: "string",
+      name: "background",
+      label: "Background",
+      options: [
+        { value: "default", label: "Ivory" },
+        { value: "gold", label: "Pale gold" }
+      ]
+    },
+    {
+      type: "boolean",
+      name: "animate",
+      label: "Animate entries in",
+      description: "Heading fades up, then the cards slide in from their side, then the scripture \u2014 on scroll into view."
+    }
+  ]
+};
+var sectionTemplates = [
+  listSection,
+  frameworkSection,
+  benefitsSection
+];
 
 // tina/collection/home.tsx
 var Home = {

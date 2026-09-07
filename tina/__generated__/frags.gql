@@ -104,5 +104,13 @@ fragment PageParts on Page {
       background
       animate
     }
+    ... on PageSectionsBenefitsSection {
+      heading
+      benefits
+      scripture
+      scriptureRef
+      background
+      animate
+    }
   }
 }

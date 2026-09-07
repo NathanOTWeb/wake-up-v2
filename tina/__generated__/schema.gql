@@ -304,7 +304,16 @@ type PageSectionsFrameworkSection {
   animate: Boolean
 }
 
-union PageSections = PageSectionsListSection | PageSectionsFrameworkSection
+type PageSectionsBenefitsSection {
+  heading: String!
+  benefits: [String]
+  scripture: String
+  scriptureRef: String
+  background: String
+  animate: Boolean
+}
+
+union PageSections = PageSectionsListSection | PageSectionsFrameworkSection | PageSectionsBenefitsSection
 
 type Page implements Node & Document {
   title: String!
@@ -366,9 +375,19 @@ input PageSectionsFrameworkSectionFilter {
   animate: BooleanFilter
 }
 
+input PageSectionsBenefitsSectionFilter {
+  heading: StringFilter
+  benefits: StringFilter
+  scripture: StringFilter
+  scriptureRef: StringFilter
+  background: StringFilter
+  animate: BooleanFilter
+}
+
 input PageSectionsFilter {
   listSection: PageSectionsListSectionFilter
   frameworkSection: PageSectionsFrameworkSectionFilter
+  benefitsSection: PageSectionsBenefitsSectionFilter
 }
 
 input PageFilter {
@@ -528,9 +547,19 @@ input PageSectionsFrameworkSectionMutation {
   animate: Boolean
 }
 
+input PageSectionsBenefitsSectionMutation {
+  heading: String
+  benefits: [String]
+  scripture: String
+  scriptureRef: String
+  background: String
+  animate: Boolean
+}
+
 input PageSectionsMutation {
   listSection: PageSectionsListSectionMutation
   frameworkSection: PageSectionsFrameworkSectionMutation
+  benefitsSection: PageSectionsBenefitsSectionMutation
 }
 
 input PageMutation {

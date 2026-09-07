@@ -1,8 +1,9 @@
 // @ts-nocheck
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { tinaField } from "tinacms/dist/react";
+import { useReveal } from "./useReveal";
 
 type Entry = {
   marker?: string;
@@ -45,66 +46,9 @@ export default function FrameworkSection({
   const path = (field: string) => `${scope}.sections.${index}.${field}`;
   const items = block.items || [];
 
-  // Staggered fade-in: hold the cards hidden until the section is in view
-  // AND the intro overlay (if any) has cleared — IntroVideo flags the
-  // document with .intro-active while it's on screen. Then CSS animates the
-  // cards in one by one (.wu-anim / .is-shown).
-  const sectionRef = useRef<HTMLElement>(null);
-  const [shown, setShown] = useState(false);
-  useEffect(() => {
-    if (!block.animate) return;
-    const el = sectionRef.current;
-    if (!el) return;
-
-    const root = document.documentElement;
-    let inView = typeof IntersectionObserver === "undefined";
-    let forced = false;
-    let done = false;
-    let io: IntersectionObserver | null = null;
-    let mo: MutationObserver | null = null;
-    let safety = 0;
-
-    const maybeReveal = () => {
-      if (done) return;
-      if (!forced && (!inView || root.classList.contains("intro-active"))) return;
-      done = true;
-      setShown(true);
-      io?.disconnect();
-      mo?.disconnect();
-      window.clearTimeout(safety);
-    };
-
-    if (typeof IntersectionObserver !== "undefined") {
-      io = new IntersectionObserver(
-        (entries) => {
-          if (entries.some((e) => e.isIntersecting)) {
-            inView = true;
-            maybeReveal();
-          }
-        },
-        { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
-      );
-      io.observe(el);
-    }
-
-    // Reveal as soon as .intro-active is removed (or if it's already gone).
-    mo = new MutationObserver(maybeReveal);
-    mo.observe(root, { attributes: true, attributeFilter: ["class"] });
-
-    // Safety net in case the intro flag never clears.
-    safety = window.setTimeout(() => {
-      forced = true;
-      maybeReveal();
-    }, 30_000);
-
-    maybeReveal();
-
-    return () => {
-      io?.disconnect();
-      mo?.disconnect();
-      window.clearTimeout(safety);
-    };
-  }, [block.animate]);
+  // Held hidden until in view + any intro overlay has cleared; then the CSS
+  // keyed on .wu-anim / .is-shown staggers the entries in.
+  const { ref: sectionRef, shown } = useReveal(block.animate);
 
   // Split `text` on newlines into lines, gold-highlighting `emphasis`.
   const renderRich = (text: string, emphasis?: string) =>

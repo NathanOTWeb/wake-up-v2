@@ -76,7 +76,24 @@
           "points": ["Establish identity", "Lead with authority", "Build legacy"]
         }
       ],
-      "background": "gold"
+      "background": "gold",
+      "animate": true
+    },
+    {
+      "_template": "benefitsSection",
+      "heading": "What You Get",
+      "benefits": [
+        "Weekly live coaching calls",
+        "Structured 12-week curriculum",
+        "Brotherhood community",
+        "Breathwork + fasting protocols",
+        "Identity + discipline coaching",
+        "Real accountability"
+      ],
+      "scripture": "“The prayer of a righteous man is powerful and effective.”",
+      "scriptureRef": "James 5:16",
+      "background": "default",
+      "animate": true
     }
   ]
 }

@@ -881,14 +881,19 @@ html.intro-active .wu-nav {
 }
 
 /* Portrait phones: no nav-bar height is reserved (.wu-page), so the
-   section takes the full viewport. Top-align the content and leave just
-   enough room for the floating hamburger. */
+   section takes the full viewport. Content is centred vertically; a
+   section long enough to risk overflow (5+ entries — the acronym) is
+   top-aligned instead so nothing clips, still leaving room for the
+   floating hamburger. */
 @media (orientation: portrait) and (max-width: 768px) {
   .wu-framework-section {
     min-height: 100dvh;
-    justify-content: flex-start;
+    justify-content: center;
     padding: clamp(3rem, 8dvh, 3.75rem) clamp(0.85rem, 3.5vw, 1.25rem)
       clamp(1rem, 3dvh, 2rem);
+  }
+  .wu-framework-section:has(.wu-framework-list > :nth-child(5)) {
+    justify-content: flex-start;
   }
   /* Bigger heading, forced onto two lines (see the \n in the content and
      .wu-hbr below), to fill the space at the top. */
@@ -902,7 +907,167 @@ html.intro-active .wu-nav {
 /* The heading's mid-phrase break only applies on mobile; on wider screens
    it collapses to the space beside it and the heading sits on one line. */
 @media (min-width: 769px) {
-  .wu-framework-heading .wu-hbr {
+  .wu-hbr {
     display: none;
+  }
+}
+
+/* ============================================================
+   Benefits Section block (app/components/blocks/BenefitsSection.tsx)
+   Heading + a two-column grid of one-line cards + optional scripture.
+   ============================================================ */
+.wu-benefits-section {
+  box-sizing: border-box;
+  min-height: calc(100dvh - var(--nav-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 6dvh, 4rem) clamp(1.25rem, 6vw, 5rem);
+  background-color: var(--bg-color);
+  /* the cards slide in from off to the side — don't let that scroll the page */
+  overflow-x: clip;
+}
+.wu-benefits-section.is-gold {
+  background-color: var(--secondary-bg);
+}
+
+.wu-benefits-inner {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 3.5dvh, 2.25rem);
+}
+
+.wu-benefits-heading {
+  margin: 0;
+  padding-bottom: clamp(0.5rem, 1.6dvh, 1.4rem);
+  border-bottom: 1px solid var(--primary-color);
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 0.85rem + 2.8vw, 3.1rem);
+  line-height: 1.14;
+  letter-spacing: 0.02em;
+  text-wrap: balance;
+  color: var(--text-dark);
+}
+
+.wu-benefits-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(0.75rem, 2vh, 1.25rem);
+}
+@media (min-width: 640px) {
+  .wu-benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.wu-benefit-item {
+  padding: clamp(0.85rem, 2.5vw, 1.15rem) clamp(1rem, 3vw, 1.4rem);
+  background: var(--secondary-bg);
+  border-radius: 6px;
+  border-left: 4px solid var(--primary-color);
+  font-family: "Inter", sans-serif;
+  font-size: clamp(0.95rem, 0.85rem + 0.5vw, 1.1rem);
+  line-height: 1.35;
+  color: var(--text-medium);
+}
+.wu-benefits-section.is-gold .wu-benefit-item {
+  background: var(--bg-color);
+}
+
+.wu-benefits-scripture {
+  margin: 0 auto;
+  max-width: 60ch;
+  text-align: center;
+  font-family: "Merriweather", serif;
+  font-style: italic;
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+  color: var(--text-light);
+}
+.wu-benefits-scripture .wu-scripture-ref {
+  font-style: normal;
+}
+
+/* Reveal (block `animate`): heading fades up, then each card slides in from
+   its column's side — left column from the left, right column from the
+   right; in a single column they alternate (odd from left, even from
+   right) — then the scripture fades in. */
+.wu-anim .wu-benefits-heading,
+.wu-anim .wu-benefit-item,
+.wu-anim .wu-benefits-scripture {
+  opacity: 0;
+}
+.wu-anim.is-shown .wu-benefits-heading {
+  animation: wu-fade-up 720ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+.wu-anim.is-shown .wu-benefit-item {
+  animation-duration: 600ms;
+  animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  animation-fill-mode: both;
+}
+.wu-anim.is-shown .wu-benefit-item:nth-child(odd) {
+  animation-name: wu-slide-in-left;
+}
+.wu-anim.is-shown .wu-benefit-item:nth-child(even) {
+  animation-name: wu-slide-in-right;
+}
+.wu-anim.is-shown .wu-benefit-item:nth-child(1) { animation-delay: 500ms; }
+.wu-anim.is-shown .wu-benefit-item:nth-child(2) { animation-delay: 620ms; }
+.wu-anim.is-shown .wu-benefit-item:nth-child(3) { animation-delay: 740ms; }
+.wu-anim.is-shown .wu-benefit-item:nth-child(4) { animation-delay: 860ms; }
+.wu-anim.is-shown .wu-benefit-item:nth-child(5) { animation-delay: 980ms; }
+.wu-anim.is-shown .wu-benefit-item:nth-child(6) { animation-delay: 1100ms; }
+.wu-anim.is-shown .wu-benefit-item:nth-child(7) { animation-delay: 1220ms; }
+.wu-anim.is-shown .wu-benefit-item:nth-child(8) { animation-delay: 1340ms; }
+.wu-anim.is-shown .wu-benefits-scripture {
+  animation: wu-fade-up 720ms cubic-bezier(0.22, 0.61, 0.36, 1) 1450ms both;
+}
+@keyframes wu-slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes wu-slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wu-anim .wu-benefits-heading,
+  .wu-anim .wu-benefit-item,
+  .wu-anim .wu-benefits-scripture {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* Portrait phones: fill the viewport, centre the content, bigger heading. */
+@media (orientation: portrait) and (max-width: 768px) {
+  .wu-benefits-section {
+    min-height: 100dvh;
+    justify-content: center;
+    padding: clamp(3rem, 8dvh, 3.75rem) clamp(0.85rem, 3.5vw, 1.25rem)
+      clamp(1rem, 3dvh, 2rem);
+  }
+  .wu-benefits-heading {
+    font-size: clamp(1.85rem, 8vw, 2.4rem);
+    line-height: 1.12;
+    text-wrap: normal;
   }
 }

@@ -113,6 +113,14 @@ export const PagePartsFragmentDoc = gql`
       background
       animate
     }
+    ... on PageSectionsBenefitsSection {
+      heading
+      benefits
+      scripture
+      scriptureRef
+      background
+      animate
+    }
   }
 }
     `;
