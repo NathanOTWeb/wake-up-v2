@@ -1130,6 +1130,10 @@ html.intro-active .wu-nav {
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(1rem, 3vh, 1.75rem);
+  /* Cards with the full pricing breakdown run taller than the compact
+     badge/name/subtitle teaser — align each card to the top of its row
+     rather than stretching it to match its row's tallest card. */
+  align-items: start;
 }
 @media (min-width: 720px) {
   .wu-paths-grid {
@@ -1184,6 +1188,87 @@ html.intro-active .wu-nav {
   color: var(--text-light);
 }
 
+.wu-tier-ideal-for {
+  margin: 0.5rem 0 0;
+  font-family: "Inter", sans-serif;
+  font-style: italic;
+  font-size: clamp(0.82rem, 0.76rem + 0.3vw, 0.92rem);
+  line-height: 1.4;
+  color: var(--text-light);
+}
+
+/* "What they get" — gold-dash list, left-aligned within the centred card
+   (matches .wu-framework-points). */
+.wu-tier-features {
+  list-style: none;
+  margin: 0.85rem 0 0;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  width: fit-content;
+  max-width: 100%;
+  align-self: center;
+  font-family: "Inter", sans-serif;
+  font-size: clamp(0.85rem, 0.78rem + 0.3vw, 0.95rem);
+  line-height: 1.35;
+  color: var(--text-medium);
+  text-align: left;
+}
+.wu-tier-features li {
+  padding-left: 1.1rem;
+  text-indent: -1.1rem;
+}
+.wu-tier-features li::before {
+  content: "—";
+  margin-right: 0.4rem;
+  color: var(--primary-color);
+}
+
+.wu-tier-price {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+.wu-tier-price-full {
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.3rem);
+  color: var(--primary-color);
+}
+.wu-tier-payment-options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  font-family: "Inter", sans-serif;
+  font-size: clamp(0.78rem, 0.73rem + 0.25vw, 0.85rem);
+  color: var(--text-light);
+}
+.wu-tier-payment-options li::before {
+  content: "or ";
+}
+
+.wu-paths-closing {
+  margin: 0;
+  font-family: "Cinzel", serif;
+  font-weight: 600;
+  font-size: clamp(1.1rem, 0.75rem + 1.8vw, 1.9rem);
+  line-height: 1.4;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--text-dark);
+}
+
 /* A section's button, centred below its content — matches .wu-list-cta. */
 .wu-paths-cta {
   display: flex;
@@ -1191,10 +1276,12 @@ html.intro-active .wu-nav {
   margin-top: clamp(0.25rem, 1.5vh, 1rem);
 }
 
-/* Reveal (block `animate`): heading, then tiers stagger, then the button. */
+/* Reveal (block `animate`): heading, then tiers stagger, then the button,
+   then the closing line. */
 .wu-anim .wu-paths-heading,
 .wu-anim .wu-tier,
-.wu-anim .wu-paths-cta {
+.wu-anim .wu-paths-cta,
+.wu-anim .wu-paths-closing {
   opacity: 0;
 }
 .wu-anim.is-shown .wu-paths-heading {
@@ -1210,10 +1297,14 @@ html.intro-active .wu-nav {
 .wu-anim.is-shown .wu-paths-cta {
   animation: wu-fade-up 620ms cubic-bezier(0.22, 0.61, 0.36, 1) 1050ms both;
 }
+.wu-anim.is-shown .wu-paths-closing {
+  animation: wu-fade-up 720ms cubic-bezier(0.22, 0.61, 0.36, 1) 1200ms both;
+}
 @media (prefers-reduced-motion: reduce) {
   .wu-anim .wu-paths-heading,
   .wu-anim .wu-tier,
-  .wu-anim .wu-paths-cta {
+  .wu-anim .wu-paths-cta,
+  .wu-anim .wu-paths-closing {
     opacity: 1;
     animation: none;
   }

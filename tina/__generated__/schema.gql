@@ -324,6 +324,10 @@ type PageSectionsPathsSectionTiers {
   name: String
   subtitle: String
   popular: Boolean
+  idealFor: String
+  features: [String]
+  priceInFull: String
+  paymentOptions: [String]
 }
 
 type PageSectionsPathsSectionCta {
@@ -335,6 +339,8 @@ type PageSectionsPathsSection {
   heading: String!
   tiers: [PageSectionsPathsSectionTiers]
   cta: PageSectionsPathsSectionCta
+  closing: String
+  closingEmphasis: String
   background: String
   animate: Boolean
 }
@@ -421,6 +427,10 @@ input PageSectionsPathsSectionTiersFilter {
   name: StringFilter
   subtitle: StringFilter
   popular: BooleanFilter
+  idealFor: StringFilter
+  features: StringFilter
+  priceInFull: StringFilter
+  paymentOptions: StringFilter
 }
 
 input PageSectionsPathsSectionCtaFilter {
@@ -432,6 +442,8 @@ input PageSectionsPathsSectionFilter {
   heading: StringFilter
   tiers: PageSectionsPathsSectionTiersFilter
   cta: PageSectionsPathsSectionCtaFilter
+  closing: StringFilter
+  closingEmphasis: StringFilter
   background: StringFilter
   animate: BooleanFilter
 }
@@ -620,6 +632,10 @@ input PageSectionsPathsSectionTiersMutation {
   name: String
   subtitle: String
   popular: Boolean
+  idealFor: String
+  features: [String]
+  priceInFull: String
+  paymentOptions: [String]
 }
 
 input PageSectionsPathsSectionCtaMutation {
@@ -631,6 +647,8 @@ input PageSectionsPathsSectionMutation {
   heading: String
   tiers: [PageSectionsPathsSectionTiersMutation]
   cta: PageSectionsPathsSectionCtaMutation
+  closing: String
+  closingEmphasis: String
   background: String
   animate: Boolean
 }

@@ -438,6 +438,10 @@ export type PageSectionsPathsSectionTiers = {
   name?: Maybe<Scalars['String']['output']>;
   subtitle?: Maybe<Scalars['String']['output']>;
   popular?: Maybe<Scalars['Boolean']['output']>;
+  idealFor?: Maybe<Scalars['String']['output']>;
+  features?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  priceInFull?: Maybe<Scalars['String']['output']>;
+  paymentOptions?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
 };
 
 export type PageSectionsPathsSectionCta = {
@@ -451,6 +455,8 @@ export type PageSectionsPathsSection = {
   heading: Scalars['String']['output'];
   tiers?: Maybe<Array<Maybe<PageSectionsPathsSectionTiers>>>;
   cta?: Maybe<PageSectionsPathsSectionCta>;
+  closing?: Maybe<Scalars['String']['output']>;
+  closingEmphasis?: Maybe<Scalars['String']['output']>;
   background?: Maybe<Scalars['String']['output']>;
   animate?: Maybe<Scalars['Boolean']['output']>;
 };
@@ -538,6 +544,10 @@ export type PageSectionsPathsSectionTiersFilter = {
   name?: InputMaybe<StringFilter>;
   subtitle?: InputMaybe<StringFilter>;
   popular?: InputMaybe<BooleanFilter>;
+  idealFor?: InputMaybe<StringFilter>;
+  features?: InputMaybe<StringFilter>;
+  priceInFull?: InputMaybe<StringFilter>;
+  paymentOptions?: InputMaybe<StringFilter>;
 };
 
 export type PageSectionsPathsSectionCtaFilter = {
@@ -549,6 +559,8 @@ export type PageSectionsPathsSectionFilter = {
   heading?: InputMaybe<StringFilter>;
   tiers?: InputMaybe<PageSectionsPathsSectionTiersFilter>;
   cta?: InputMaybe<PageSectionsPathsSectionCtaFilter>;
+  closing?: InputMaybe<StringFilter>;
+  closingEmphasis?: InputMaybe<StringFilter>;
   background?: InputMaybe<StringFilter>;
   animate?: InputMaybe<BooleanFilter>;
 };
@@ -797,6 +809,10 @@ export type PageSectionsPathsSectionTiersMutation = {
   name?: InputMaybe<Scalars['String']['input']>;
   subtitle?: InputMaybe<Scalars['String']['input']>;
   popular?: InputMaybe<Scalars['Boolean']['input']>;
+  idealFor?: InputMaybe<Scalars['String']['input']>;
+  features?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  priceInFull?: InputMaybe<Scalars['String']['input']>;
+  paymentOptions?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type PageSectionsPathsSectionCtaMutation = {
@@ -808,6 +824,8 @@ export type PageSectionsPathsSectionMutation = {
   heading?: InputMaybe<Scalars['String']['input']>;
   tiers?: InputMaybe<Array<InputMaybe<PageSectionsPathsSectionTiersMutation>>>;
   cta?: InputMaybe<PageSectionsPathsSectionCtaMutation>;
+  closing?: InputMaybe<Scalars['String']['input']>;
+  closingEmphasis?: InputMaybe<Scalars['String']['input']>;
   background?: InputMaybe<Scalars['String']['input']>;
   animate?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -981,6 +999,10 @@ export type PageSectionsPathsSectionTiersFilter = {
   name?: StringFilter | null | undefined;
   subtitle?: StringFilter | null | undefined;
   popular?: BooleanFilter | null | undefined;
+  idealFor?: StringFilter | null | undefined;
+  features?: StringFilter | null | undefined;
+  priceInFull?: StringFilter | null | undefined;
+  paymentOptions?: StringFilter | null | undefined;
 };
 
 export type PageSectionsPathsSectionCtaFilter = {
@@ -992,6 +1014,8 @@ export type PageSectionsPathsSectionFilter = {
   heading?: StringFilter | null | undefined;
   tiers?: PageSectionsPathsSectionTiersFilter | null | undefined;
   cta?: PageSectionsPathsSectionCtaFilter | null | undefined;
+  closing?: StringFilter | null | undefined;
+  closingEmphasis?: StringFilter | null | undefined;
   background?: StringFilter | null | undefined;
   animate?: BooleanFilter | null | undefined;
 };
@@ -1015,7 +1039,7 @@ export type PagePartsFragment = { __typename: 'Page', title: string, intro: { __
     | { __typename: 'PageSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'PageSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'PageSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'PageSectionsListSectionCta', label: string | null, href: string | null } | null }
     | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, points: Array<string | null> | null, scriptureRef: string | null } | null> | null }
     | { __typename: 'PageSectionsBenefitsSection', heading: string, benefits: Array<string | null> | null, scripture: string | null, scriptureRef: string | null, background: string | null, animate: boolean | null, cta: { __typename: 'PageSectionsBenefitsSectionCta', label: string | null, href: string | null } | null }
-    | { __typename: 'PageSectionsPathsSection', heading: string, background: string | null, animate: boolean | null, tiers: Array<{ __typename: 'PageSectionsPathsSectionTiers', badge: string | null, name: string | null, subtitle: string | null, popular: boolean | null } | null> | null, cta: { __typename: 'PageSectionsPathsSectionCta', label: string | null, href: string | null } | null }
+    | { __typename: 'PageSectionsPathsSection', heading: string, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, tiers: Array<{ __typename: 'PageSectionsPathsSectionTiers', badge: string | null, name: string | null, subtitle: string | null, popular: boolean | null, idealFor: string | null, features: Array<string | null> | null, priceInFull: string | null, paymentOptions: Array<string | null> | null } | null> | null, cta: { __typename: 'PageSectionsPathsSectionCta', label: string | null, href: string | null } | null }
    | null> | null };
 
 export type HomeQueryVariables = Exact<{
@@ -1046,7 +1070,7 @@ export type PageQuery = { page: { __typename: 'Page', id: string, title: string,
       | { __typename: 'PageSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'PageSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'PageSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'PageSectionsListSectionCta', label: string | null, href: string | null } | null }
       | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, points: Array<string | null> | null, scriptureRef: string | null } | null> | null }
       | { __typename: 'PageSectionsBenefitsSection', heading: string, benefits: Array<string | null> | null, scripture: string | null, scriptureRef: string | null, background: string | null, animate: boolean | null, cta: { __typename: 'PageSectionsBenefitsSectionCta', label: string | null, href: string | null } | null }
-      | { __typename: 'PageSectionsPathsSection', heading: string, background: string | null, animate: boolean | null, tiers: Array<{ __typename: 'PageSectionsPathsSectionTiers', badge: string | null, name: string | null, subtitle: string | null, popular: boolean | null } | null> | null, cta: { __typename: 'PageSectionsPathsSectionCta', label: string | null, href: string | null } | null }
+      | { __typename: 'PageSectionsPathsSection', heading: string, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, tiers: Array<{ __typename: 'PageSectionsPathsSectionTiers', badge: string | null, name: string | null, subtitle: string | null, popular: boolean | null, idealFor: string | null, features: Array<string | null> | null, priceInFull: string | null, paymentOptions: Array<string | null> | null } | null> | null, cta: { __typename: 'PageSectionsPathsSectionCta', label: string | null, href: string | null } | null }
      | null> | null } };
 
 export type PageConnectionQueryVariables = Exact<{
@@ -1063,7 +1087,7 @@ export type PageConnectionQuery = { pageConnection: { totalCount: number, pageIn
           | { __typename: 'PageSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'PageSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'PageSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'PageSectionsListSectionCta', label: string | null, href: string | null } | null }
           | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, points: Array<string | null> | null, scriptureRef: string | null } | null> | null }
           | { __typename: 'PageSectionsBenefitsSection', heading: string, benefits: Array<string | null> | null, scripture: string | null, scriptureRef: string | null, background: string | null, animate: boolean | null, cta: { __typename: 'PageSectionsBenefitsSectionCta', label: string | null, href: string | null } | null }
-          | { __typename: 'PageSectionsPathsSection', heading: string, background: string | null, animate: boolean | null, tiers: Array<{ __typename: 'PageSectionsPathsSectionTiers', badge: string | null, name: string | null, subtitle: string | null, popular: boolean | null } | null> | null, cta: { __typename: 'PageSectionsPathsSectionCta', label: string | null, href: string | null } | null }
+          | { __typename: 'PageSectionsPathsSection', heading: string, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, tiers: Array<{ __typename: 'PageSectionsPathsSectionTiers', badge: string | null, name: string | null, subtitle: string | null, popular: boolean | null, idealFor: string | null, features: Array<string | null> | null, priceInFull: string | null, paymentOptions: Array<string | null> | null } | null> | null, cta: { __typename: 'PageSectionsPathsSectionCta', label: string | null, href: string | null } | null }
          | null> | null } | null } | null> | null } };
 
 export const HomePartsFragmentDoc = gql`
@@ -1195,12 +1219,18 @@ export const PagePartsFragmentDoc = gql`
         name
         subtitle
         popular
+        idealFor
+        features
+        priceInFull
+        paymentOptions
       }
       cta {
         __typename
         label
         href
       }
+      closing
+      closingEmphasis
       background
       animate
     }

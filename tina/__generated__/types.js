@@ -134,12 +134,18 @@ export const PagePartsFragmentDoc = gql`
         name
         subtitle
         popular
+        idealFor
+        features
+        priceInFull
+        paymentOptions
       }
       cta {
         __typename
         label
         href
       }
+      closing
+      closingEmphasis
       background
       animate
     }

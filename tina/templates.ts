@@ -273,6 +273,32 @@ export const pathsSection: Template = {
         { type: "string", name: "name", label: "Name" },
         { type: "string", name: "subtitle", label: "Subtitle" },
         { type: "boolean", name: "popular", label: "Highlight as most popular" },
+        {
+          type: "string",
+          name: "idealFor",
+          label: "Who it's for (optional)",
+          description: "One line, e.g. \"For men who need structure, direction, and entry into discipline.\"",
+        },
+        {
+          type: "string",
+          name: "features",
+          label: "What they get (optional)",
+          list: true,
+          description: "One line each.",
+        },
+        {
+          type: "string",
+          name: "priceInFull",
+          label: "Price — pay in full (optional)",
+          description: "e.g. \"$997 – $1,200\"",
+        },
+        {
+          type: "string",
+          name: "paymentOptions",
+          label: "Other payment options (optional)",
+          list: true,
+          description: "One line each, e.g. \"$350–400/mo (3 months)\".",
+        },
       ],
     },
     {
@@ -284,6 +310,8 @@ export const pathsSection: Template = {
         { type: "string", name: "href", label: "Link URL" },
       ],
     },
+    { type: "string", name: "closing", label: "Closing line (optional)", ui: { component: "textarea" } },
+    { type: "string", name: "closingEmphasis", label: "Closing — word/phrase to highlight gold (optional)" },
     {
       type: "string",
       name: "background",
@@ -297,7 +325,7 @@ export const pathsSection: Template = {
       type: "boolean",
       name: "animate",
       label: "Animate entries in",
-      description: "Heading fades up, then the tiers, then the button — on scroll into view.",
+      description: "Heading fades up, then the tiers, then the button, then the closing line — on scroll into view.",
     },
   ],
 };
