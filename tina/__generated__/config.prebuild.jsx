@@ -434,7 +434,19 @@ var Page = {
           label: "Video URL",
           description: "e.g. /media/power-is-within-you.mp4"
         },
-        { type: "string", name: "poster", label: "Poster image URL" }
+        { type: "string", name: "poster", label: "Poster image URL" },
+        {
+          type: "number",
+          name: "startHoldSeconds",
+          label: "Hold the poster before playing (seconds, optional)",
+          description: "Use this if the video opens on text that needs time to read \u2014 the poster image holds still before the video starts."
+        },
+        {
+          type: "number",
+          name: "holdSeconds",
+          label: "Hold the last frame before fading (seconds, optional)",
+          description: "Default is 1.5s if left blank."
+        }
       ]
     },
     {

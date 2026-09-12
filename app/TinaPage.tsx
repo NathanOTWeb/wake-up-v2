@@ -47,7 +47,13 @@ export default function TinaPage({
   return (
     <>
       {intro?.src && (
-        <IntroVideo src={intro.src} poster={intro.poster} variant="center" />
+        <IntroVideo
+          src={intro.src}
+          poster={intro.poster}
+          variant="center"
+          startHoldMs={intro.startHoldSeconds ? intro.startHoldSeconds * 1000 : undefined}
+          holdMs={intro.holdSeconds ? intro.holdSeconds * 1000 : undefined}
+        />
       )}
       <Nav links={navLinks} logo={navLogo} />
       <main className="wu-page">

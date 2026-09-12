@@ -2,7 +2,9 @@
   "title": "Pricing — WAKE UP",
   "intro": {
     "src": "/media/vlog-stop-waiting-tightened.mp4",
-    "poster": "/media/vlog-stop-waiting-tightened-poster.jpg"
+    "poster": "/media/vlog-stop-waiting-tightened-poster.jpg",
+    "startHoldSeconds": 2,
+    "holdSeconds": 0.8
   },
   "sections": [
     {

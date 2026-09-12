@@ -70,6 +70,8 @@ export const PagePartsFragmentDoc = gql`
     __typename
     src
     poster
+    startHoldSeconds
+    holdSeconds
   }
   sections {
     __typename

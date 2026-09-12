@@ -61,6 +61,8 @@ fragment PageParts on Page {
     __typename
     src
     poster
+    startHoldSeconds
+    holdSeconds
   }
   sections {
     __typename

@@ -11,7 +11,7 @@ const MAX_MS = 25_000;
 /** Absolute ceiling regardless of clip length. */
 const HARD_CAP_MS = 75_000;
 /** Linger on the (paused) last frame after the clip ends, before fading. */
-const HOLD_MS = 1_500;
+const DEFAULT_HOLD_MS = 1_500;
 
 /**
  * Full-bleed intro that covers the page on load, plays once, then fades away.
@@ -29,10 +29,18 @@ export default function IntroVideo({
   src = "/media/wake-up-vertical.mp4",
   poster = "/media/wake-up-vertical-poster.jpg",
   variant = "hero",
+  startHoldMs = 0,
+  holdMs = DEFAULT_HOLD_MS,
 }: {
   src?: string;
   poster?: string;
   variant?: "hero" | "center";
+  /** Hold the poster (no playback) for this long before starting the video
+   *  — for a clip that opens on text that needs a moment to read. */
+  startHoldMs?: number;
+  /** Hold the paused last frame for this long after the clip ends, before
+   *  fading. Overrides the default 1.5s. */
+  holdMs?: number;
 } = {}) {
   const [phase, setPhase] = useState<Phase>("playing");
   const [muted, setMuted] = useState(true);
@@ -44,7 +52,7 @@ export default function IntroVideo({
   // When the clip finishes: leave the last frame up a moment, then fade.
   const endWithHold = () => {
     if (holdRef.current) return;
-    holdRef.current = window.setTimeout(dismiss, HOLD_MS);
+    holdRef.current = window.setTimeout(dismiss, holdMs);
   };
 
   // Don't run over the Tina live-preview.
@@ -81,12 +89,17 @@ export default function IntroVideo({
     if (phase !== "playing") return;
 
     const video = videoRef.current;
-    video?.play?.().catch(() => dismiss());
+
+    // Hold on the poster (no `autoPlay` on the element — we start playback
+    // ourselves) for startHoldMs before the clip actually begins.
+    const playTimer = window.setTimeout(() => {
+      video?.play?.().catch(() => dismiss());
+    }, startHoldMs);
 
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    let timer = window.setTimeout(dismiss, MAX_MS);
+    let timer = window.setTimeout(dismiss, startHoldMs + MAX_MS);
     // Once we know how long the clip actually is, let it run its full length
     // (plus a little slack) rather than cutting it off at MAX_MS.
     const onMeta = () => {
@@ -95,7 +108,7 @@ export default function IntroVideo({
         window.clearTimeout(timer);
         timer = window.setTimeout(
           dismiss,
-          Math.min(d * 1000 + HOLD_MS + 2000, HARD_CAP_MS)
+          Math.min(startHoldMs + d * 1000 + holdMs + 2000, HARD_CAP_MS)
         );
       }
     };
@@ -107,6 +120,7 @@ export default function IntroVideo({
 
     return () => {
       document.body.style.overflow = prevOverflow;
+      window.clearTimeout(playTimer);
       window.clearTimeout(timer);
       if (holdRef.current) window.clearTimeout(holdRef.current);
       video?.removeEventListener("loadedmetadata", onMeta);
@@ -136,7 +150,6 @@ export default function IntroVideo({
         className="intro-video"
         src={src}
         poster={poster}
-        autoPlay
         muted
         playsInline
         preload="auto"
