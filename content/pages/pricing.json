@@ -126,6 +126,10 @@
       ],
       "closing": "You are not paying for information\nYou are investing in transformation, discipline, and the man you become",
       "closingEmphasis": "transformation",
+      "cta": {
+        "label": "Meet the Founder",
+        "href": "/founder"
+      },
       "background": "default"
     }
   ]

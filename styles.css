@@ -497,7 +497,9 @@ html.intro-active .wu-nav {
   color: var(--text-dark);
 }
 .wu-list-closing {
-  margin-top: clamp(0.5rem, 1.5vh, 1rem);
+  /* Extra breathing room on top of .wu-list-inner's own gap, so the closing
+     statement reads as a distinct final beat rather than another list item. */
+  margin-top: clamp(2rem, 6vh, 3.5rem);
 }
 .wu-rich-line {
   display: block;
