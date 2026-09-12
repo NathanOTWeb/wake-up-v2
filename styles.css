@@ -1142,6 +1142,8 @@ html.intro-active .wu-nav {
 }
 
 .wu-tier {
+  --tier-accent: var(--primary-color);
+  --tier-divider: rgba(212, 175, 55, 0.25);
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
@@ -1163,12 +1165,37 @@ html.intro-active .wu-nav {
   background: var(--secondary-bg);
 }
 
+/* Per-tier metal accent — `--tier-accent`/`--tier-divider` drive the badge,
+   price, feature-dash and divider colors (see their rules below); gold is
+   the default (matches --primary-color) so only silver/platinum override
+   it. Layers under .is-popular's stronger gold treatment when a tier is
+   both (only Gold is, currently). */
+.wu-tier--silver {
+  border-color: #aeb4bb;
+  --tier-accent: #767c86;
+  --tier-divider: rgba(150, 157, 166, 0.35);
+}
+
+.wu-tier--gold {
+  border-color: rgba(212, 175, 55, 0.55);
+}
+
+.wu-tier--platinum {
+  border-color: #c9cdd3;
+  background: linear-gradient(150deg, #fbfcfd 0%, #eceef1 55%, #d9dce1 100%);
+  --tier-accent: #5c6570;
+  --tier-divider: rgba(140, 148, 158, 0.35);
+}
+.wu-paths-section.is-gold .wu-tier--platinum {
+  background: linear-gradient(150deg, #f4f5f7 0%, #e3e6ea 55%, #cfd3d9 100%);
+}
+
 .wu-tier-badge {
   font-family: "Inter", sans-serif;
   font-size: clamp(0.75rem, 0.7rem + 0.3vw, 0.85rem);
   font-weight: 600;
   letter-spacing: 0.08em;
-  color: var(--primary-color);
+  color: var(--tier-accent);
 }
 
 .wu-tier-name {
@@ -1203,7 +1230,7 @@ html.intro-active .wu-nav {
   list-style: none;
   margin: 0.85rem 0 0;
   padding-top: 0.85rem;
-  border-top: 1px solid rgba(212, 175, 55, 0.25);
+  border-top: 1px solid var(--tier-divider);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1224,13 +1251,13 @@ html.intro-active .wu-nav {
 .wu-tier-features li::before {
   content: "—";
   margin-right: 0.4rem;
-  color: var(--primary-color);
+  color: var(--tier-accent);
 }
 
 .wu-tier-price {
   margin-top: 0.85rem;
   padding-top: 0.85rem;
-  border-top: 1px solid rgba(212, 175, 55, 0.25);
+  border-top: 1px solid var(--tier-divider);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1240,7 +1267,7 @@ html.intro-active .wu-nav {
   font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.3rem);
-  color: var(--primary-color);
+  color: var(--tier-accent);
 }
 .wu-tier-payment-options {
   list-style: none;

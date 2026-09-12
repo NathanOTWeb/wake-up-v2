@@ -9,6 +9,7 @@ type Tier = {
   name?: string;
   subtitle?: string;
   popular?: boolean;
+  accent?: "silver" | "gold" | "platinum";
   idealFor?: string;
   features?: string[];
   priceInFull?: string;
@@ -101,7 +102,9 @@ export default function PathsSection({
         <ul className="wu-paths-grid">
           {tiers.map((t, ti) => (
             <li
-              className={`wu-tier${t.popular ? " is-popular" : ""}`}
+              className={`wu-tier${t.popular ? " is-popular" : ""}${
+                t.accent ? ` wu-tier--${t.accent}` : ""
+              }`}
               key={ti}
             >
               {t.badge && (

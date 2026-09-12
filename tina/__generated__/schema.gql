@@ -324,6 +324,7 @@ type PageSectionsPathsSectionTiers {
   name: String
   subtitle: String
   popular: Boolean
+  accent: String
   idealFor: String
   features: [String]
   priceInFull: String
@@ -427,6 +428,7 @@ input PageSectionsPathsSectionTiersFilter {
   name: StringFilter
   subtitle: StringFilter
   popular: BooleanFilter
+  accent: StringFilter
   idealFor: StringFilter
   features: StringFilter
   priceInFull: StringFilter
@@ -632,6 +634,7 @@ input PageSectionsPathsSectionTiersMutation {
   name: String
   subtitle: String
   popular: Boolean
+  accent: String
   idealFor: String
   features: [String]
   priceInFull: String

@@ -125,6 +125,7 @@ fragment PageParts on Page {
         name
         subtitle
         popular
+        accent
         idealFor
         features
         priceInFull

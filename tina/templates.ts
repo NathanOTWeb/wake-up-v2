@@ -275,6 +275,17 @@ export const pathsSection: Template = {
         { type: "boolean", name: "popular", label: "Highlight as most popular" },
         {
           type: "string",
+          name: "accent",
+          label: "Color accent (optional)",
+          description: "Tints the card's border/badge/price to match the tier's metal.",
+          options: [
+            { value: "silver", label: "Silver" },
+            { value: "gold", label: "Gold" },
+            { value: "platinum", label: "Platinum" },
+          ],
+        },
+        {
+          type: "string",
           name: "idealFor",
           label: "Who it's for (optional)",
           description: "One line, e.g. \"For men who need structure, direction, and entry into discipline.\"",

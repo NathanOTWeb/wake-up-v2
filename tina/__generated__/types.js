@@ -134,6 +134,7 @@ export const PagePartsFragmentDoc = gql`
         name
         subtitle
         popular
+        accent
         idealFor
         features
         priceInFull

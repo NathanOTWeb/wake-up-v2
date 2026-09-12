@@ -13,6 +13,7 @@
           "badge": "SILVER",
           "name": "The Man’s Path",
           "subtitle": "Foundation + group coaching",
+          "accent": "silver",
           "idealFor": "For men who need structure, direction, and entry into discipline",
           "features": [
             "12-week full curriculum access",
@@ -33,6 +34,7 @@
           "name": "The Lion’s Path",
           "subtitle": "Hybrid coaching + 1:1 support",
           "popular": true,
+          "accent": "gold",
           "idealFor": "For men serious about transformation who want guidance and accountability",
           "features": [
             "Everything in Silver",
@@ -52,6 +54,7 @@
           "badge": "PLATINUM",
           "name": "The King’s Path",
           "subtitle": "Full mentorship + high-level access",
+          "accent": "platinum",
           "idealFor": "For men ready for full transformation with direct access and accountability",
           "features": [
             "Everything in Gold",
