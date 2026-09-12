@@ -2,7 +2,8 @@
   "title": "The Method — WAKE UP",
   "intro": {
     "src": "/media/rule-33.mp4",
-    "poster": "/media/rule-33-poster.jpg"
+    "poster": "/media/rule-33-poster.jpg",
+    "startHoldSeconds": 1
   },
   "sections": [
     {
