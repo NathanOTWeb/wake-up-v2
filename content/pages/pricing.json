@@ -71,10 +71,62 @@
           ]
         }
       ],
-      "closing": "You are not paying for information\nYou are investing in transformation, discipline, and the man you become",
-      "closingEmphasis": "transformation",
       "background": "default",
       "animate": true
+    },
+    {
+      "_template": "listSection",
+      "heading": "This is what changes",
+      "groups": [
+        {
+          "items": [
+            { "text": "You become disciplined" },
+            { "text": "You gain clarity and direction" },
+            { "text": "You control your habits" },
+            { "text": "You feel grounded and stable" },
+            { "text": "You lead yourself with confidence" }
+          ]
+        }
+      ],
+      "scripture": "“If anyone is in Christ, he is a new creation.”",
+      "scriptureRef": "2 Corinthians 5:17",
+      "background": "gold"
+    },
+    {
+      "_template": "listSection",
+      "heading": "Built on Truth, Not Trends",
+      "groups": [
+        {
+          "lead": "This program is rooted in:",
+          "items": [
+            { "text": "Scripture" },
+            { "text": "Prayer" },
+            { "text": "Discipline" },
+            { "text": "Identity in Christ" }
+          ]
+        },
+        {
+          "lead": "It emphasizes:",
+          "items": [
+            { "text": "Renewal of the mind" },
+            { "text": "Power of prayer" },
+            { "text": "Obedience over emotion" },
+            { "text": "Transformation from within" }
+          ]
+        },
+        {
+          "lead": "Scriptures:",
+          "items": [
+            { "text": "Romans 12:2" },
+            { "text": "Proverbs 16:32" },
+            { "text": "James 1:22" },
+            { "text": "Luke 17:21" }
+          ]
+        }
+      ],
+      "closing": "You are not paying for information\nYou are investing in transformation, discipline, and the man you become",
+      "closingEmphasis": "transformation",
+      "background": "default"
     }
   ]
 }

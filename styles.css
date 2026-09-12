@@ -1130,10 +1130,9 @@ html.intro-active .wu-nav {
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(1rem, 3vh, 1.75rem);
-  /* Cards with the full pricing breakdown run taller than the compact
-     badge/name/subtitle teaser — align each card to the top of its row
-     rather than stretching it to match its row's tallest card. */
-  align-items: start;
+  /* Default (stretch): every card in a row matches the tallest one, so the
+     three tiers read as a single even row regardless of small differences
+     in wrapped-text length (see .wu-tier-price's margin-top:auto). */
 }
 @media (min-width: 720px) {
   .wu-paths-grid {
@@ -1255,7 +1254,10 @@ html.intro-active .wu-nav {
 }
 
 .wu-tier-price {
-  margin-top: 0.85rem;
+  /* auto pushes this to the bottom of the (now equal-height, stretched)
+     card, so all three price blocks sit flush with each other regardless
+     of small differences in how much each card's text wraps. */
+  margin-top: auto;
   padding-top: 0.85rem;
   border-top: 1px solid var(--tier-divider);
   display: flex;
