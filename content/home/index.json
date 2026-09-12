@@ -20,7 +20,7 @@
     "links": [
       { "label": "The Method", "href": "/method" },
       { "label": "Pricing", "href": "/pricing" },
-      { "label": "Meet The Founder", "href": "#founder" }
+      { "label": "Meet The Founder", "href": "/founder" }
     ]
   },
   "sections": [
