@@ -109,6 +109,11 @@ fragment PageParts on Page {
       benefits
       scripture
       scriptureRef
+      cta {
+        __typename
+        label
+        href
+      }
       background
       animate
     }

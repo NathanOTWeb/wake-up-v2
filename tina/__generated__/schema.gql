@@ -304,11 +304,17 @@ type PageSectionsFrameworkSection {
   animate: Boolean
 }
 
+type PageSectionsBenefitsSectionCta {
+  label: String
+  href: String
+}
+
 type PageSectionsBenefitsSection {
   heading: String!
   benefits: [String]
   scripture: String
   scriptureRef: String
+  cta: PageSectionsBenefitsSectionCta
   background: String
   animate: Boolean
 }
@@ -395,11 +401,17 @@ input PageSectionsFrameworkSectionFilter {
   animate: BooleanFilter
 }
 
+input PageSectionsBenefitsSectionCtaFilter {
+  label: StringFilter
+  href: StringFilter
+}
+
 input PageSectionsBenefitsSectionFilter {
   heading: StringFilter
   benefits: StringFilter
   scripture: StringFilter
   scriptureRef: StringFilter
+  cta: PageSectionsBenefitsSectionCtaFilter
   background: StringFilter
   animate: BooleanFilter
 }
@@ -588,11 +600,17 @@ input PageSectionsFrameworkSectionMutation {
   animate: Boolean
 }
 
+input PageSectionsBenefitsSectionCtaMutation {
+  label: String
+  href: String
+}
+
 input PageSectionsBenefitsSectionMutation {
   heading: String
   benefits: [String]
   scripture: String
   scriptureRef: String
+  cta: PageSectionsBenefitsSectionCtaMutation
   background: String
   animate: Boolean
 }

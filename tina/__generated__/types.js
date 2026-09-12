@@ -118,6 +118,11 @@ export const PagePartsFragmentDoc = gql`
       benefits
       scripture
       scriptureRef
+      cta {
+        __typename
+        label
+        href
+      }
       background
       animate
     }

@@ -199,6 +199,15 @@ var benefitsSection = {
     { type: "string", name: "scripture", label: "Scripture (optional)" },
     { type: "string", name: "scriptureRef", label: "Scripture reference (optional)" },
     {
+      type: "object",
+      name: "cta",
+      label: "Button (optional)",
+      fields: [
+        { type: "string", name: "label", label: "Label" },
+        { type: "string", name: "href", label: "Link URL" }
+      ]
+    },
+    {
       type: "string",
       name: "background",
       label: "Background",
@@ -211,7 +220,7 @@ var benefitsSection = {
       type: "boolean",
       name: "animate",
       label: "Animate entries in",
-      description: "Heading fades up, then the cards slide in from their side, then the scripture \u2014 on scroll into view."
+      description: "Heading fades up, then the cards slide in from their side, then the scripture, then the button \u2014 on scroll into view."
     }
   ]
 };

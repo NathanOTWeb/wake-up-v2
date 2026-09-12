@@ -994,13 +994,21 @@ html.intro-active .wu-nav {
   font-style: normal;
 }
 
+/* A section's button, centred below its content — matches .wu-list-cta / .wu-paths-cta. */
+.wu-benefits-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(0.25rem, 1.5vh, 1rem);
+}
+
 /* Reveal (block `animate`): heading fades up, then each card slides in from
    its column's side — left column from the left, right column from the
    right; in a single column they alternate (odd from left, even from
-   right) — then the scripture fades in. */
+   right) — then the scripture, then the button, fade in. */
 .wu-anim .wu-benefits-heading,
 .wu-anim .wu-benefit-item,
-.wu-anim .wu-benefits-scripture {
+.wu-anim .wu-benefits-scripture,
+.wu-anim .wu-benefits-cta {
   opacity: 0;
 }
 .wu-anim.is-shown .wu-benefits-heading {
@@ -1028,6 +1036,9 @@ html.intro-active .wu-nav {
 .wu-anim.is-shown .wu-benefits-scripture {
   animation: wu-fade-up 720ms cubic-bezier(0.22, 0.61, 0.36, 1) 1450ms both;
 }
+.wu-anim.is-shown .wu-benefits-cta {
+  animation: wu-fade-up 620ms cubic-bezier(0.22, 0.61, 0.36, 1) 1600ms both;
+}
 @keyframes wu-slide-in-left {
   from {
     opacity: 0;
@@ -1051,7 +1062,8 @@ html.intro-active .wu-nav {
 @media (prefers-reduced-motion: reduce) {
   .wu-anim .wu-benefits-heading,
   .wu-anim .wu-benefit-item,
-  .wu-anim .wu-benefits-scripture {
+  .wu-anim .wu-benefits-scripture,
+  .wu-anim .wu-benefits-cta {
     opacity: 1;
     animation: none;
   }

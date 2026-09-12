@@ -193,7 +193,7 @@ export const frameworkSection: Template = {
 
 /**
  * A heading over a two-column grid of one-line benefit cards, plus an
- * optional scripture. V6 section 7 "What You Get".
+ * optional scripture and an optional button. V6 section 7 "What You Get".
  */
 export const benefitsSection: Template = {
   name: "benefitsSection",
@@ -217,6 +217,15 @@ export const benefitsSection: Template = {
     { type: "string", name: "scripture", label: "Scripture (optional)" },
     { type: "string", name: "scriptureRef", label: "Scripture reference (optional)" },
     {
+      type: "object",
+      name: "cta",
+      label: "Button (optional)",
+      fields: [
+        { type: "string", name: "label", label: "Label" },
+        { type: "string", name: "href", label: "Link URL" },
+      ],
+    },
+    {
       type: "string",
       name: "background",
       label: "Background",
@@ -229,7 +238,7 @@ export const benefitsSection: Template = {
       type: "boolean",
       name: "animate",
       label: "Animate entries in",
-      description: "Heading fades up, then the cards slide in from their side, then the scripture — on scroll into view.",
+      description: "Heading fades up, then the cards slide in from their side, then the scripture, then the button — on scroll into view.",
     },
   ],
 };

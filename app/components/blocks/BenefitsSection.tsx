@@ -9,6 +9,7 @@ type Block = {
   benefits?: string[];
   scripture?: string;
   scriptureRef?: string;
+  cta?: { label?: string; href?: string };
   background?: "default" | "gold";
   animate?: boolean;
 };
@@ -87,6 +88,18 @@ export default function BenefitsSection({
               </span>
             )}
           </p>
+        )}
+
+        {block.cta?.label && (
+          <div className="wu-benefits-cta">
+            <a
+              className="wu-cta-link"
+              href={block.cta.href || "#"}
+              data-tina-field={tinaField(data, path("cta.label"))}
+            >
+              {block.cta.label}
+            </a>
+          </div>
         )}
       </div>
     </section>

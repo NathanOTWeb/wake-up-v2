@@ -2,18 +2,26 @@
   "title": "Pricing — WAKE UP",
   "sections": [
     {
-      "_template": "benefitsSection",
-      "heading": "What You Get",
-      "benefits": [
-        "Weekly live coaching calls",
-        "Structured 12-week curriculum",
-        "Brotherhood community",
-        "Breathwork + fasting protocols",
-        "Identity + discipline coaching",
-        "Real accountability"
+      "_template": "pathsSection",
+      "heading": "Choose Your Path",
+      "tiers": [
+        {
+          "badge": "SILVER",
+          "name": "The Man’s Path",
+          "subtitle": "Foundation + group coaching"
+        },
+        {
+          "badge": "GOLD · MOST POPULAR",
+          "name": "The Lion’s Path",
+          "subtitle": "Hybrid coaching + 1:1 support",
+          "popular": true
+        },
+        {
+          "badge": "PLATINUM",
+          "name": "The King’s Path",
+          "subtitle": "Full mentorship + high-level access"
+        }
       ],
-      "scripture": "“The prayer of a righteous man is powerful and effective.”",
-      "scriptureRef": "James 5:16",
       "background": "default",
       "animate": true
     }
