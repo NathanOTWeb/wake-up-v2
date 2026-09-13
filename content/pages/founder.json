@@ -1,4 +1,43 @@
 {
   "title": "Meet The Founder — WAKE UP",
-  "sections": []
+  "intro": {
+    "src": "/media/khan-intro.mp4",
+    "poster": "/media/khan-intro-poster.jpg",
+    "startHoldSeconds": 1,
+    "holdSeconds": 2,
+    "mobileFocus": "right"
+  },
+  "sections": [
+    {
+      "_template": "founderSection",
+      "heading": "Meet Christopher Hill AKA “Maximus Khan”",
+      "headingSmall": "AKA",
+      "photo": "/uploads/maximus-khan-founder.jpg",
+      "photo1B": "/uploads/full-khan-2-founder.jpg",
+      "photo1C": "/uploads/wrestler-khan-founder.jpg",
+      "intro": "Christopher Hill is a coach, mentor, and man who walked through the same struggles many men face:",
+      "struggles": [
+        "Lack of direction",
+        "Inconsistency",
+        "Internal conflict",
+        "Disconnection from purpose"
+      ],
+      "afterList": "Through discipline, faith, and surrender to God, he rebuilt his life from the inside out.",
+      "quote": "“Maximus Khan” represents the disciplined, courageous man every man is called to become. It reflects strength under control, mastery over the flesh, courage rooted in obedience, and leadership under God.",
+      "afterQuote": "WAKE UP was built from lived experience — not theory.",
+      "afterQuoteEmphasis": "WAKE UP",
+      "scriptures": [
+        {
+          "text": "“Whoever rules his spirit is better than one who takes a city.”",
+          "ref": "Proverbs 16:32"
+        },
+        {
+          "text": "“Be strong and courageous… for the Lord your God is with you wherever you go.”",
+          "ref": "Joshua 1:9"
+        }
+      ],
+      "background": "default",
+      "animate": true
+    }
+  ]
 }

@@ -316,11 +316,180 @@ var pathsSection = {
     }
   ]
 };
+var founderSection = {
+  name: "founderSection",
+  label: "Founder Section",
+  fields: [
+    {
+      type: "string",
+      name: "heading",
+      label: "Heading",
+      required: true,
+      ui: { component: "textarea" },
+      description: "Add a line break to control where the heading wraps."
+    },
+    {
+      type: "string",
+      name: "headingSmall",
+      label: "Heading \u2014 phrase to render smaller (optional)",
+      description: 'e.g. "AKA" \u2014 rendered in a <small> tag within the heading.'
+    },
+    {
+      type: "image",
+      name: "photo",
+      label: "Photo 1",
+      description: "Floats left near the top of the text."
+    },
+    {
+      type: "image",
+      name: "photo1B",
+      label: "Photo 1 \u2014 second image (optional)",
+      description: "Crossfades with Photo 1 in the same spot, every 2s."
+    },
+    {
+      type: "image",
+      name: "photo1C",
+      label: "Photo 1 \u2014 third image (optional)",
+      description: "Crossfades with Photo 1 in the same spot, every 2s."
+    },
+    {
+      type: "string",
+      name: "intro",
+      label: "Intro paragraph (optional)",
+      ui: { component: "textarea" },
+      description: "Shown above the struggles list."
+    },
+    {
+      type: "string",
+      name: "struggles",
+      label: "Struggles (list)",
+      list: true,
+      description: 'One line each, e.g. "Lack of direction".'
+    },
+    {
+      type: "string",
+      name: "afterList",
+      label: "Paragraph after the list (optional)",
+      ui: { component: "textarea" }
+    },
+    {
+      type: "string",
+      name: "quote",
+      label: "Pull-quote (optional)",
+      ui: { component: "textarea" }
+    },
+    {
+      type: "string",
+      name: "afterQuote",
+      label: "Paragraph after the quote (optional)",
+      ui: { component: "textarea" }
+    },
+    {
+      type: "string",
+      name: "afterQuoteEmphasis",
+      label: "Emphasised phrase (paragraph after quote)",
+      description: "A phrase within that paragraph to render in gold."
+    },
+    {
+      type: "object",
+      name: "scriptures",
+      label: "Scriptures",
+      list: true,
+      ui: {
+        itemProps: (s) => ({ label: s?.ref || s?.text || "Scripture" })
+      },
+      fields: [
+        { type: "string", name: "text", label: "Text" },
+        { type: "string", name: "ref", label: "Reference" }
+      ]
+    },
+    {
+      type: "string",
+      name: "closing",
+      label: "Closing statement (optional)",
+      ui: { component: "textarea" },
+      description: "Use a line break for the second line."
+    },
+    {
+      type: "string",
+      name: "closingEmphasis",
+      label: "Emphasised phrase",
+      description: "A phrase within the closing statement to render in gold."
+    },
+    {
+      type: "string",
+      name: "background",
+      label: "Background",
+      options: [
+        { value: "default", label: "Ivory" },
+        { value: "gold", label: "Pale gold" }
+      ]
+    },
+    {
+      type: "boolean",
+      name: "animate",
+      label: "Animate entries in",
+      description: "Fade the content in on scroll into view."
+    }
+  ]
+};
+var videoRevealSection = {
+  name: "videoRevealSection",
+  label: "Video Reveal Section",
+  fields: [
+    { type: "string", name: "video", label: "Video URL" },
+    { type: "string", name: "poster", label: "Poster image URL (optional)" },
+    {
+      type: "string",
+      name: "revealHeading",
+      label: "Reveal heading",
+      description: "Shown once the video finishes playing."
+    },
+    {
+      type: "string",
+      name: "revealSubtext",
+      label: "Reveal subtext",
+      ui: { component: "textarea" },
+      description: "Use a line break for the second line."
+    },
+    {
+      type: "string",
+      name: "revealSubtextEmphasis",
+      label: "Emphasised word/phrase (subtext)"
+    },
+    {
+      type: "object",
+      name: "ctas",
+      label: "Buttons",
+      list: true,
+      ui: {
+        itemProps: (c) => ({ label: c?.label || "Button" })
+      },
+      fields: [
+        { type: "string", name: "label", label: "Button Label" },
+        { type: "string", name: "href", label: "Link URL" },
+        { type: "boolean", name: "primary", label: "Primary Button" }
+      ]
+    },
+    { type: "image", name: "logo", label: "Logo (shown below the buttons)" },
+    {
+      type: "string",
+      name: "background",
+      label: "Background",
+      options: [
+        { value: "default", label: "Ivory" },
+        { value: "gold", label: "Pale gold" }
+      ]
+    }
+  ]
+};
 var sectionTemplates = [
   listSection,
   frameworkSection,
   benefitsSection,
-  pathsSection
+  pathsSection,
+  founderSection,
+  videoRevealSection
 ];
 
 // tina/collection/home.tsx
@@ -446,6 +615,17 @@ var Page = {
           name: "holdSeconds",
           label: "Hold the last frame before fading (seconds, optional)",
           description: "Default is 1.5s if left blank."
+        },
+        {
+          type: "string",
+          name: "mobileFocus",
+          label: "Mobile crop focus (optional)",
+          description: "For a landscape clip cropped to fill portrait phones \u2014 which side to keep in frame.",
+          options: [
+            { value: "center", label: "Center" },
+            { value: "left", label: "Left" },
+            { value: "right", label: "Right" }
+          ]
         }
       ]
     },

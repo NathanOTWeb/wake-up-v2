@@ -363,6 +363,7 @@ export type PageIntro = {
   poster?: Maybe<Scalars['String']['output']>;
   startHoldSeconds?: Maybe<Scalars['Float']['output']>;
   holdSeconds?: Maybe<Scalars['Float']['output']>;
+  mobileFocus?: Maybe<Scalars['String']['output']>;
 };
 
 export type PageSectionsListSectionGroupsItems = {
@@ -464,7 +465,52 @@ export type PageSectionsPathsSection = {
   animate?: Maybe<Scalars['Boolean']['output']>;
 };
 
-export type PageSections = PageSectionsListSection | PageSectionsFrameworkSection | PageSectionsBenefitsSection | PageSectionsPathsSection;
+export type PageSectionsFounderSectionScriptures = {
+  __typename?: 'PageSectionsFounderSectionScriptures';
+  text?: Maybe<Scalars['String']['output']>;
+  ref?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageSectionsFounderSection = {
+  __typename?: 'PageSectionsFounderSection';
+  heading: Scalars['String']['output'];
+  headingSmall?: Maybe<Scalars['String']['output']>;
+  photo?: Maybe<Scalars['String']['output']>;
+  photo1B?: Maybe<Scalars['String']['output']>;
+  photo1C?: Maybe<Scalars['String']['output']>;
+  intro?: Maybe<Scalars['String']['output']>;
+  struggles?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  afterList?: Maybe<Scalars['String']['output']>;
+  quote?: Maybe<Scalars['String']['output']>;
+  afterQuote?: Maybe<Scalars['String']['output']>;
+  afterQuoteEmphasis?: Maybe<Scalars['String']['output']>;
+  scriptures?: Maybe<Array<Maybe<PageSectionsFounderSectionScriptures>>>;
+  closing?: Maybe<Scalars['String']['output']>;
+  closingEmphasis?: Maybe<Scalars['String']['output']>;
+  background?: Maybe<Scalars['String']['output']>;
+  animate?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type PageSectionsVideoRevealSectionCtas = {
+  __typename?: 'PageSectionsVideoRevealSectionCtas';
+  label?: Maybe<Scalars['String']['output']>;
+  href?: Maybe<Scalars['String']['output']>;
+  primary?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type PageSectionsVideoRevealSection = {
+  __typename?: 'PageSectionsVideoRevealSection';
+  video?: Maybe<Scalars['String']['output']>;
+  poster?: Maybe<Scalars['String']['output']>;
+  revealHeading?: Maybe<Scalars['String']['output']>;
+  revealSubtext?: Maybe<Scalars['String']['output']>;
+  revealSubtextEmphasis?: Maybe<Scalars['String']['output']>;
+  ctas?: Maybe<Array<Maybe<PageSectionsVideoRevealSectionCtas>>>;
+  logo?: Maybe<Scalars['String']['output']>;
+  background?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageSections = PageSectionsListSection | PageSectionsFrameworkSection | PageSectionsBenefitsSection | PageSectionsPathsSection | PageSectionsFounderSection | PageSectionsVideoRevealSection;
 
 export type Page = Node & Document & {
   __typename?: 'Page';
@@ -491,6 +537,7 @@ export type PageIntroFilter = {
   poster?: InputMaybe<StringFilter>;
   startHoldSeconds?: InputMaybe<NumberFilter>;
   holdSeconds?: InputMaybe<NumberFilter>;
+  mobileFocus?: InputMaybe<StringFilter>;
 };
 
 export type PageSectionsListSectionGroupsItemsFilter = {
@@ -581,11 +628,54 @@ export type PageSectionsPathsSectionFilter = {
   animate?: InputMaybe<BooleanFilter>;
 };
 
+export type PageSectionsFounderSectionScripturesFilter = {
+  text?: InputMaybe<StringFilter>;
+  ref?: InputMaybe<StringFilter>;
+};
+
+export type PageSectionsFounderSectionFilter = {
+  heading?: InputMaybe<StringFilter>;
+  headingSmall?: InputMaybe<StringFilter>;
+  photo?: InputMaybe<ImageFilter>;
+  photo1B?: InputMaybe<ImageFilter>;
+  photo1C?: InputMaybe<ImageFilter>;
+  intro?: InputMaybe<StringFilter>;
+  struggles?: InputMaybe<StringFilter>;
+  afterList?: InputMaybe<StringFilter>;
+  quote?: InputMaybe<StringFilter>;
+  afterQuote?: InputMaybe<StringFilter>;
+  afterQuoteEmphasis?: InputMaybe<StringFilter>;
+  scriptures?: InputMaybe<PageSectionsFounderSectionScripturesFilter>;
+  closing?: InputMaybe<StringFilter>;
+  closingEmphasis?: InputMaybe<StringFilter>;
+  background?: InputMaybe<StringFilter>;
+  animate?: InputMaybe<BooleanFilter>;
+};
+
+export type PageSectionsVideoRevealSectionCtasFilter = {
+  label?: InputMaybe<StringFilter>;
+  href?: InputMaybe<StringFilter>;
+  primary?: InputMaybe<BooleanFilter>;
+};
+
+export type PageSectionsVideoRevealSectionFilter = {
+  video?: InputMaybe<StringFilter>;
+  poster?: InputMaybe<StringFilter>;
+  revealHeading?: InputMaybe<StringFilter>;
+  revealSubtext?: InputMaybe<StringFilter>;
+  revealSubtextEmphasis?: InputMaybe<StringFilter>;
+  ctas?: InputMaybe<PageSectionsVideoRevealSectionCtasFilter>;
+  logo?: InputMaybe<ImageFilter>;
+  background?: InputMaybe<StringFilter>;
+};
+
 export type PageSectionsFilter = {
   listSection?: InputMaybe<PageSectionsListSectionFilter>;
   frameworkSection?: InputMaybe<PageSectionsFrameworkSectionFilter>;
   benefitsSection?: InputMaybe<PageSectionsBenefitsSectionFilter>;
   pathsSection?: InputMaybe<PageSectionsPathsSectionFilter>;
+  founderSection?: InputMaybe<PageSectionsFounderSectionFilter>;
+  videoRevealSection?: InputMaybe<PageSectionsVideoRevealSectionFilter>;
 };
 
 export type PageFilter = {
@@ -759,6 +849,7 @@ export type PageIntroMutation = {
   poster?: InputMaybe<Scalars['String']['input']>;
   startHoldSeconds?: InputMaybe<Scalars['Float']['input']>;
   holdSeconds?: InputMaybe<Scalars['Float']['input']>;
+  mobileFocus?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type PageSectionsListSectionGroupsItemsMutation = {
@@ -849,11 +940,54 @@ export type PageSectionsPathsSectionMutation = {
   animate?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type PageSectionsFounderSectionScripturesMutation = {
+  text?: InputMaybe<Scalars['String']['input']>;
+  ref?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageSectionsFounderSectionMutation = {
+  heading?: InputMaybe<Scalars['String']['input']>;
+  headingSmall?: InputMaybe<Scalars['String']['input']>;
+  photo?: InputMaybe<Scalars['String']['input']>;
+  photo1B?: InputMaybe<Scalars['String']['input']>;
+  photo1C?: InputMaybe<Scalars['String']['input']>;
+  intro?: InputMaybe<Scalars['String']['input']>;
+  struggles?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  afterList?: InputMaybe<Scalars['String']['input']>;
+  quote?: InputMaybe<Scalars['String']['input']>;
+  afterQuote?: InputMaybe<Scalars['String']['input']>;
+  afterQuoteEmphasis?: InputMaybe<Scalars['String']['input']>;
+  scriptures?: InputMaybe<Array<InputMaybe<PageSectionsFounderSectionScripturesMutation>>>;
+  closing?: InputMaybe<Scalars['String']['input']>;
+  closingEmphasis?: InputMaybe<Scalars['String']['input']>;
+  background?: InputMaybe<Scalars['String']['input']>;
+  animate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type PageSectionsVideoRevealSectionCtasMutation = {
+  label?: InputMaybe<Scalars['String']['input']>;
+  href?: InputMaybe<Scalars['String']['input']>;
+  primary?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type PageSectionsVideoRevealSectionMutation = {
+  video?: InputMaybe<Scalars['String']['input']>;
+  poster?: InputMaybe<Scalars['String']['input']>;
+  revealHeading?: InputMaybe<Scalars['String']['input']>;
+  revealSubtext?: InputMaybe<Scalars['String']['input']>;
+  revealSubtextEmphasis?: InputMaybe<Scalars['String']['input']>;
+  ctas?: InputMaybe<Array<InputMaybe<PageSectionsVideoRevealSectionCtasMutation>>>;
+  logo?: InputMaybe<Scalars['String']['input']>;
+  background?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type PageSectionsMutation = {
   listSection?: InputMaybe<PageSectionsListSectionMutation>;
   frameworkSection?: InputMaybe<PageSectionsFrameworkSectionMutation>;
   benefitsSection?: InputMaybe<PageSectionsBenefitsSectionMutation>;
   pathsSection?: InputMaybe<PageSectionsPathsSectionMutation>;
+  founderSection?: InputMaybe<PageSectionsFounderSectionMutation>;
+  videoRevealSection?: InputMaybe<PageSectionsVideoRevealSectionMutation>;
 };
 
 export type PageMutation = {
@@ -962,6 +1096,7 @@ export type PageIntroFilter = {
   poster?: StringFilter | null | undefined;
   startHoldSeconds?: NumberFilter | null | undefined;
   holdSeconds?: NumberFilter | null | undefined;
+  mobileFocus?: StringFilter | null | undefined;
 };
 
 export type PageSectionsListSectionGroupsItemsFilter = {
@@ -1052,11 +1187,54 @@ export type PageSectionsPathsSectionFilter = {
   animate?: BooleanFilter | null | undefined;
 };
 
+export type PageSectionsFounderSectionScripturesFilter = {
+  text?: StringFilter | null | undefined;
+  ref?: StringFilter | null | undefined;
+};
+
+export type PageSectionsFounderSectionFilter = {
+  heading?: StringFilter | null | undefined;
+  headingSmall?: StringFilter | null | undefined;
+  photo?: ImageFilter | null | undefined;
+  photo1B?: ImageFilter | null | undefined;
+  photo1C?: ImageFilter | null | undefined;
+  intro?: StringFilter | null | undefined;
+  struggles?: StringFilter | null | undefined;
+  afterList?: StringFilter | null | undefined;
+  quote?: StringFilter | null | undefined;
+  afterQuote?: StringFilter | null | undefined;
+  afterQuoteEmphasis?: StringFilter | null | undefined;
+  scriptures?: PageSectionsFounderSectionScripturesFilter | null | undefined;
+  closing?: StringFilter | null | undefined;
+  closingEmphasis?: StringFilter | null | undefined;
+  background?: StringFilter | null | undefined;
+  animate?: BooleanFilter | null | undefined;
+};
+
+export type PageSectionsVideoRevealSectionCtasFilter = {
+  label?: StringFilter | null | undefined;
+  href?: StringFilter | null | undefined;
+  primary?: BooleanFilter | null | undefined;
+};
+
+export type PageSectionsVideoRevealSectionFilter = {
+  video?: StringFilter | null | undefined;
+  poster?: StringFilter | null | undefined;
+  revealHeading?: StringFilter | null | undefined;
+  revealSubtext?: StringFilter | null | undefined;
+  revealSubtextEmphasis?: StringFilter | null | undefined;
+  ctas?: PageSectionsVideoRevealSectionCtasFilter | null | undefined;
+  logo?: ImageFilter | null | undefined;
+  background?: StringFilter | null | undefined;
+};
+
 export type PageSectionsFilter = {
   listSection?: PageSectionsListSectionFilter | null | undefined;
   frameworkSection?: PageSectionsFrameworkSectionFilter | null | undefined;
   benefitsSection?: PageSectionsBenefitsSectionFilter | null | undefined;
   pathsSection?: PageSectionsPathsSectionFilter | null | undefined;
+  founderSection?: PageSectionsFounderSectionFilter | null | undefined;
+  videoRevealSection?: PageSectionsVideoRevealSectionFilter | null | undefined;
 };
 
 export type PageFilter = {
@@ -1067,11 +1245,13 @@ export type PageFilter = {
 
 export type HomePartsFragment = { __typename: 'Home', hero: { __typename: 'HomeHero', logo: string | null, title: string | null, subtitle: string | null, scripture: string | null, scriptureRef: string | null, taglines: Array<{ __typename: 'HomeHeroTaglines', text: string | null } | null> | null, ctas: Array<{ __typename: 'HomeHeroCtas', label: string | null, href: string | null, primary: boolean | null } | null> | null } | null, nav: { __typename: 'HomeNav', links: Array<{ __typename: 'HomeNavLinks', label: string | null, href: string | null } | null> | null } | null, sections: Array<{ __typename: 'HomeSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'HomeSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'HomeSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'HomeSectionsListSectionCta', label: string | null, href: string | null } | null } | null> | null };
 
-export type PagePartsFragment = { __typename: 'Page', title: string, intro: { __typename: 'PageIntro', src: string | null, poster: string | null, startHoldSeconds: number | null, holdSeconds: number | null } | null, sections: Array<
+export type PagePartsFragment = { __typename: 'Page', title: string, intro: { __typename: 'PageIntro', src: string | null, poster: string | null, startHoldSeconds: number | null, holdSeconds: number | null, mobileFocus: string | null } | null, sections: Array<
     | { __typename: 'PageSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'PageSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'PageSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'PageSectionsListSectionCta', label: string | null, href: string | null } | null }
     | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, points: Array<string | null> | null, scriptureRef: string | null } | null> | null }
     | { __typename: 'PageSectionsBenefitsSection', heading: string, benefits: Array<string | null> | null, scripture: string | null, scriptureRef: string | null, background: string | null, animate: boolean | null, cta: { __typename: 'PageSectionsBenefitsSectionCta', label: string | null, href: string | null } | null }
     | { __typename: 'PageSectionsPathsSection', heading: string, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, tiers: Array<{ __typename: 'PageSectionsPathsSectionTiers', badge: string | null, name: string | null, subtitle: string | null, popular: boolean | null, accent: string | null, idealFor: string | null, features: Array<string | null> | null, priceInFull: string | null, paymentOptions: Array<string | null> | null } | null> | null, cta: { __typename: 'PageSectionsPathsSectionCta', label: string | null, href: string | null } | null }
+    | { __typename: 'PageSectionsFounderSection', heading: string, headingSmall: string | null, photo: string | null, photo1B: string | null, photo1C: string | null, intro: string | null, struggles: Array<string | null> | null, afterList: string | null, quote: string | null, afterQuote: string | null, afterQuoteEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, scriptures: Array<{ __typename: 'PageSectionsFounderSectionScriptures', text: string | null, ref: string | null } | null> | null }
+    | { __typename: 'PageSectionsVideoRevealSection', video: string | null, poster: string | null, revealHeading: string | null, revealSubtext: string | null, revealSubtextEmphasis: string | null, logo: string | null, background: string | null, ctas: Array<{ __typename: 'PageSectionsVideoRevealSectionCtas', label: string | null, href: string | null, primary: boolean | null } | null> | null }
    | null> | null };
 
 export type HomeQueryVariables = Exact<{
@@ -1098,11 +1278,13 @@ export type PageQueryVariables = Exact<{
 }>;
 
 
-export type PageQuery = { page: { __typename: 'Page', id: string, title: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, intro: { __typename: 'PageIntro', src: string | null, poster: string | null, startHoldSeconds: number | null, holdSeconds: number | null } | null, sections: Array<
+export type PageQuery = { page: { __typename: 'Page', id: string, title: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, intro: { __typename: 'PageIntro', src: string | null, poster: string | null, startHoldSeconds: number | null, holdSeconds: number | null, mobileFocus: string | null } | null, sections: Array<
       | { __typename: 'PageSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'PageSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'PageSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'PageSectionsListSectionCta', label: string | null, href: string | null } | null }
       | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, points: Array<string | null> | null, scriptureRef: string | null } | null> | null }
       | { __typename: 'PageSectionsBenefitsSection', heading: string, benefits: Array<string | null> | null, scripture: string | null, scriptureRef: string | null, background: string | null, animate: boolean | null, cta: { __typename: 'PageSectionsBenefitsSectionCta', label: string | null, href: string | null } | null }
       | { __typename: 'PageSectionsPathsSection', heading: string, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, tiers: Array<{ __typename: 'PageSectionsPathsSectionTiers', badge: string | null, name: string | null, subtitle: string | null, popular: boolean | null, accent: string | null, idealFor: string | null, features: Array<string | null> | null, priceInFull: string | null, paymentOptions: Array<string | null> | null } | null> | null, cta: { __typename: 'PageSectionsPathsSectionCta', label: string | null, href: string | null } | null }
+      | { __typename: 'PageSectionsFounderSection', heading: string, headingSmall: string | null, photo: string | null, photo1B: string | null, photo1C: string | null, intro: string | null, struggles: Array<string | null> | null, afterList: string | null, quote: string | null, afterQuote: string | null, afterQuoteEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, scriptures: Array<{ __typename: 'PageSectionsFounderSectionScriptures', text: string | null, ref: string | null } | null> | null }
+      | { __typename: 'PageSectionsVideoRevealSection', video: string | null, poster: string | null, revealHeading: string | null, revealSubtext: string | null, revealSubtextEmphasis: string | null, logo: string | null, background: string | null, ctas: Array<{ __typename: 'PageSectionsVideoRevealSectionCtas', label: string | null, href: string | null, primary: boolean | null } | null> | null }
      | null> | null } };
 
 export type PageConnectionQueryVariables = Exact<{
@@ -1115,11 +1297,13 @@ export type PageConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PageConnectionQuery = { pageConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page', id: string, title: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, intro: { __typename: 'PageIntro', src: string | null, poster: string | null, startHoldSeconds: number | null, holdSeconds: number | null } | null, sections: Array<
+export type PageConnectionQuery = { pageConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page', id: string, title: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, intro: { __typename: 'PageIntro', src: string | null, poster: string | null, startHoldSeconds: number | null, holdSeconds: number | null, mobileFocus: string | null } | null, sections: Array<
           | { __typename: 'PageSectionsListSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, scripture: string | null, scriptureRef: string | null, background: string | null, groups: Array<{ __typename: 'PageSectionsListSectionGroups', lead: string | null, items: Array<{ __typename: 'PageSectionsListSectionGroupsItems', text: string | null } | null> | null } | null> | null, cta: { __typename: 'PageSectionsListSectionCta', label: string | null, href: string | null } | null }
           | { __typename: 'PageSectionsFrameworkSection', heading: string, intro: string | null, introEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, items: Array<{ __typename: 'PageSectionsFrameworkSectionItems', marker: string | null, title: string | null, description: string | null, points: Array<string | null> | null, scriptureRef: string | null } | null> | null }
           | { __typename: 'PageSectionsBenefitsSection', heading: string, benefits: Array<string | null> | null, scripture: string | null, scriptureRef: string | null, background: string | null, animate: boolean | null, cta: { __typename: 'PageSectionsBenefitsSectionCta', label: string | null, href: string | null } | null }
           | { __typename: 'PageSectionsPathsSection', heading: string, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, tiers: Array<{ __typename: 'PageSectionsPathsSectionTiers', badge: string | null, name: string | null, subtitle: string | null, popular: boolean | null, accent: string | null, idealFor: string | null, features: Array<string | null> | null, priceInFull: string | null, paymentOptions: Array<string | null> | null } | null> | null, cta: { __typename: 'PageSectionsPathsSectionCta', label: string | null, href: string | null } | null }
+          | { __typename: 'PageSectionsFounderSection', heading: string, headingSmall: string | null, photo: string | null, photo1B: string | null, photo1C: string | null, intro: string | null, struggles: Array<string | null> | null, afterList: string | null, quote: string | null, afterQuote: string | null, afterQuoteEmphasis: string | null, closing: string | null, closingEmphasis: string | null, background: string | null, animate: boolean | null, scriptures: Array<{ __typename: 'PageSectionsFounderSectionScriptures', text: string | null, ref: string | null } | null> | null }
+          | { __typename: 'PageSectionsVideoRevealSection', video: string | null, poster: string | null, revealHeading: string | null, revealSubtext: string | null, revealSubtextEmphasis: string | null, logo: string | null, background: string | null, ctas: Array<{ __typename: 'PageSectionsVideoRevealSectionCtas', label: string | null, href: string | null, primary: boolean | null } | null> | null }
          | null> | null } | null } | null> | null } };
 
 export const HomePartsFragmentDoc = gql`
@@ -1189,6 +1373,7 @@ export const PagePartsFragmentDoc = gql`
     poster
     startHoldSeconds
     holdSeconds
+    mobileFocus
   }
   sections {
     __typename
@@ -1268,6 +1453,43 @@ export const PagePartsFragmentDoc = gql`
       closingEmphasis
       background
       animate
+    }
+    ... on PageSectionsFounderSection {
+      heading
+      headingSmall
+      photo
+      photo1B
+      photo1C
+      intro
+      struggles
+      afterList
+      quote
+      afterQuote
+      afterQuoteEmphasis
+      scriptures {
+        __typename
+        text
+        ref
+      }
+      closing
+      closingEmphasis
+      background
+      animate
+    }
+    ... on PageSectionsVideoRevealSection {
+      video
+      poster
+      revealHeading
+      revealSubtext
+      revealSubtextEmphasis
+      ctas {
+        __typename
+        label
+        href
+        primary
+      }
+      logo
+      background
     }
   }
 }

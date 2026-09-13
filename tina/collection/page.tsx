@@ -48,6 +48,18 @@ const Page: Collection = {
           label: "Hold the last frame before fading (seconds, optional)",
           description: "Default is 1.5s if left blank.",
         },
+        {
+          type: "string",
+          name: "mobileFocus",
+          label: "Mobile crop focus (optional)",
+          description:
+            "For a landscape clip cropped to fill portrait phones — which side to keep in frame.",
+          options: [
+            { value: "center", label: "Center" },
+            { value: "left", label: "Left" },
+            { value: "right", label: "Right" },
+          ],
+        },
       ],
     },
     {

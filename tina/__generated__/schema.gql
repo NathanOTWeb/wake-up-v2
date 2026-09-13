@@ -258,6 +258,7 @@ type PageIntro {
   poster: String
   startHoldSeconds: Float
   holdSeconds: Float
+  mobileFocus: String
 }
 
 type PageSectionsListSectionGroupsItems {
@@ -348,7 +349,48 @@ type PageSectionsPathsSection {
   animate: Boolean
 }
 
-union PageSections = PageSectionsListSection | PageSectionsFrameworkSection | PageSectionsBenefitsSection | PageSectionsPathsSection
+type PageSectionsFounderSectionScriptures {
+  text: String
+  ref: String
+}
+
+type PageSectionsFounderSection {
+  heading: String!
+  headingSmall: String
+  photo: String
+  photo1B: String
+  photo1C: String
+  intro: String
+  struggles: [String]
+  afterList: String
+  quote: String
+  afterQuote: String
+  afterQuoteEmphasis: String
+  scriptures: [PageSectionsFounderSectionScriptures]
+  closing: String
+  closingEmphasis: String
+  background: String
+  animate: Boolean
+}
+
+type PageSectionsVideoRevealSectionCtas {
+  label: String
+  href: String
+  primary: Boolean
+}
+
+type PageSectionsVideoRevealSection {
+  video: String
+  poster: String
+  revealHeading: String
+  revealSubtext: String
+  revealSubtextEmphasis: String
+  ctas: [PageSectionsVideoRevealSectionCtas]
+  logo: String
+  background: String
+}
+
+union PageSections = PageSectionsListSection | PageSectionsFrameworkSection | PageSectionsBenefitsSection | PageSectionsPathsSection | PageSectionsFounderSection | PageSectionsVideoRevealSection
 
 type Page implements Node & Document {
   title: String!
@@ -374,6 +416,7 @@ input PageIntroFilter {
   poster: StringFilter
   startHoldSeconds: NumberFilter
   holdSeconds: NumberFilter
+  mobileFocus: StringFilter
 }
 
 input PageSectionsListSectionGroupsItemsFilter {
@@ -464,11 +507,54 @@ input PageSectionsPathsSectionFilter {
   animate: BooleanFilter
 }
 
+input PageSectionsFounderSectionScripturesFilter {
+  text: StringFilter
+  ref: StringFilter
+}
+
+input PageSectionsFounderSectionFilter {
+  heading: StringFilter
+  headingSmall: StringFilter
+  photo: ImageFilter
+  photo1B: ImageFilter
+  photo1C: ImageFilter
+  intro: StringFilter
+  struggles: StringFilter
+  afterList: StringFilter
+  quote: StringFilter
+  afterQuote: StringFilter
+  afterQuoteEmphasis: StringFilter
+  scriptures: PageSectionsFounderSectionScripturesFilter
+  closing: StringFilter
+  closingEmphasis: StringFilter
+  background: StringFilter
+  animate: BooleanFilter
+}
+
+input PageSectionsVideoRevealSectionCtasFilter {
+  label: StringFilter
+  href: StringFilter
+  primary: BooleanFilter
+}
+
+input PageSectionsVideoRevealSectionFilter {
+  video: StringFilter
+  poster: StringFilter
+  revealHeading: StringFilter
+  revealSubtext: StringFilter
+  revealSubtextEmphasis: StringFilter
+  ctas: PageSectionsVideoRevealSectionCtasFilter
+  logo: ImageFilter
+  background: StringFilter
+}
+
 input PageSectionsFilter {
   listSection: PageSectionsListSectionFilter
   frameworkSection: PageSectionsFrameworkSectionFilter
   benefitsSection: PageSectionsBenefitsSectionFilter
   pathsSection: PageSectionsPathsSectionFilter
+  founderSection: PageSectionsFounderSectionFilter
+  videoRevealSection: PageSectionsVideoRevealSectionFilter
 }
 
 input PageFilter {
@@ -582,6 +668,7 @@ input PageIntroMutation {
   poster: String
   startHoldSeconds: Float
   holdSeconds: Float
+  mobileFocus: String
 }
 
 input PageSectionsListSectionGroupsItemsMutation {
@@ -672,11 +759,54 @@ input PageSectionsPathsSectionMutation {
   animate: Boolean
 }
 
+input PageSectionsFounderSectionScripturesMutation {
+  text: String
+  ref: String
+}
+
+input PageSectionsFounderSectionMutation {
+  heading: String
+  headingSmall: String
+  photo: String
+  photo1B: String
+  photo1C: String
+  intro: String
+  struggles: [String]
+  afterList: String
+  quote: String
+  afterQuote: String
+  afterQuoteEmphasis: String
+  scriptures: [PageSectionsFounderSectionScripturesMutation]
+  closing: String
+  closingEmphasis: String
+  background: String
+  animate: Boolean
+}
+
+input PageSectionsVideoRevealSectionCtasMutation {
+  label: String
+  href: String
+  primary: Boolean
+}
+
+input PageSectionsVideoRevealSectionMutation {
+  video: String
+  poster: String
+  revealHeading: String
+  revealSubtext: String
+  revealSubtextEmphasis: String
+  ctas: [PageSectionsVideoRevealSectionCtasMutation]
+  logo: String
+  background: String
+}
+
 input PageSectionsMutation {
   listSection: PageSectionsListSectionMutation
   frameworkSection: PageSectionsFrameworkSectionMutation
   benefitsSection: PageSectionsBenefitsSectionMutation
   pathsSection: PageSectionsPathsSectionMutation
+  founderSection: PageSectionsFounderSectionMutation
+  videoRevealSection: PageSectionsVideoRevealSectionMutation
 }
 
 input PageMutation {

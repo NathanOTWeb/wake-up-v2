@@ -72,6 +72,7 @@ export const PagePartsFragmentDoc = gql`
     poster
     startHoldSeconds
     holdSeconds
+    mobileFocus
   }
   sections {
     __typename
@@ -151,6 +152,43 @@ export const PagePartsFragmentDoc = gql`
       closingEmphasis
       background
       animate
+    }
+    ... on PageSectionsFounderSection {
+      heading
+      headingSmall
+      photo
+      photo1B
+      photo1C
+      intro
+      struggles
+      afterList
+      quote
+      afterQuote
+      afterQuoteEmphasis
+      scriptures {
+        __typename
+        text
+        ref
+      }
+      closing
+      closingEmphasis
+      background
+      animate
+    }
+    ... on PageSectionsVideoRevealSection {
+      video
+      poster
+      revealHeading
+      revealSubtext
+      revealSubtextEmphasis
+      ctas {
+        __typename
+        label
+        href
+        primary
+      }
+      logo
+      background
     }
   }
 }

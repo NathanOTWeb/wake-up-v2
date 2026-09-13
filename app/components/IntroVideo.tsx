@@ -31,6 +31,7 @@ export default function IntroVideo({
   variant = "hero",
   startHoldMs = 0,
   holdMs = DEFAULT_HOLD_MS,
+  mobileFocus,
 }: {
   src?: string;
   poster?: string;
@@ -41,6 +42,9 @@ export default function IntroVideo({
   /** Hold the paused last frame for this long after the clip ends, before
    *  fading. Overrides the default 1.5s. */
   holdMs?: number;
+  /** Which side to keep in frame when a landscape clip is cropped to cover
+   *  a portrait phone screen (variant="center" only). Default center. */
+  mobileFocus?: "left" | "center" | "right";
 } = {}) {
   const [phase, setPhase] = useState<Phase>("playing");
   const [muted, setMuted] = useState(true);
@@ -155,6 +159,13 @@ export default function IntroVideo({
         preload="auto"
         onEnded={endWithHold}
         onError={dismiss}
+        style={
+          mobileFocus && mobileFocus !== "center"
+            ? ({
+                "--intro-mobile-focus": `${mobileFocus === "right" ? "70%" : "30%"} center`,
+              } as React.CSSProperties)
+            : undefined
+        }
       />
 
       <button

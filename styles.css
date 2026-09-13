@@ -394,6 +394,7 @@ html.intro-active .wu-nav {
 @media (orientation: portrait) and (max-width: 768px) {
   .intro-overlay--center .intro-video {
     object-fit: cover;
+    object-position: var(--intro-mobile-focus, center);
   }
 }
 
@@ -1353,5 +1354,448 @@ html.intro-active .wu-nav {
     font-size: clamp(1.85rem, 8vw, 2.4rem);
     line-height: 1.12;
     text-wrap: normal;
+  }
+}
+
+/* ============================================================
+   Founder Section block (app/components/blocks/FounderSection.tsx)
+   Heading, then text flowing around two floated photos (one left near the
+   top, one right further down before the pull-quote), then scriptures and
+   a closing statement. V6 section 11 "Meet The Founder".
+   ============================================================ */
+.wu-founder-section {
+  box-sizing: border-box;
+  /* Top padding matches pathsSection/frameworkSection (pricing/method) for
+     consistent header spacing across pages; bottom/sides unchanged. */
+  padding: clamp(2rem, 6dvh, 4rem) clamp(1.5rem, 6vw, 5rem) clamp(4rem, 12vh, 8rem);
+  background-color: var(--bg-color);
+  overflow-x: clip;
+}
+.wu-founder-section.is-gold {
+  background-color: var(--secondary-bg);
+}
+
+.wu-founder-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.wu-founder-heading {
+  margin: 0 0 clamp(1.5rem, 4vh, 2.25rem);
+  padding-bottom: clamp(1rem, 2.5vh, 1.5rem);
+  border-bottom: 1px solid var(--primary-color);
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  /* Kept smaller than pathsSection/frameworkSection so "Meet Christopher
+     Hill" still fits on one line on mobile. */
+  font-size: clamp(1.55rem, 5vw, 2.6rem);
+  line-height: 1.18;
+  letter-spacing: 0.02em;
+  text-wrap: balance;
+  color: var(--text-dark);
+}
+.wu-heading-small {
+  font-size: 0.5em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+/* `display: flow-root` so the section's height includes the floated
+   photos rather than collapsing around them. */
+.wu-founder-content {
+  display: flow-root;
+}
+
+.wu-founder-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 6px;
+  border: 3px solid var(--primary-color);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  margin: 0 auto clamp(1.5rem, 4vh, 2rem);
+}
+
+/* Photo 1 with 2–3 images given: a crossfade cycle in the same slot,
+   same visual treatment as .wu-founder-photo but carried by the wrapper
+   since the images stack absolutely inside it. */
+.wu-founder-photo1-cycle {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 6px;
+  border: 3px solid var(--primary-color);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  margin: 0 auto clamp(1.5rem, 4vh, 2rem);
+  overflow: hidden;
+}
+.wu-founder-photo1-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  opacity: 0;
+}
+.wu-founder-photo1-cycle.has-2 .wu-founder-photo1-img {
+  animation: wu-photo-cycle-2 4s ease-in-out infinite;
+}
+.wu-founder-photo1-cycle.has-3 .wu-founder-photo1-img {
+  animation: wu-photo-cycle-3 6s ease-in-out infinite;
+}
+/* Each image is "on" for its own 2s slice, offset via a negative
+   animation-delay set inline per image (0, -2s, -4s…). */
+@keyframes wu-photo-cycle-2 {
+  0% { opacity: 1; }
+  43% { opacity: 1; }
+  50% { opacity: 0; }
+  93% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes wu-photo-cycle-3 {
+  0% { opacity: 1; }
+  27% { opacity: 1; }
+  33.3% { opacity: 0; }
+  93% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wu-founder-photo1-img {
+    animation: none;
+    opacity: 0;
+  }
+  .wu-founder-photo1-img:first-child {
+    opacity: 1;
+  }
+}
+
+.wu-founder-intro,
+.wu-founder-para {
+  margin: 0 0 clamp(1.1rem, 2.8vh, 1.5rem);
+  font-family: "Inter", sans-serif;
+  font-size: clamp(1rem, 1.9vw, 1.15rem);
+  line-height: 1.5;
+  color: var(--text-medium);
+}
+
+.wu-founder-struggles {
+  margin: 0 0 clamp(1.1rem, 2.8vh, 1.5rem);
+}
+.wu-founder-struggles li {
+  font-size: clamp(1rem, 1.9vw, 1.15rem);
+}
+
+.wu-founder-quote {
+  margin: 0 0 clamp(1.1rem, 2.8vh, 1.5rem);
+  padding: 0.2rem 0 0.2rem 1.25rem;
+  border-left: 3px solid var(--primary-color);
+  font-family: "Merriweather", serif;
+  font-style: italic;
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--text-dark);
+}
+
+.wu-founder-scriptures {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0 0 clamp(1.5rem, 3.5vh, 2rem);
+}
+.wu-founder-scripture {
+  margin: 0;
+  font-family: "Merriweather", serif;
+  font-style: italic;
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+  color: var(--text-light);
+}
+
+.wu-founder-closing {
+  clear: both;
+  margin: 0;
+  font-family: "Cinzel", serif;
+  font-weight: 600;
+  font-size: clamp(1.25rem, 3vw, 1.7rem);
+  line-height: 1.32;
+  text-wrap: balance;
+  color: var(--text-dark);
+}
+
+@media (min-width: 640px) {
+  .wu-founder-photo1 {
+    float: left;
+    width: min(260px, 42vw);
+    margin: 0.25rem 2rem 1.25rem 0;
+  }
+  /* The quote's left border sits at the section's edge, behind photo1 —
+     drop it here; mobile (stacked, no float) keeps it. */
+  .wu-founder-quote {
+    padding-left: 0;
+    border-left: none;
+  }
+  /* Everything after the pull-quote clears photo1 and centers across the
+     full section width, instead of continuing to hug the float's edge. */
+  .wu-founder-after-quote,
+  .wu-founder-scriptures,
+  .wu-founder-closing {
+    clear: both;
+    text-align: center;
+  }
+  .wu-founder-scriptures {
+    align-items: center;
+  }
+}
+
+/* Reveal (block `animate`): heading fades up, then photo one slides in from
+   the left with the intro, then the bio flows down in sequence — photo two
+   slides in from the right around the same point as the text beside it —
+   then the scriptures, then the closing line. */
+.wu-anim .wu-founder-heading,
+.wu-anim .wu-founder-photo1,
+.wu-anim .wu-founder-intro,
+.wu-anim .wu-founder-struggles,
+.wu-anim .wu-founder-after-list,
+.wu-anim .wu-founder-quote,
+.wu-anim .wu-founder-after-quote,
+.wu-anim .wu-founder-scriptures,
+.wu-anim .wu-founder-closing {
+  opacity: 0;
+}
+.wu-anim.is-shown .wu-founder-heading {
+  animation: wu-fade-up 720ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+.wu-anim.is-shown .wu-founder-photo1 {
+  animation: wu-slide-in-left 700ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+.wu-anim.is-shown .wu-founder-intro {
+  animation: wu-fade-up 620ms cubic-bezier(0.22, 0.61, 0.36, 1) 250ms both;
+}
+.wu-anim.is-shown .wu-founder-struggles {
+  animation: wu-fade-up 620ms cubic-bezier(0.22, 0.61, 0.36, 1) 420ms both;
+}
+.wu-anim.is-shown .wu-founder-after-list {
+  animation: wu-fade-up 620ms cubic-bezier(0.22, 0.61, 0.36, 1) 590ms both;
+}
+.wu-anim.is-shown .wu-founder-quote {
+  animation: wu-fade-up 620ms cubic-bezier(0.22, 0.61, 0.36, 1) 760ms both;
+}
+.wu-anim.is-shown .wu-founder-after-quote {
+  animation: wu-fade-up 620ms cubic-bezier(0.22, 0.61, 0.36, 1) 930ms both;
+}
+.wu-anim.is-shown .wu-founder-scriptures {
+  animation: wu-fade-up 620ms cubic-bezier(0.22, 0.61, 0.36, 1) 1100ms both;
+}
+.wu-anim.is-shown .wu-founder-closing {
+  animation: wu-fade-up 620ms cubic-bezier(0.22, 0.61, 0.36, 1) 1270ms both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wu-anim .wu-founder-heading,
+  .wu-anim .wu-founder-photo1,
+  .wu-anim .wu-founder-intro,
+  .wu-anim .wu-founder-struggles,
+  .wu-anim .wu-founder-after-list,
+  .wu-anim .wu-founder-quote,
+  .wu-anim .wu-founder-after-quote,
+  .wu-anim .wu-founder-scriptures,
+  .wu-anim .wu-founder-closing {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* Narrow/portrait phones: photos stack full-width in reading order instead
+   of floating (handled by the `min-width: 640px` gate above). */
+@media (orientation: portrait) and (max-width: 768px) {
+  .wu-founder-photo {
+    max-width: 320px;
+  }
+  /* Matches pathsSection/frameworkSection's portrait top padding
+     (pricing/method) for consistent header spacing. */
+  .wu-founder-section {
+    padding-top: clamp(3rem, 8dvh, 3.75rem);
+  }
+}
+
+/* ============================================================
+   Video Reveal Section block (app/components/blocks/VideoRevealSection.tsx)
+   A silent, bordered video viewer (same treatment as founderSection's
+   photo) that only plays on a held hover or a press of the play button.
+   Once the clip ends, a final call-to-action fades in over the box.
+   V6 section 12 "Final Call To Action" + the footer lionhead.
+   ============================================================ */
+.wu-video-reveal-section {
+  box-sizing: border-box;
+  padding: 0 clamp(1.5rem, 6vw, 5rem) clamp(4rem, 10vh, 6rem);
+  background-color: var(--bg-color);
+}
+.wu-video-reveal-section.is-gold {
+  background-color: var(--secondary-bg);
+}
+
+.wu-video-reveal-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* No overflow:hidden here — the video/overlay clip themselves via their
+   own border-radius (see below), which leaves this box free to let the
+   ctas escape past its edges on desktop (flanking) without being cropped. */
+.wu-video-reveal-box {
+  position: relative;
+  width: min(380px, 85vw);
+  aspect-ratio: 9 / 16;
+  margin: 0 auto;
+  border-radius: 6px;
+  border: 3px solid var(--primary-color);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  background: #000;
+}
+
+.wu-video-reveal-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.wu-video-reveal-play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 200ms ease;
+}
+.wu-video-reveal-play:hover {
+  transform: scale(1.08);
+}
+.wu-video-reveal-play svg {
+  transform: translateX(2px);
+}
+
+/* Matches IntroVideo's "Tap for sound" pill. */
+.wu-video-reveal-sound {
+  position: absolute;
+  /* Clears the native <video controls> bar sitting at the very bottom. */
+  bottom: clamp(2.75rem, 8dvh, 3.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  border: 2px solid var(--primary-color);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: #fff;
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+
+.wu-video-reveal-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.94));
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 700ms ease;
+}
+.wu-video-reveal-overlay.is-shown {
+  opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.wu-video-reveal-heading {
+  margin: 0;
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  font-size: clamp(1.45rem, 4.4vw, 2.1rem);
+  text-wrap: balance;
+  color: #fff;
+}
+
+.wu-video-reveal-subtext {
+  margin: 0;
+  font-family: "Cinzel", serif;
+  font-weight: 500;
+  font-size: clamp(1.1rem, 2.9vw, 1.4rem);
+  line-height: 1.4;
+  color: #fff;
+}
+
+/* Mobile (default): stacked, still inside the overlay over the video. */
+.wu-video-reveal-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: center;
+}
+.wu-video-reveal-ctas .wu-cta-link {
+  background: transparent;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.wu-video-reveal-ctas .wu-cta-link.is-primary {
+  background: var(--primary-color);
+  color: var(--text-dark);
+  border-color: var(--primary-color);
+}
+/* Desktop: pull each button out to flank the box. Translating by the
+   button's own 100% width (plus a fixed gap) works regardless of label
+   length, so this doesn't need to know either button's pixel width. */
+@media (min-width: 700px) {
+  .wu-video-reveal-ctas {
+    position: absolute;
+    inset: 0;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+  }
+  .wu-video-reveal-ctas a:first-child {
+    transform: translateX(-100%) translateX(-1.5rem);
+  }
+  .wu-video-reveal-ctas a:last-child {
+    transform: translateX(100%) translateX(1.5rem);
+  }
+}
+
+.wu-video-reveal-logo {
+  width: clamp(120px, 26vw, 190px);
+  height: auto;
+  margin-top: 0.25rem;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wu-video-reveal-overlay {
+    transition: none;
   }
 }

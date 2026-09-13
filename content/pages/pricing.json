@@ -1,11 +1,5 @@
 {
   "title": "Pricing — WAKE UP",
-  "intro": {
-    "src": "/media/vlog-stop-waiting-tightened.mp4",
-    "poster": "/media/vlog-stop-waiting-tightened-poster.jpg",
-    "startHoldSeconds": 2,
-    "holdSeconds": 0.8
-  },
   "sections": [
     {
       "_template": "pathsSection",
@@ -126,12 +120,22 @@
           ]
         }
       ],
-      "closing": "You are not paying for information\nYou are investing in transformation, discipline, and the man you become",
-      "closingEmphasis": "transformation",
-      "cta": {
-        "label": "Meet the Founder",
-        "href": "/founder"
-      },
+      "closing": "This is not about becoming someone else.\nIt’s about becoming who God created you to be.",
+      "closingEmphasis": "who God created you to be",
+      "background": "default"
+    },
+    {
+      "_template": "videoRevealSection",
+      "video": "/media/vlog-stop-waiting-tightened.mp4",
+      "poster": "/media/vlog-stop-waiting-tightened-poster.jpg",
+      "revealHeading": "It’s time to WAKE UP.",
+      "revealSubtext": "You already know.\nNow it’s time to act.",
+      "revealSubtextEmphasis": "act",
+      "ctas": [
+        { "label": "Apply Now", "href": "#", "primary": true },
+        { "label": "Book a Call", "href": "#" }
+      ],
+      "logo": "/uploads/LionHead001.svg",
       "background": "default"
     }
   ]
